@@ -38,6 +38,7 @@ extern char make_instruction(char * mnemonic, arglist_t * args);
 extern arglist_t * make_argument_list(unsigned int argcount, ...);
 extern argument_t * make_argument(char arg_type, char is_offset, long long value);
 extern argument_t * make_argument(char arg_type, char is_offset, char * label);
+extern void free_argument_list(arglist_t * args);
 extern void add_label(std::string label_name, unsigned int line_number);
 extern void resolve_labels();
 

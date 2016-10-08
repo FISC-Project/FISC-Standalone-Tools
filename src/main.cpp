@@ -79,7 +79,7 @@ int main(int argc, char ** argv) {
 		resolve_labels();
 
 		for(int i = 0; i < program.size(); i++) {
-			printf("Instruction: %s ", program[i].mnemonic);
+			printf("Instruction: %s (0x%x) ", program[i].mnemonic, program[i].opcode);
 			for(int j=0;j<program[i].args->argcount;j++) {
 				argument_t * arg = program[i].args->arguments[j];
 				printf("%s %s: %d, ", !arg->arg_type ? "REGISTER" : "IMMEDIATE", arg->is_offset ? "(OFFSET)": "", arg->value);

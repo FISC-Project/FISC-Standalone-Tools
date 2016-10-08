@@ -5,9 +5,12 @@
  *      Author: Miguel
  */
 #include <stdarg.h>
+#include <string.h>
+#include <algorithm>
 #include <fisc_assembly.h>
 #include <fisc_opcodes.h>
-#include <string.h>
+
+extern void yyerror(const char * str);
 
 std::vector<instruction_t> program;
 std::map<std::string, unsigned int> label_lst;
@@ -24,11 +27,11 @@ std::map<unsigned int, std::string> opcode_strings = {
 		{LSL,   "LSL"}, {LSR,     "LSR"},
 		{MOVK, "MOVK"}, {MOVZ,   "MOVZ"},
 		/* BRANCHING */
-		{B,       "B"}, {BL,       "BL"}, {BR,       "BR"}, {CBNZ,     "CBNZ"}, {CBZ,  "CBNZ"},  {BEQ,   "BEQ"},
+		{B,       "B"}, {BL,       "BL"}, {BR,       "BR"}, {CBNZ,     "CBNZ"}, {CBZ,   "CBZ"},  {BEQ,   "BEQ"},
 		{BNE,   "BNE"}, {BLT,     "BLT"}, {BGT,     "BGT"}, {BGE,       "BGE"}, {BLO,   "BLO"},  {BLS,   "BLS"},
 		{BHI,   "BHI"}, {BHS,     "BHS"}, {BMI,     "BMI"}, {BPL,       "BPL"}, {BVS,   "BVS"},  {BVC,   "BVC"},
 		/* LOAD AND STORE */
-		{LDUR, "LDUR"}, {LDURB,  "LDUR"}, {LDURH, "LDURH"}, {LDURSW, "LDURSW"}, {LDXR, "LDXR"},
+		{LDUR, "LDUR"}, {LDURB, "LDURB"}, {LDURH, "LDURH"}, {LDURSW, "LDURSW"}, {LDXR, "LDXR"},
 		{STUR, "STUR"}, {STURB, "STURB"}, {STURH, "STURH"}, {STURW,   "STURW"}, {STXR, "STXR"},
 		/* PSEUDO INSTRUCTIONS */
 		{CMP,   "CMP"}, {CMPI,   "CMPI"},
@@ -47,10 +50,24 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 	instruction_t instr;
 
 	for (auto it = opcode_strings.begin(); it != opcode_strings.end(); ++it) {
-		if (!strcmp(it->second.c_str(), mnemonic)) {
+		std::string mnemonic_str(mnemonic);
+
+		std::transform(mnemonic_str.begin(), mnemonic_str.end(), mnemonic_str.begin(), ::tolower);
+		std::transform(it->second.begin(), it->second.end(), it->second.begin(), ::tolower);
+
+		if (!strcmp(it->second.c_str(), mnemonic_str.c_str())) {
+			success = 1;
 	    	instr.opcode = it->first;
 	    	break;
 	    }
+	}
+
+	if(!success) {
+		char msg[100];
+		sprintf(msg, "Instruction '%s' is non existant.",  mnemonic);
+		free_argument_list(args);
+		free(mnemonic);
+		yyerror(msg);
 	}
 
 	if((success = validate_instruction(mnemonic, instr.opcode, args))) {
@@ -59,6 +76,15 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 		program.push_back(instr);
 	}
 	return success;
+}
+
+void free_argument_list(arglist_t * args) {
+	for(int i=0;i<args->argcount;i++) {
+		argument_t * arg = args->arguments[i];
+		free(arg);
+	}
+	free(args->arguments);
+	free(args);
 }
 
 argument_t * make_argument(char arg_type, char is_offset, long long value) {
@@ -97,8 +123,6 @@ void add_label(std::string label_name, unsigned int line_number) {
 	if(label_lst.find(label_name) == label_lst.end())
 		label_lst.insert(std::pair<std::string, unsigned int>(label_name, line_number));
 }
-
-extern void yyerror(const char * str);
 
 void resolve_labels() {
 	for(int i = 0; i < program.size(); i++) {

@@ -1,4 +1,4 @@
-ADD X0, X2, X3;
+adds X0, X2, X3;
 loop:
 LDUR X10, [X20, #0]
 	LDXR X10, [X20, #0];
