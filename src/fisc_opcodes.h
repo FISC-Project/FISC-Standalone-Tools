@@ -49,42 +49,42 @@ enum OPCODES {
 	MOV = 0x489
 };
 
-std::map<unsigned int, std::pair<std::string, std::vector<afmt> > > opcode_strings = {
+std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup = {
 	/* ARITHMETIC AND LOGIC */
-	{ADD,   {"ADD",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {ADDI,   {"ADDI",   {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{ADDIS, {"ADDIS", {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {ADDS,   {"ADDS",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
-	{SUB,   {"SUB",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {SUBI,   {"SUBI",   {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{SUBIS, {"SUBIS", {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {SUBS,   {"SUBS",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
-	{MUL,   {"MUL",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {SMULH,  {"SMULH",  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
-	{UMULH, {"UMULH", {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
-	{SDIV,  {"SDIV",  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {UDIV,   {"UDIV",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
-	{AND,   {"AND",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {ANDI,   {"ANDI",   {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{ANDIS, {"ANDIS", {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {ANDS,   {"ANDS",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
-	{ORR,   {"ORR",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {ORRI,   {"ORRI",   {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{EOR,   {"EOR",   {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {EORI,   {"EORI",   {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{LSL,   {"LSL",   {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {LSR,    {"LSR",    {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{MOVK,  {"MOVK",  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}}, {MOVZ,   {"MOVZ",   {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}},
+	{ADD,   {ifmt{"ADD",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {ADDI,   {ifmt{"ADDI",  IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
+	{ADDIS, {ifmt{"ADDIS", IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {ADDS,   {ifmt{"ADDS",  IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
+	{SUB,   {ifmt{"SUB",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {SUBI,   {ifmt{"SUBI",  IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
+	{SUBIS, {ifmt{"SUBIS", IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {SUBS,   {ifmt{"SUBS",  IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
+	{MUL,   {ifmt{"MUL",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {SMULH,  {ifmt{"SMULH", IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
+	{UMULH, {ifmt{"UMULH", IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
+	{SDIV,  {ifmt{"SDIV",  IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {UDIV,   {ifmt{"UDIV",  IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
+	{AND,   {ifmt{"AND",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {ANDI,   {ifmt{"ANDI",  IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
+	{ANDIS, {ifmt{"ANDIS", IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {ANDS,   {ifmt{"ANDS",  IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}},
+	{ORR,   {ifmt{"ORR",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {ORRI,   {ifmt{"ORRI",  IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
+	{EOR,   {ifmt{"EOR",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {EORI,   {ifmt{"EORI",  IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
+	{LSL,   {ifmt{"LSL",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {LSR,    {ifmt{"LSR",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
+	{MOVK,  {ifmt{"MOVK", IFMT_IW},  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}}, {MOVZ,   {ifmt{"MOVZ", IFMT_IW},  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}},
 	/* BRANCHING */
-	{B,     {"B",     {afmt{IMM,0}}}},                           {BL,     {"BL",     {afmt{IMM,0}}}},
-	{BR,    {"BR",    {afmt{REG,0}}}},                           {CBNZ,   {"CBNZ",   {afmt{REG,0}, afmt{IMM,0}}}},
-	{CBZ,   {"CBZ",   {afmt{REG,0}, afmt{IMM,0}}}},              {BEQ,    {"BEQ",    {afmt{IMM,0}}}},
-	{BNE,   {"BNE",   {afmt{IMM,0}}}},                           {BLT,    {"BLT",    {afmt{IMM,0}}}},
-	{BGT,   {"BGT",   {afmt{IMM,0}}}},                           {BGE,    {"BGE",    {afmt{IMM,0}}}},
-	{BLO,   {"BLO",   {afmt{IMM,0}}}},                           {BLS,    {"BLS",    {afmt{IMM,0}}}},
-	{BHI,   {"BHI",   {afmt{IMM,0}}}},                           {BHS,    {"BHS",    {afmt{IMM,0}}}},
-	{BMI,   {"BMI",   {afmt{IMM,0}}}},                           {BPL,    {"BPL",    {afmt{IMM,0}}}},
-	{BVS,   {"BVS",   {afmt{IMM,0}}}},                           {BVC,    {"BVC",    {afmt{IMM,0}}}},
+	{B,     {ifmt{"B",     IFMT_B},  {afmt{IMM,0}}}},                           {BL,     {ifmt{"BL",    IFMT_R},  {afmt{IMM,0}}}},
+	{BR,    {ifmt{"BR",    IFMT_R},  {afmt{REG,0}}}},                           {CBNZ,   {ifmt{"CBNZ", IFMT_CB},  {afmt{REG,0}, afmt{IMM,0}}}},
+	{CBZ,   {ifmt{"CBZ",  IFMT_CB},  {afmt{REG,0}, afmt{IMM,0}}}},              {BEQ,    {ifmt{"BEQ",  IFMT_CB},  {afmt{IMM,0}}}},
+	{BNE,   {ifmt{"BNE",  IFMT_CB},  {afmt{IMM,0}}}},                           {BLT,    {ifmt{"BLT",  IFMT_CB},  {afmt{IMM,0}}}},
+	{BGT,   {ifmt{"BGT",  IFMT_CB},  {afmt{IMM,0}}}},                           {BGE,    {ifmt{"BGE",  IFMT_CB},  {afmt{IMM,0}}}},
+	{BLO,   {ifmt{"BLO",  IFMT_CB},  {afmt{IMM,0}}}},                           {BLS,    {ifmt{"BLS",  IFMT_CB},  {afmt{IMM,0}}}},
+	{BHI,   {ifmt{"BHI",  IFMT_CB},  {afmt{IMM,0}}}},                           {BHS,    {ifmt{"BHS",  IFMT_CB},  {afmt{IMM,0}}}},
+	{BMI,   {ifmt{"BMI",  IFMT_CB},  {afmt{IMM,0}}}},                           {BPL,    {ifmt{"BPL",  IFMT_CB},  {afmt{IMM,0}}}},
+	{BVS,   {ifmt{"BVS",  IFMT_CB},  {afmt{IMM,0}}}},                           {BVC,    {ifmt{"BVC",  IFMT_CB},  {afmt{IMM,0}}}},
 	/* LOAD AND STORE */
-	{LDUR,  {"LDUR",  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDURB,  {"LDURB",  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDURH, {"LDURH", {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDURSW, {"LDURSW", {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDXR,  {"LDXR",  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STUR,  {"STUR",  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURB,  {"STURB",  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STURH, {"STURH", {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURW,  {"STURW",  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STXR,  {"STXR",  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
+	{LDUR,  {ifmt{"LDUR",  IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDURB,  {ifmt{"LDURB",  IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDURH, {ifmt{"LDURH", IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDURSW, {ifmt{"LDURSW", IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDXR,  {ifmt{"LDXR",  IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STUR,  {ifmt{"STUR",  IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURB,  {ifmt{"STURB",  IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STURH, {ifmt{"STURH", IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURW,  {ifmt{"STURW",  IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STXR,  {ifmt{"STXR",  IFMT_D},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
 	/* PSEUDO INSTRUCTIONS */
-	{CMP,   {"CMP",   {afmt{REG,0}, afmt{REG,0}}}},              {CMPI,   {"CMPI",   {afmt{REG,0}, afmt{IMM,0}}}},
-	{LDA,   {"LDA",   {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{MOV,   {"MOV",   {afmt{REG,0}, afmt{REG,0}}}}
+	{CMP,   {ifmt{"CMP",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}}}},              {CMPI,   {ifmt{"CMPI",  IFMT_I},  {afmt{REG,0}, afmt{IMM,0}}}},
+	{LDA,   {ifmt{"LDA",   IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
+	{MOV,   {ifmt{"MOV",   IFMT_I},  {afmt{REG,0}, afmt{REG,0}}}}
 };
 
 #endif /* SRC_FISC_OPCODES_H_ */

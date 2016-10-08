@@ -25,6 +25,11 @@ typedef struct argfmt {
 	char is_offset;
 } afmt;
 
+typedef struct instruction_fmt {
+	std::string mnemonic;
+	char fmt;
+} ifmt;
+
 typedef struct arglist {
 	argument_t ** arguments;
 	unsigned int argcount;
@@ -37,7 +42,7 @@ typedef struct instruction {
 } instruction_t;
 
 extern std::vector<instruction_t> program;
-extern std::map<unsigned int, std::pair<std::string, std::vector<afmt> > > opcode_strings;
+extern std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup;
 extern std::map<std::string, unsigned int> label_lst;
 
 extern char make_instruction(char * mnemonic, arglist_t * args);

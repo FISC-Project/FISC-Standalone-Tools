@@ -18,13 +18,13 @@ std::map<std::string, unsigned int> label_lst;
 char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args) {
 	/* Grab instruction argument formats: */
 	std::vector<afmt> * argfmts = 0;
-	for (auto it = opcode_strings.begin(); it != opcode_strings.end(); ++it) {
+	for (auto it = instruction_lookup.begin(); it != instruction_lookup.end(); ++it) {
 		std::string mnemonic_str(mnemonic);
 
 		std::transform(mnemonic_str.begin(), mnemonic_str.end(), mnemonic_str.begin(), ::tolower);
-		std::transform(it->second.first.begin(), it->second.first.end(), it->second.first.begin(), ::tolower);
+		std::transform(it->second.first.mnemonic.begin(), it->second.first.mnemonic.end(), it->second.first.mnemonic.begin(), ::tolower);
 
-		if (!strcmp(it->second.first.c_str(), mnemonic_str.c_str())) {
+		if (!strcmp(it->second.first.mnemonic.c_str(), mnemonic_str.c_str())) {
 			argfmts = &it->second.second;
 			break;
 		}
@@ -48,13 +48,13 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 	if(!args) return success;
 	instruction_t instr;
 
-	for (auto it = opcode_strings.begin(); it != opcode_strings.end(); ++it) {
+	for (auto it = instruction_lookup.begin(); it != instruction_lookup.end(); ++it) {
 		std::string mnemonic_str(mnemonic);
 
 		std::transform(mnemonic_str.begin(), mnemonic_str.end(), mnemonic_str.begin(), ::tolower);
-		std::transform(it->second.first.begin(), it->second.first.end(), it->second.first.begin(), ::tolower);
+		std::transform(it->second.first.mnemonic.begin(), it->second.first.mnemonic.end(), it->second.first.mnemonic.begin(), ::tolower);
 
-		if (!strcmp(it->second.first.c_str(), mnemonic_str.c_str())) {
+		if (!strcmp(it->second.first.mnemonic.c_str(), mnemonic_str.c_str())) {
 			success = 1;
 	    	instr.opcode = it->first;
 	    	break;
