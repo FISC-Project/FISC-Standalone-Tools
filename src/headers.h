@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include <iostream>
 #include "parser.tab.h"
+#include <vector>
+#include <fisc_assembly.h>
 
 using namespace std;
 
@@ -23,6 +25,7 @@ extern int sym_check_type(void);
 
 extern FILE * yyin;
 extern int lineno;
+extern int asm_lineno;
 extern char * yytext;
 
 #endif

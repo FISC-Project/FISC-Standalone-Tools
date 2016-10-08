@@ -24,7 +24,7 @@ PARSER = parser
 
 ####### Objects/Outputs:
 OBJS = $(GEN)/$(PARSER).tab.c $(GEN)/$(LEXER).yy.c $(OBJ)/main.o \
-	$(OBJ)/cmdline.o $(OBJ)/external_tool.o
+	$(OBJ)/cmdline.o $(OBJ)/external_tool.o $(OBJ)/fisc_assembly.o
 
 ####### Lexer:
 $(GEN)/$(LEXER).yy.c: $(SRC)/$(LEXER).l
@@ -45,6 +45,9 @@ $(OBJ)/cmdline.o: $(SRC)/cmdline.cpp
 	$(CXX) -o $@ -c $^ -std=gnu++11 $(CPPFLAGS)
 
 $(OBJ)/external_tool.o: $(SRC)/external_tool.cpp
+	$(CXX) -o $@ -c $^ -std=gnu++11 $(CPPFLAGS)
+
+$(OBJ)/fisc_assembly.o: $(SRC)/fisc_assembly.cpp
 	$(CXX) -o $@ -c $^ -std=gnu++11 $(CPPFLAGS)	
 
 all: $(OBJS)

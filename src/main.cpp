@@ -2,6 +2,7 @@
 #include <map>
 #include <utility>
 #include <external_tool.h>
+#include <fisc_assembly.h>
 
 extern int yyparse();
 /* Command line API: */
@@ -24,8 +25,8 @@ int sym_check_type(void) {
 	/* Fetch symbol type from map: */
 	if(sym_table.find(yytext) != sym_table.end())
 		return sym_table.at(yytext);
-	//else /* Return default type: */
-	//	return IDENTIFIER;
+	else /* Return default type: */
+		return IDENTIFIER;
 }
 
 void yyerror(const char * str) {
@@ -74,8 +75,17 @@ int main(int argc, char ** argv) {
 
 		/* Parse it:  */
 		yyin = file;
-
 		yyparse();
+		resolve_labels();
+
+		for(int i = 0; i < program.size(); i++) {
+			printf("Instruction: %s ", program[i].mnemonic);
+			for(int j=0;j<program[i].args->argcount;j++) {
+				argument_t * arg = program[i].args->arguments[j];
+				printf("%s %s: %d, ", !arg->arg_type ? "REGISTER" : "IMMEDIATE", arg->is_offset ? "(OFFSET)": "", arg->value);
+			}
+			printf("\n");
+		}
 	}
 	return 0;
 }

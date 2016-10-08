@@ -41,7 +41,60 @@
    enum yytokentype {
      INT = 258,
      FLOAT = 259,
-     STRING = 260
+     STRING = 260,
+     I_CONSTANT = 261,
+     F_CONSTANT = 262,
+     D_CONSTANT = 263,
+     STRING_LITERAL = 264,
+     IDENTIFIER = 265,
+     LABEL = 266,
+     ADD = 267,
+     ADDI = 268,
+     ADDIS = 269,
+     ADDS = 270,
+     SUB = 271,
+     SUBI = 272,
+     SUBIS = 273,
+     SUBS = 274,
+     MUL = 275,
+     SMULH = 276,
+     UMULH = 277,
+     SDIV = 278,
+     UDIV = 279,
+     AND = 280,
+     ANDI = 281,
+     ANDIS = 282,
+     ANDS = 283,
+     ORR = 284,
+     ORRI = 285,
+     EOR = 286,
+     EORI = 287,
+     LSL = 288,
+     LSR = 289,
+     MOVK = 290,
+     MOVZ = 291,
+     B = 292,
+     BCOND = 293,
+     BL = 294,
+     BR = 295,
+     CBNZ = 296,
+     CBZ = 297,
+     LDUR = 298,
+     LDURB = 299,
+     LDURH = 300,
+     LDURSW = 301,
+     LDXR = 302,
+     STUR = 303,
+     STURB = 304,
+     STURH = 305,
+     STURW = 306,
+     STXR = 307,
+     CMP = 308,
+     CMPI = 309,
+     LDA = 310,
+     MOV = 311,
+     REGISTER = 312,
+     IMMEDIATE = 313
    };
 #endif
 
@@ -54,14 +107,16 @@ typedef union YYSTYPE
 /* Line 1676 of yacc.c  */
 #line 6 "src/parser.y"
 
-	int ival;
-	float fval;
-	char *sval;
+	int               ival;
+	unsigned int      uival;
+	float             fval;
+	char           *  sval;
+	struct arglist * arglist_t;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 65 "parser.tab.h"
+#line 120 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
