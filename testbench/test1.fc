@@ -17,6 +17,7 @@ L1:
 	STURB X12, [X12, L2]; CBZ X11, L2; // We could have 2 instructions in 1 line, the last one doesn't need ';'
 	BR SP
 	BR #0
+	MOVK X9, #255, LSL #16
 L2:
 
 // We could also have multiline comments

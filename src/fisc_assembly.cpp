@@ -15,32 +15,31 @@ extern void yyerror(const char * str);
 std::vector<instruction_t> program;
 std::map<std::string, unsigned int> label_lst;
 
-std::map<unsigned int, std::string> opcode_strings = {
-		/* ARITHMETIC AND LOGIC */
-		{ADD,   "ADD"}, {ADDI,   "ADDI"}, {ADDIS, "ADDIS"}, {ADDS,     "ADDS"},
-		{SUB,   "SUB"}, {SUBI,   "SUBI"}, {SUBIS, "SUBIS"}, {SUBS,     "SUBS"},
-		{MUL,   "MUL"}, {SMULH, "SMULH"}, {UMULH, "UMULH"},
-		{SDIV, "SDIV"}, {UDIV,   "UDIV"},
-		{AND,   "AND"}, {ANDI,   "ANDI"}, {ANDIS, "ANDIS"}, {ANDS,     "ANDS"},
-		{ORR,   "ORR"}, {ORRI,   "ORRI"},
-		{EOR,   "EOR"}, {EORI,   "EORI"},
-		{LSL,   "LSL"}, {LSR,     "LSR"},
-		{MOVK, "MOVK"}, {MOVZ,   "MOVZ"},
-		/* BRANCHING */
-		{B,       "B"}, {BL,       "BL"}, {BR,       "BR"}, {CBNZ,     "CBNZ"}, {CBZ,   "CBZ"},  {BEQ,   "BEQ"},
-		{BNE,   "BNE"}, {BLT,     "BLT"}, {BGT,     "BGT"}, {BGE,       "BGE"}, {BLO,   "BLO"},  {BLS,   "BLS"},
-		{BHI,   "BHI"}, {BHS,     "BHS"}, {BMI,     "BMI"}, {BPL,       "BPL"}, {BVS,   "BVS"},  {BVC,   "BVC"},
-		/* LOAD AND STORE */
-		{LDUR, "LDUR"}, {LDURB, "LDURB"}, {LDURH, "LDURH"}, {LDURSW, "LDURSW"}, {LDXR, "LDXR"},
-		{STUR, "STUR"}, {STURB, "STURB"}, {STURH, "STURH"}, {STURW,   "STURW"}, {STXR, "STXR"},
-		/* PSEUDO INSTRUCTIONS */
-		{CMP,   "CMP"}, {CMPI,   "CMPI"},
-		{LDA,   "LDA"},
-		{MOV,   "MOV"}
-};
-
 char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args) {
-	/* TODO */
+	/* Grab instruction argument formats: */
+	std::vector<afmt> * argfmts = 0;
+	for (auto it = opcode_strings.begin(); it != opcode_strings.end(); ++it) {
+		std::string mnemonic_str(mnemonic);
+
+		std::transform(mnemonic_str.begin(), mnemonic_str.end(), mnemonic_str.begin(), ::tolower);
+		std::transform(it->second.first.begin(), it->second.first.end(), it->second.first.begin(), ::tolower);
+
+		if (!strcmp(it->second.first.c_str(), mnemonic_str.c_str())) {
+			argfmts = &it->second.second;
+			break;
+		}
+	}
+
+	if(!argfmts) return 0;
+
+	/* Check if it's valid: */
+	if(argfmts->size() != args->argcount) return 0; /* Argument count does not match */
+	for(int i = 0; i < argfmts->size(); i++) {
+		afmt fmt = (*argfmts)[i];
+		/* Check if fields match: */
+		if(fmt.arg_type != args->arguments[i]->arg_type)   return 0;
+		if(fmt.is_offset != args->arguments[i]->is_offset) return 0;
+	}
 	return 1;
 }
 
@@ -53,9 +52,9 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 		std::string mnemonic_str(mnemonic);
 
 		std::transform(mnemonic_str.begin(), mnemonic_str.end(), mnemonic_str.begin(), ::tolower);
-		std::transform(it->second.begin(), it->second.end(), it->second.begin(), ::tolower);
+		std::transform(it->second.first.begin(), it->second.first.end(), it->second.first.begin(), ::tolower);
 
-		if (!strcmp(it->second.c_str(), mnemonic_str.c_str())) {
+		if (!strcmp(it->second.first.c_str(), mnemonic_str.c_str())) {
 			success = 1;
 	    	instr.opcode = it->first;
 	    	break;
@@ -74,6 +73,12 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 		instr.mnemonic = mnemonic;
 		instr.args = args;
 		program.push_back(instr);
+	} else {
+		char msg[100];
+		sprintf(msg, "Instruction '%s' is malformed.",  mnemonic);
+		free_argument_list(args);
+		free(mnemonic);
+		yyerror(msg);
 	}
 	return success;
 }

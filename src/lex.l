@@ -124,6 +124,7 @@ FP      { yylval.uival = 29; return REGISTER;                                   
 LR      { yylval.uival = 30; return REGISTER;                                            } // Return Address
 #[0-9]+ { yylval.llval = atoi(yytext+1); return IMMEDIATE;                               } // Immediate
 
+LSL { return LSL; }
 	/* Variables/numbers/strings/constants/everything else: */
 {HP}{H}+{IS}?					{ yylval.uival = strtol(yytext, 0, 16); return I_CONSTANT; }
 {NZ}{D}*{IS}?					{ yylval.uival = atoi(yytext); return I_CONSTANT; }

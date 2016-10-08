@@ -8,6 +8,7 @@
 #ifndef SRC_FISC_ASSEMBLY_H_
 #define SRC_FISC_ASSEMBLY_H_
 
+#include <utility>
 #include <vector>
 #include <string>
 #include <map>
@@ -18,6 +19,11 @@ typedef struct argument {
 	long long value;    /* The meaning of the value depends on the arg_type */
 	char * label;       /* This is only used by labels, and its purpose is for the program to find AFTER parsing what the label value is */
 } argument_t;
+
+typedef struct argfmt {
+	char arg_type;
+	char is_offset;
+} afmt;
 
 typedef struct arglist {
 	argument_t ** arguments;
@@ -31,7 +37,7 @@ typedef struct instruction {
 } instruction_t;
 
 extern std::vector<instruction_t> program;
-extern std::map<unsigned int, std::string> opcode_strings;
+extern std::map<unsigned int, std::pair<std::string, std::vector<afmt> > > opcode_strings;
 extern std::map<std::string, unsigned int> label_lst;
 
 extern char make_instruction(char * mnemonic, arglist_t * args);
