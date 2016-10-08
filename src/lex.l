@@ -122,7 +122,7 @@ XZR     { yylval.uival = 31; return REGISTER;                                   
 SP      { yylval.uival = 28; return REGISTER;                                            } // Stack Pointer
 FP      { yylval.uival = 29; return REGISTER;                                            } // Frame Pointer
 LR      { yylval.uival = 30; return REGISTER;                                            } // Return Address
-#[0-9]+ { yytext[strlen(yytext)-1] = ' '; yylval.uival = atoi(yytext); return IMMEDIATE; } // Immediate
+#[0-9]+ { yylval.llval = atoi(yytext+1); return IMMEDIATE;                               } // Immediate
 
 	/* Variables/numbers/strings/constants/everything else: */
 {HP}{H}+{IS}?					{ yylval.uival = strtol(yytext, 0, 16); return I_CONSTANT; }

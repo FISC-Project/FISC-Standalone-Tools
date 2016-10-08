@@ -15,7 +15,7 @@
 typedef struct argument {
 	char arg_type;      /* Is it a register or immediate? */
 	char is_offset;     /* Is this argument inside an offset? example: [X0, #0], X0 and #0 are both inside an offset */
-	unsigned int value; /* The meaning of the value depends on the arg_type */
+	long long value;    /* The meaning of the value depends on the arg_type */
 	char * label;       /* This is only used by labels, and its purpose is for the program to find AFTER parsing what the label value is */
 } argument_t;
 
@@ -36,7 +36,7 @@ extern std::map<std::string, unsigned int> label_lst;
 
 extern char make_instruction(char * mnemonic, arglist_t * args);
 extern arglist_t * make_argument_list(unsigned int argcount, ...);
-extern argument_t * make_argument(char arg_type, char is_offset, unsigned int value);
+extern argument_t * make_argument(char arg_type, char is_offset, long long value);
 extern argument_t * make_argument(char arg_type, char is_offset, char * label);
 extern void add_label(std::string label_name, unsigned int line_number);
 extern void resolve_labels();

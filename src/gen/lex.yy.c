@@ -998,7 +998,7 @@ YY_RULE_SETUP
 case 38:
 YY_RULE_SETUP
 #line 125 "src/lex.l"
-{ yytext[strlen(yytext)-1] = ' '; yylval.uival = atoi(yytext); return IMMEDIATE; } // Immediate
+{ yylval.llval = atoi(yytext+1); return IMMEDIATE;                               } // Immediate
 	YY_BREAK
 /* Variables/numbers/strings/constants/everything else: */
 case 39:

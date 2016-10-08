@@ -24,7 +24,9 @@ std::map<unsigned int, std::string> opcode_strings = {
 		{LSL,   "LSL"}, {LSR,     "LSR"},
 		{MOVK, "MOVK"}, {MOVZ,   "MOVZ"},
 		/* BRANCHING */
-		{B,       "B"}, {BCOND, "BCOND"}, {BL,       "BL"}, {BR,         "BR"}, {CBNZ, "CBNZ"}, {CBZ, "CBNZ"},
+		{B,       "B"}, {BL,       "BL"}, {BR,       "BR"}, {CBNZ,     "CBNZ"}, {CBZ,  "CBNZ"},  {BEQ,   "BEQ"},
+		{BNE,   "BNE"}, {BLT,     "BLT"}, {BGT,     "BGT"}, {BGE,       "BGE"}, {BLO,   "BLO"},  {BLS,   "BLS"},
+		{BHI,   "BHI"}, {BHS,     "BHS"}, {BMI,     "BMI"}, {BPL,       "BPL"}, {BVS,   "BVS"},  {BVC,   "BVC"},
 		/* LOAD AND STORE */
 		{LDUR, "LDUR"}, {LDURB,  "LDUR"}, {LDURH, "LDURH"}, {LDURSW, "LDURSW"}, {LDXR, "LDXR"},
 		{STUR, "STUR"}, {STURB, "STURB"}, {STURH, "STURH"}, {STURW,   "STURW"}, {STXR, "STXR"},
@@ -34,19 +36,24 @@ std::map<unsigned int, std::string> opcode_strings = {
 		{MOV,   "MOV"}
 };
 
+char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args) {
+	/* TODO */
+	return 1;
+}
+
 char make_instruction(char * mnemonic, arglist_t * args) {
 	char success = 0;
 	if(!args) return success;
 	instruction_t instr;
 
 	for (auto it = opcode_strings.begin(); it != opcode_strings.end(); ++it) {
-		if (!strcmp(it->second.c_str(),mnemonic)) {
-	    	success = 1;
+		if (!strcmp(it->second.c_str(), mnemonic)) {
 	    	instr.opcode = it->first;
 	    	break;
 	    }
 	}
-	if(success) {
+
+	if((success = validate_instruction(mnemonic, instr.opcode, args))) {
 		instr.mnemonic = mnemonic;
 		instr.args = args;
 		program.push_back(instr);
@@ -54,7 +61,7 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 	return success;
 }
 
-argument_t * make_argument(char arg_type, char is_offset, unsigned int value) {
+argument_t * make_argument(char arg_type, char is_offset, long long value) {
 	argument_t * arg = (argument_t*)malloc(sizeof(argument_t));
 	arg->arg_type = arg_type;
 	arg->is_offset = is_offset;

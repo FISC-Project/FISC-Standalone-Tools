@@ -4,6 +4,7 @@
 %}
 
 %union {
+	long long         llval;
 	int               ival;
 	unsigned int      uival;
 	float             fval;
@@ -18,7 +19,6 @@
 %token <sval> STRING
 
 %token <ival> I_CONSTANT <fval> F_CONSTANT <sval> D_CONSTANT STRING_LITERAL IDENTIFIER
-%token <ival> LABEL
 
 /* Opcodes: */
 /* ARITHMETIC AND LOGIC */
@@ -41,7 +41,8 @@
 %token<sval> LDA
 %token<sval> MOV
 
-%token<uival> REGISTER IMMEDIATE
+%token<uival> REGISTER
+%token<llval> IMMEDIATE
 
 %start program
 %%
@@ -58,10 +59,15 @@ args
 	: 
 	  REGISTER ',' REGISTER ',' REGISTER  eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(0, 0, $3), make_argument(0, 0, $5)); }
 	| REGISTER ',' REGISTER ',' IMMEDIATE eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(0, 0, $3), make_argument(1, 0, $5)); }
+	| REGISTER ',' REGISTER ',' IDENTIFIER eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(0, 0, $3), make_argument(1, 0, $5)); }
 	| REGISTER ',' '[' REGISTER ',' IMMEDIATE ']' eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(0, 1, $4), make_argument(1, 1, $6)); }
+	| REGISTER ',' '[' REGISTER ',' IDENTIFIER ']'eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(0, 1, $4), make_argument(1, 1, $6)); }
 	| REGISTER ',' REGISTER ',' '[' REGISTER  ']' eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(0, 0, $3), make_argument(0, 1, $6)); }
 	| REGISTER ',' IDENTIFIER eol { $$ = make_argument_list(2, make_argument(0, 0, $1), make_argument(1, 0, $3)); }
 	| REGISTER ',' IMMEDIATE  eol { $$ = make_argument_list(2, make_argument(0, 0, $1), make_argument(1, 0, $3)); }
+	| REGISTER                eol { $$ = make_argument_list(1, make_argument(0, 0, $1));                          }
+	| IDENTIFIER              eol { $$ = make_argument_list(1, make_argument(0, 0, $1));                          }
+	| IMMEDIATE               eol { $$ = make_argument_list(1, make_argument(0, 0, $1));                          }
 		
 eol:
 	';' { asm_lineno++; }
