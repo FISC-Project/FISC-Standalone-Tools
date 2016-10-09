@@ -83,7 +83,7 @@ void help() {
 			"3> -a : Convert output into ASCII formatted output, also using newlines\n"
 			"4> --stdio : Output only to the console the binary result\n"
 			"5> --debug : Output Instructions and their attributes to the stdio\n"
-			"6> -n : Don't produce an output\n"
+			"6> -n : Don't produce an output file\n"
 			"\n>> NOTE: If no arguments are given, the Assembler will produce a.out\n"
 			">> Also remember that you can combine these options\n\n");
 	exit(-1);
