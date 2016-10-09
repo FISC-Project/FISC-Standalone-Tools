@@ -78,6 +78,8 @@ int main(int argc, char ** argv) {
 		yyparse();
 		resolve_labels();
 
+		printf("%s\n",instruction_to_binary(&program[0]).to_string().c_str());
+
 		for(int i = 0; i < program.size(); i++) {
 			printf("Instruction: %s (0x%x) ", program[i].mnemonic, program[i].opcode);
 			for(int j=0;j<program[i].args->argcount;j++) {

@@ -66,8 +66,8 @@ args
 	| REGISTER ',' IDENTIFIER eol { $$ = make_argument_list(2, make_argument(0, 0, $1), make_argument(1, 0, $3)); }
 	| REGISTER ',' IMMEDIATE  eol { $$ = make_argument_list(2, make_argument(0, 0, $1), make_argument(1, 0, $3)); }
 	| REGISTER                eol { $$ = make_argument_list(1, make_argument(0, 0, $1));                          }
-	| IDENTIFIER              eol { $$ = make_argument_list(1, make_argument(0, 0, $1));                          }
-	| IMMEDIATE               eol { $$ = make_argument_list(1, make_argument(0, 0, $1));                          }
+	| IDENTIFIER              eol { $$ = make_argument_list(1, make_argument(1, 0, $1));                          }
+	| IMMEDIATE               eol { $$ = make_argument_list(1, make_argument(1, 0, $1));                          }
 	| REGISTER ',' IMMEDIATE ','  LSL IMMEDIATE  eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(1, 0, $3), make_argument(1, 0, $6)); }
 	| REGISTER ',' IMMEDIATE ','  LSL IDENTIFIER eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(1, 0, $3), make_argument(1, 0, $6)); }
 	| REGISTER ',' IDENTIFIER ',' LSL IMMEDIATE  eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(1, 0, $3), make_argument(1, 0, $6)); }

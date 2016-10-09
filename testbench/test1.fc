@@ -1,3 +1,8 @@
+B #10;
+CBNZ X7, #1048575
+MOVK X9, #255, LSL #16
+LDUR X20, [X3, #1];
+SUBI X0, X2, #10;
 adds X0, X2, X3;
 loop:
 LDUR X10, [X20, #0]
@@ -16,7 +21,7 @@ L1:
 	ADD X12, X19, X0;
 	STURB X12, [X12, L2]; CBZ X11, L2; // We could have 2 instructions in 1 line, the last one doesn't need ';'
 	BR SP
-	BR #0
+	BR XZR;
 	MOVK X9, #255, LSL #16
 L2:
 

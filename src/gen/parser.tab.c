@@ -1512,14 +1512,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 69 "src/parser.y"
-    { (yyval.arglist_t) = make_argument_list(1, make_argument(0, 0, (yyvsp[(1) - (2)].sval)));                          ;}
+    { (yyval.arglist_t) = make_argument_list(1, make_argument(1, 0, (yyvsp[(1) - (2)].sval)));                          ;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
 #line 70 "src/parser.y"
-    { (yyval.arglist_t) = make_argument_list(1, make_argument(0, 0, (yyvsp[(1) - (2)].llval)));                          ;}
+    { (yyval.arglist_t) = make_argument_list(1, make_argument(1, 0, (yyvsp[(1) - (2)].llval)));                          ;}
     break;
 
   case 17:

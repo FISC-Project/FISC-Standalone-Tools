@@ -7,6 +7,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <algorithm>
+#include <stdint.h>
 #include <fisc_assembly.h>
 #include <fisc_opcodes.h>
 
@@ -34,6 +35,7 @@ char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args
 
 	/* Check if it's valid: */
 	if(argfmts->size() != args->argcount) return 0; /* Argument count does not match */
+
 	for(int i = 0; i < argfmts->size(); i++) {
 		afmt fmt = (*argfmts)[i];
 		/* Check if fields match: */
@@ -151,4 +153,89 @@ void resolve_labels() {
 			}
 		}
 	}
+}
+
+std::bitset<32> instruction_to_binary(instruction_t * instr) {
+	unsigned shamt = 0;
+
+	/* Special case for the LSL and LSR instructions: */
+	std::string mnemonic_str(instr->mnemonic);
+	std::string mnemonic_lsl("LSL");
+	std::string mnemonic_lsr("LSR");
+
+	std::transform(mnemonic_str.begin(), mnemonic_str.end(), mnemonic_str.begin(), ::tolower);
+	std::transform(mnemonic_lsl.begin(), mnemonic_lsl.end(), mnemonic_lsl.begin(), ::tolower);
+	std::transform(mnemonic_lsr.begin(), mnemonic_lsr.end(), mnemonic_lsr.begin(), ::tolower);
+
+	if(!strcmp(mnemonic_str.c_str(), mnemonic_lsl.c_str()) || !strcmp(mnemonic_str.c_str(), mnemonic_lsr.c_str()))
+		if(instr->args->argcount >= 3)
+			shamt = instr->args->arguments[2]->value;
+
+	switch(instruction_lookup[instr->opcode].first.fmt) {
+	case IFMT_R: {
+			ifmt_r_t fmt;
+			fmt.opcode= instr->opcode;
+			if(instr->args->argcount >= 3)
+				fmt.rm = instr->args->arguments[2]->value;
+			else
+				fmt.rm = 0;
+			fmt.shamt = shamt;
+			if(instr->args->argcount >= 2)
+				fmt.rn = instr->args->arguments[1]->value;
+			else
+				fmt.rn = 0;
+			fmt.rd = instr->args->arguments[0]->value;
+			return std::bitset<32>(*((uint32_t*)&fmt));
+		}
+		break;
+	case IFMT_I: {
+			ifmt_i_t fmt;
+			fmt.opcode= instr->opcode >> 1; // Lose the 1st bit
+			fmt.alu_immediate = instr->args->arguments[2]->value;
+			fmt.rn = instr->args->arguments[1]->value;
+			fmt.rd = instr->args->arguments[0]->value;
+			return std::bitset<32>(*((uint32_t*)&fmt));
+		}
+		break;
+	case IFMT_D: {
+			ifmt_d_t fmt;
+			fmt.opcode= instr->opcode;
+			fmt.dt_address = instr->args->arguments[2]->value;
+			fmt.op = 0; /* TODO: Find out what to do with this field */
+			fmt.rn = instr->args->arguments[1]->value;
+			fmt.rt = instr->args->arguments[0]->value;
+			return std::bitset<32>(*((uint32_t*)&fmt));
+		}
+		break;
+	case IFMT_B: {
+			ifmt_b_t fmt;
+			fmt.opcode= instr->opcode >> 5; // Lose the lower 5 bits
+			fmt.br_address = instr->args->arguments[0]->value;
+			return std::bitset<32>(*((uint32_t*)&fmt));
+		}
+		break;
+	case IFMT_CB: {
+			ifmt_cb_t fmt;
+			fmt.opcode= instr->opcode >> 3; // Lose the lower 3 bits
+			fmt.cond_br_address = instr->args->arguments[1]->value;
+			fmt.rt = instr->args->arguments[0]->value;
+			return std::bitset<32>(*((uint32_t*)&fmt));
+		}
+		break;
+	case IFMT_IW: {
+			ifmt_iw_t fmt;
+			char lsl_val = 0;
+			if(instr->args->arguments[2]->value == 0)       lsl_val = 0;
+			else if(instr->args->arguments[2]->value == 16) lsl_val = 1;
+			else if(instr->args->arguments[2]->value == 32) lsl_val = 2;
+			else if(instr->args->arguments[2]->value == 48) lsl_val = 3;
+
+			fmt.opcode= instr->opcode | lsl_val; // Add the LSL value in the first 2 bits of the opcode
+			fmt.mov_immediate = instr->args->arguments[1]->value;
+			fmt.rt = instr->args->arguments[0]->value;
+			return std::bitset<32>(*((uint32_t*)&fmt));
+		}
+		break;
+	}
+	return std::bitset<32>(0xFFFFFFFF);
 }
