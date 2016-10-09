@@ -76,28 +76,34 @@ void write_to_file_binary(string filename, std::vector<std::bitset<32> > * progr
 	f.close();
 }
 
+void help() {
+	printf("\n>>>>>> FISC Assembler - Help <<<<<<\n> The available options are: \n"
+			"1> -h : Show this message\n"
+			"2> -o <filename> : Output pure binary file\n"
+			"3> -a : Convert output into ASCII formatted output, also using newlines\n"
+			"4> --stdio : Output only to the console the binary result\n"
+			"5> --debug : Output Instructions and their attributes to the stdio\n"
+			"6> -n : Don't produce an output\n"
+			"\n>> NOTE: If no arguments are given, the Assembler will produce a.out\n"
+			">> Also remember that you can combine these options\n\n");
+	exit(-1);
+}
+
 int main(int argc, char ** argv) {
 	if(argc > 1) {
+		if(argc > 2)
+			cmdline_parse(argc, argv);
+		else
+			help();
+		if(cmd_has_opt('h')) {
+			help();
+			return -1;
+		}
+
 		/* Read input source: */
 		FILE * file = fopen(argv[1], "r");
 		if(!file) {
 			cout << "Could not open '" << argv[1] << "'\n";
-			return -1;
-		}
-
-		if(argc > 2)
-			cmdline_parse(argc, argv);
-		if(cmd_has_opt('h')) {
-			printf("\n>>>>>> FISC Assembler - Help <<<<<<\n> The available options are: \n"
-					"1> -h : Show this message\n"
-					"2> -o <filename> : Output pure binary file\n"
-					"3> -a : Convert output into ASCII formatted output, also using newlines\n"
-					"4> --stdio : Output only to the console the binary result\n"
-					"5> --debug : Output Instructions and their attributes to the stdio\n"
-					"6> -n : Don't produce an output\n"
-					"\n>> NOTE: If no arguments are given, the Assembler will produce a.out\n"
-					">> Also remember that you can combine these options\n\n");
-			exit(-1);
 			return -1;
 		}
 
@@ -167,6 +173,8 @@ int main(int argc, char ** argv) {
 					write_to_file_binary("a.o", &program_bin);
 			}
 		}
+	} else {
+		help();
 	}
 	return 0;
 }
