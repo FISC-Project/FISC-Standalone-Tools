@@ -24,8 +24,8 @@ FISC-Assembler is the Assembler tool which is used in the FISC project.
 `--stdio : Output only to the console the binary result`  
 `--debug : Output Instructions and their attributes to the stdio`  
   
-**NOTE**: If no arguments are given, the Assembler will produce a.out  
-Also remember that you can combine these options
+**NOTE**: If no arguments are given, the Assembler will produce a.out.  
+Also remember that you can combine these options.
 
 Command line examples:  
 1- Normal usage: **`flasm hello_world.asm -o hello_world.o`**  
