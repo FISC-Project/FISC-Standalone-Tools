@@ -15,6 +15,7 @@ extern void yyerror(const char * str);
 
 std::vector<instruction_t> program;
 std::vector<std::bitset<32> > program_bin;
+std::string program_str;
 std::map<std::string, unsigned int> label_lst;
 
 char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args) {
