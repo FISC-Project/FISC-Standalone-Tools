@@ -29,6 +29,7 @@ typedef struct argfmt {
 typedef struct instruction_fmt {
 	std::string mnemonic;
 	char fmt;
+	unsigned int pseudo_opcode; /* If non zero, then this instruction is a pseudo instruction */
 } ifmt;
 
 typedef struct arglist {

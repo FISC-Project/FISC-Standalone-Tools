@@ -43,10 +43,10 @@ enum OPCODES {
 	/* LOAD AND STORE */
 	LDUR = 0x7C2, LDURB = 0x1C2, LDURH = 0x3C2, LDURSW = 0x5C4, LDXR = 0x642,
 	STUR = 0x7C0, STURB = 0x1C0, STURH = 0x3C0, STURW = 0x5C0,  STXR = 0x640,
-	/* PSEUDO INSTRUCTIONS */
-	CMP = 0x758, CMPI = 0x788,
-	LDA = 0x488,
-	MOV = 0x489
+	/* PSEUDO INSTRUCTIONS (these opcodes can't be used because the map won't allow duplicate keys) */
+	CMP = 0, CMPI = 1,
+	LDA = 2,
+	MOV = 3
 };
 
 std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup = {
@@ -82,9 +82,9 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	{STURH, {ifmt{"STURH", IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURW,  {ifmt{"STURW",  IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
 	{STXR,  {ifmt{"STXR",  IFMT_D},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
 	/* PSEUDO INSTRUCTIONS */
-	{CMP,   {ifmt{"CMP",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}}}},              {CMPI,   {ifmt{"CMPI",  IFMT_I},  {afmt{REG,0}, afmt{IMM,0}}}},
-	{LDA,   {ifmt{"LDA",   IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{MOV,   {ifmt{"MOV",   IFMT_I},  {afmt{REG,0}, afmt{REG,0}}}}
+	{CMP,   {ifmt{"CMP",   IFMT_R, SUBS},  {afmt{REG,0}, afmt{REG,0}}}},        {CMPI,   {ifmt{"CMPI",  IFMT_I, SUBI},  {afmt{REG,0}, afmt{IMM,0}}}},
+	{LDA,   {ifmt{"LDA",   IFMT_I, ADDI},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
+	{MOV,   {ifmt{"MOV",   IFMT_I, ADDI},  {afmt{REG,0}, afmt{REG,0}}}}
 };
 
 #endif /* SRC_FISC_OPCODES_H_ */

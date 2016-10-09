@@ -1,3 +1,6 @@
+CMPI X2, loop;
+LDA X2, X3, #100;
+MOV X3,X0;
 B #10;
 CBNZ X7, #1048575
 MOVK X9, #255, LSL #16
@@ -10,7 +13,6 @@ LDUR X10, [X20, #0]
 	STXR X23, X9, [X20];
 	CBNZ X9, L2;
 	ADD X23, XZR, X10;
-
 strcpy:
 	SUBI SP, SP, #8;
 	STUR X19, [SP, #0];

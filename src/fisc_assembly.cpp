@@ -58,7 +58,10 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 
 		if (!strcmp(it->second.first.mnemonic.c_str(), mnemonic_str.c_str())) {
 			success = 1;
-	    	instr.opcode = it->first;
+			if(it->second.first.pseudo_opcode)
+				instr.opcode = it->second.first.pseudo_opcode;
+			else
+				instr.opcode = it->first;
 	    	break;
 	    }
 	}
@@ -158,14 +161,14 @@ void resolve_labels() {
 std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	unsigned shamt = 0;
 
-	/* Special case for the LSL and LSR instructions: */
+	/* Special cases for LSL and LSR: */
 	std::string mnemonic_str(instr->mnemonic);
 	std::string mnemonic_lsl("LSL");
 	std::string mnemonic_lsr("LSR");
 
-	std::transform(mnemonic_str.begin(), mnemonic_str.end(), mnemonic_str.begin(), ::tolower);
-	std::transform(mnemonic_lsl.begin(), mnemonic_lsl.end(), mnemonic_lsl.begin(), ::tolower);
-	std::transform(mnemonic_lsr.begin(), mnemonic_lsr.end(), mnemonic_lsr.begin(), ::tolower);
+	std::transform(mnemonic_str.begin(),  mnemonic_str.end(),  mnemonic_str.begin(),  ::tolower);
+	std::transform(mnemonic_lsl.begin(),  mnemonic_lsl.end(),  mnemonic_lsl.begin(),  ::tolower);
+	std::transform(mnemonic_lsr.begin(),  mnemonic_lsr.end(),  mnemonic_lsr.begin(),  ::tolower);
 
 	if(!strcmp(mnemonic_str.c_str(), mnemonic_lsl.c_str()) || !strcmp(mnemonic_str.c_str(), mnemonic_lsr.c_str()))
 		if(instr->args->argcount >= 3)
@@ -174,7 +177,9 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	switch(instruction_lookup[instr->opcode].first.fmt) {
 	case IFMT_R: {
 			ifmt_r_t fmt;
+
 			fmt.opcode= instr->opcode;
+
 			if(instr->args->argcount >= 3)
 				fmt.rm = instr->args->arguments[2]->value;
 			else
@@ -191,8 +196,15 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	case IFMT_I: {
 			ifmt_i_t fmt;
 			fmt.opcode= instr->opcode >> 1; // Lose the 1st bit
-			fmt.alu_immediate = instr->args->arguments[2]->value;
-			fmt.rn = instr->args->arguments[1]->value;
+			/* Special cases: */
+			if(instr->args->argcount >= 3)
+				fmt.alu_immediate = instr->args->arguments[2]->value;
+			else
+				fmt.alu_immediate = 0;
+			if(instr->args->argcount >= 2)
+				fmt.rn = instr->args->arguments[1]->value;
+			else
+				fmt.rn = 0;
 			fmt.rd = instr->args->arguments[0]->value;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
@@ -200,9 +212,15 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	case IFMT_D: {
 			ifmt_d_t fmt;
 			fmt.opcode= instr->opcode;
-			fmt.dt_address = instr->args->arguments[2]->value;
+			if(instr->args->argcount >= 3)
+				fmt.dt_address = instr->args->arguments[2]->value;
+			else
+				fmt.dt_address = 0;
 			fmt.op = 0; /* TODO: Find out what to do with this field */
-			fmt.rn = instr->args->arguments[1]->value;
+			if(instr->args->argcount >= 2)
+				fmt.rn = instr->args->arguments[1]->value;
+			else
+				fmt.rn = 0;
 			fmt.rt = instr->args->arguments[0]->value;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
@@ -217,7 +235,10 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	case IFMT_CB: {
 			ifmt_cb_t fmt;
 			fmt.opcode= instr->opcode >> 3; // Lose the lower 3 bits
-			fmt.cond_br_address = instr->args->arguments[1]->value;
+			if(instr->args->argcount >= 2)
+				fmt.cond_br_address = instr->args->arguments[1]->value;
+			else
+				fmt.cond_br_address = 0;
 			fmt.rt = instr->args->arguments[0]->value;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
@@ -231,7 +252,10 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 			else if(instr->args->arguments[2]->value == 48) lsl_val = 3;
 
 			fmt.opcode= instr->opcode | lsl_val; // Add the LSL value in the first 2 bits of the opcode
-			fmt.mov_immediate = instr->args->arguments[1]->value;
+			if(instr->args->argcount >= 2)
+				fmt.mov_immediate = instr->args->arguments[1]->value;
+			else
+				fmt.mov_immediate = 0;
 			fmt.rt = instr->args->arguments[0]->value;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}

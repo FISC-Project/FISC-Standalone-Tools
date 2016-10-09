@@ -16,7 +16,7 @@ L1: ADD X10, X19, X1
 	LDURB X11, [X10, #0] // Semicolons can be optional
 	ADD X12, X19, X0;
 	STURB X12, [X12, #0]; CBZ X11, L2; // We could have 2 instructions in 1 line, the last one doesn't need ';'
-	BR #1
+	BR X0;
 L2:
 
 // We could also have multiline comments

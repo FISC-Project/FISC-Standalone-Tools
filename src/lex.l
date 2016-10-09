@@ -108,11 +108,11 @@ WS  [ \t\v\n\f]
 	STURB  { yylval.sval = strdup(yytext); return STURB;  }
 	STURH  { yylval.sval = strdup(yytext); return STURH;  }
 	STURW  { yylval.sval = strdup(yytext); return STURW;  }
-	STXR   { yylval.sval = strdup(yytext); return STXR;   }
+	STXR   { yylval.sval = strdup(yytext); return STXR;   }*/
 	CMP    { yylval.sval = strdup(yytext); return CMP;    }
 	CMPI   { yylval.sval = strdup(yytext); return CMPI;   }
 	LDA    { yylval.sval = strdup(yytext); return LDA;    }
-	MOV    { yylval.sval = strdup(yytext); return MOV;    }*/
+	MOV    { yylval.sval = strdup(yytext); return MOV;    }
 
 	/* Arguments (for example, a Register): */
 X[0-9]+ { yylval.uival = atoi(yytext+1); return REGISTER;                                } // Normal Register
