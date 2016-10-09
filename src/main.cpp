@@ -1,6 +1,8 @@
 #include <headers.h>
 #include <map>
 #include <utility>
+#include <string>
+#include <sstream>
 #include <stdint.h>
 #include <external_tool.h>
 #include <fisc_assembly.h>
@@ -92,6 +94,7 @@ int main(int argc, char ** argv) {
 					"3> -a : Convert output into ASCII formatted output, also using newlines\n"
 					"4> --stdio : Output only to the console the binary result\n"
 					"5> --debug : Output Instructions and their attributes to the stdio\n"
+					"6> -n : Don't produce an output\n"
 					"\n>> NOTE: If no arguments are given, the Assembler will produce a.out\n"
 					">> Also remember that you can combine these options\n\n");
 			exit(-1);
@@ -107,9 +110,31 @@ int main(int argc, char ** argv) {
 		for(int i = 0; i < program.size(); i++) {
 			std::bitset<32> tmp = instruction_to_binary(&program[i]);
 			program_bin.push_back(tmp);
-			if(cmd_has_opt('a') || cmd_has_opt("stdio")) {
+			if(cmd_has_opt('a') || cmd_has_opt("stdio"))
 				/* Output format is in ASCII format. 0's are actually 30 decimal and 1's are 31 decimal. There is also a newline included at the end */
-				program_str += tmp.to_string() + "\n";
+				program_str += tmp.to_string();
+		}
+
+		int program_str_len = 0;
+		if((program_str_len = program_str.size())) {
+			/* Split the program_str into small pieces by inserting new lines every X bits/bytes */
+			int gran = 8; /* Default granularity value is 8 bits */
+			if(cmd_has_opt('g')) {
+				std::string gran_str = cmd_query('g').second;
+				if(gran_str.find_first_not_of( "0123456789" ) == string::npos)
+					std::stringstream(gran_str) >> gran;
+				else
+					printf("\n>ERROR: Granularity value is invalid. Defaulting to value: %d\n", gran);
+			}
+
+			int ctr = gran;
+			int grow = 0;
+			for(int i = 0; i < program_str_len + grow; i++) {
+				if(!ctr--) {
+					program_str.insert(i, "\n");
+					ctr = gran;
+					grow++;
+				}
 			}
 		}
 
@@ -126,20 +151,21 @@ int main(int argc, char ** argv) {
 			}
 		}
 
-		if(cmd_has_opt("stdio")) {
+		if(cmd_has_opt("stdio"))
 			printf("%s", program_str.c_str());
-		}
 
-		if(cmd_has_opt('o')) {
-			if(cmd_has_opt('a'))
-				write_to_file(cmd_query('o').second, program_str);
-			else
-				write_to_file_binary(cmd_query('o').second, &program_bin);
-		} else {
-			if(cmd_has_opt('a'))
-				write_to_file("a.o", program_str);
-			else
-				write_to_file_binary("a.o", &program_bin);
+		if(!cmd_has_opt('n')) {
+			if(cmd_has_opt('o')) {
+				if(cmd_has_opt('a'))
+					write_to_file(cmd_query('o').second, program_str);
+				else
+					write_to_file_binary(cmd_query('o').second, &program_bin);
+			} else {
+				if(cmd_has_opt('a'))
+					write_to_file("a.o", program_str);
+				else
+					write_to_file_binary("a.o", &program_bin);
+			}
 		}
 	}
 	return 0;
