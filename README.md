@@ -18,15 +18,15 @@ FISC-Assembler is the Assembler tool which is used in the FISC project.
 **Example filenames**: test1, test_mytest.txt, test_trythis.vc
 
 # Command line Options
-`-h : Show help message`
-`-o <filename> : Output pure binary file`
-`-a : Convert output into ASCII formatted output, also using newlines`
-`--stdio : Output only to the console the binary result`
-`--debug : Output Instructions and their attributes to the stdio`
-**NOTE**: If no arguments are given, the Assembler will produce a.out
+`-h : Show help message`  
+`-o <filename> : Output pure binary file`  
+`-a : Convert output into ASCII formatted output, also using newlines`  
+`--stdio : Output only to the console the binary result`  
+`--debug : Output Instructions and their attributes to the stdio`  
+**NOTE**: If no arguments are given, the Assembler will produce a.out  
 Also remember that you can combine these options
 
 Command line examples:  
-1- Normal usage: **`flasm hello_world.asm -o hello_world.o`**
-2- Output to stdio AND to file: **`flasm hello_world.asm -o hello_world.o --stdio`**
-3- Output only to stdio and debug (no files are produced): **`flasm hello_world.asm --stdio --debug`**
+1- Normal usage: **`flasm hello_world.asm -o hello_world.o`**  
+2- Output to stdio AND to file: **`flasm hello_world.asm -o hello_world.o --stdio`**  
+3- Output only to stdio and debug (no files are produced): **`flasm hello_world.asm --stdio --debug`**  
