@@ -78,16 +78,22 @@ int main(int argc, char ** argv) {
 		yyparse();
 		resolve_labels();
 
-		printf("%s\n",instruction_to_binary(&program[0]).to_string().c_str());
+		/* Convert to binary: */
+		for(int i=0;i<program.size();i++)
+			program_bin.push_back(instruction_to_binary(&program[i]));
 
+		printf("Dumping program: \n");
 		for(int i = 0; i < program.size(); i++) {
-			printf("Instruction: %s (0x%x) ", program[i].mnemonic, program[i].opcode);
+			printf("%d- Instruction: %s (0x%x) ", i+1, program[i].mnemonic, program[i].opcode);
 			for(int j=0;j<program[i].args->argcount;j++) {
 				argument_t * arg = program[i].args->arguments[j];
 				printf("%s %s: %d, ", !arg->arg_type ? "REGISTER" : "IMMEDIATE", arg->is_offset ? "(OFFSET)": "", arg->value);
 			}
 			printf("\n");
 		}
+		printf("Binary: \n");
+		for(int i=0;i<program_bin.size();i++)
+			printf("%s\n", program_bin[i].to_string().c_str());
 	}
 	return 0;
 }
