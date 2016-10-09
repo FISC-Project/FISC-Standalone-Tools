@@ -80,17 +80,14 @@ void write_to_file_binary(string filename, std::vector<std::bitset<32> > * progr
 		if(split && (gran == 8 || gran == 16 || gran == 32)) {
 			/* Split the pure binary using new line characters: */
 			uint8_t newline = '\n';
-			uint8_t gran8   = gran;
-			uint16_t gran16 = gran;
-			uint32_t gran32 = gran;
 			uint32_t instr = (*program_bin)[i].to_ulong();
 
 			switch(gran) {
 			case 8: {
-					uint16_t copy1 = instr & 0x000000FF;
-					uint16_t copy2 = (instr & 0x0000FF00) >> 8;
-					uint16_t copy3 = (instr & 0x00FF0000) >> 16;
-					uint16_t copy4 = (instr & 0xFF000000) >> 24;
+					uint8_t copy1 = instr & 0x000000FF;
+					uint8_t copy2 = (instr & 0x0000FF00) >> 8;
+					uint8_t copy3 = (instr & 0x00FF0000) >> 16;
+					uint8_t copy4 = (instr & 0xFF000000) >> 24;
 					f.write(reinterpret_cast<const char*>(&copy4), sizeof(uint8_t));
 					f.write(reinterpret_cast<const char*>(&newline), sizeof(uint8_t));
 					f.write(reinterpret_cast<const char*>(&copy3), sizeof(uint8_t));
