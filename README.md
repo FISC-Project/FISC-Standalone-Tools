@@ -23,6 +23,7 @@ FISC-Assembler is the Assembler tool which is used in the FISC project.
 `-a : Convert output into ASCII formatted output, also using newlines`  
 `--stdio : Output only to the console the binary result`  
 `--debug : Output Instructions and their attributes to the stdio`  
+`-n : Don't produce an output file`  
   
 **NOTE**: If no arguments are given, the Assembler will produce a.out.  
 Also remember that you can combine these options.
