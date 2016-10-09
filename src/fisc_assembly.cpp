@@ -163,18 +163,31 @@ void resolve_labels() {
 std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	unsigned shamt = 0;
 
-	/* Special cases for LSL and LSR: */
+	/* Special cases for LSL, LSR, MUL, SDIV and UDIV (because of the shamt field): */
 	std::string mnemonic_str(instr->mnemonic);
 	std::string mnemonic_lsl("LSL");
 	std::string mnemonic_lsr("LSR");
+	std::string mnemonic_mul("MUL");
+	std::string mnemonic_sdiv("SDIV");
+	std::string mnemonic_udiv("UDIV");
 
 	std::transform(mnemonic_str.begin(),  mnemonic_str.end(),  mnemonic_str.begin(),  ::tolower);
 	std::transform(mnemonic_lsl.begin(),  mnemonic_lsl.end(),  mnemonic_lsl.begin(),  ::tolower);
 	std::transform(mnemonic_lsr.begin(),  mnemonic_lsr.end(),  mnemonic_lsr.begin(),  ::tolower);
+	std::transform(mnemonic_mul.begin(),  mnemonic_mul.end(),  mnemonic_mul.begin(),  ::tolower);
+	std::transform(mnemonic_sdiv.begin(), mnemonic_sdiv.end(), mnemonic_sdiv.begin(), ::tolower);
+	std::transform(mnemonic_udiv.begin(), mnemonic_udiv.end(), mnemonic_udiv.begin(), ::tolower);
 
 	if(!strcmp(mnemonic_str.c_str(), mnemonic_lsl.c_str()) || !strcmp(mnemonic_str.c_str(), mnemonic_lsr.c_str()))
 		if(instr->args->argcount >= 3)
 			shamt = instr->args->arguments[2]->value;
+
+	if(!strcmp(mnemonic_str.c_str(), mnemonic_mul.c_str()) && instr->args->argcount >= 3)
+		shamt = 0x1F;
+	if(!strcmp(mnemonic_str.c_str(), mnemonic_sdiv.c_str()) && instr->args->argcount >= 3)
+		shamt = 0x02;
+	if(!strcmp(mnemonic_str.c_str(), mnemonic_udiv.c_str()) && instr->args->argcount >= 3)
+		shamt = 0x03;
 
 	switch(instruction_lookup[instr->opcode].first.fmt) {
 	case IFMT_R: {

@@ -64,14 +64,69 @@ void write_to_file(string filename, string source_code) {
 	f.close();
 }
 
-void write_to_file_binary(string filename, std::vector<std::bitset<32> > * program_bin) {
+void write_to_file_binary(string filename, std::vector<std::bitset<32> > * program_bin, char split, uint32_t gran) {
+	if(split) {
+		switch(gran) {
+		case 8: case 16: case 32: break;
+		default:
+			printf("> ERROR: Granularity value is invalid for pure binary files.\nAccepted values are: 8, 16, 32.\n(ASCII output files do not have this limitation)\n\n");
+			exit(-1);
+			break;
+		}
+	}
 	ofstream f;
 	f.open(filename.c_str(), ios::binary);
 	for(int i = 0; i <  program_bin->size(); i++) {
-		uint32_t instr = (*program_bin)[i].to_ulong();
-		uint32_t copy = instr;
-		instr = ((copy & 0x000000FF) << 24) | ((copy & 0x0000FF00) << 8) | ((copy & 0x00FF0000) >> 8) | ((copy & 0xFF000000) >> 24);
-		f.write( reinterpret_cast<const char*>(&instr), sizeof(uint32_t));
+		if(split && (gran == 8 || gran == 16 || gran == 32)) {
+			/* Split the pure binary using new line characters: */
+			uint8_t newline = '\n';
+			uint8_t gran8   = gran;
+			uint16_t gran16 = gran;
+			uint32_t gran32 = gran;
+			uint32_t instr = (*program_bin)[i].to_ulong();
+
+			switch(gran) {
+			case 8: {
+					uint16_t copy1 = instr & 0x000000FF;
+					uint16_t copy2 = (instr & 0x0000FF00) >> 8;
+					uint16_t copy3 = (instr & 0x00FF0000) >> 16;
+					uint16_t copy4 = (instr & 0xFF000000) >> 24;
+					f.write(reinterpret_cast<const char*>(&copy4), sizeof(uint8_t));
+					f.write(reinterpret_cast<const char*>(&newline), sizeof(uint8_t));
+					f.write(reinterpret_cast<const char*>(&copy3), sizeof(uint8_t));
+					f.write(reinterpret_cast<const char*>(&newline), sizeof(uint8_t));
+					f.write(reinterpret_cast<const char*>(&copy2), sizeof(uint8_t));
+					f.write(reinterpret_cast<const char*>(&newline), sizeof(uint8_t));
+					f.write(reinterpret_cast<const char*>(&copy1), sizeof(uint8_t));
+					f.write(reinterpret_cast<const char*>(&newline), sizeof(uint8_t));
+				}
+				break;
+			case 16: {
+					uint16_t copy1 = instr & 0x0000FFFF;
+					uint16_t copy2 = (instr & 0xFFFF0000) >> 16;
+					copy1 = ((copy1 & 0x00FF) << 8) | ((copy1 & 0xFF00) >> 8);
+					copy2 = ((copy2 & 0x00FF) << 8) | ((copy2 & 0xFF00) >> 8);
+					f.write(reinterpret_cast<const char*>(&copy2), sizeof(uint16_t));
+					f.write(reinterpret_cast<const char*>(&newline), sizeof(uint8_t));
+					f.write(reinterpret_cast<const char*>(&copy1), sizeof(uint16_t));
+					f.write(reinterpret_cast<const char*>(&newline), sizeof(uint8_t));
+				}
+				break;
+			case 32: {
+					uint32_t copy = instr;
+					copy = ((copy & 0x000000FF) << 24) | ((copy & 0x0000FF00) << 8) | ((copy & 0x00FF0000) >> 8) | ((copy & 0xFF000000) >> 24);
+					f.write(reinterpret_cast<const char*>(&copy), sizeof(uint32_t));
+					f.write(reinterpret_cast<const char*>(&newline), sizeof(uint8_t));
+				}
+				break;
+			}
+		} else {
+			/* Just normally write the instruction: */
+			uint32_t instr = (*program_bin)[i].to_ulong();
+			uint32_t copy = instr;
+			instr = ((copy & 0x000000FF) << 24) | ((copy & 0x0000FF00) << 8) | ((copy & 0x00FF0000) >> 8) | ((copy & 0xFF000000) >> 24);
+			f.write(reinterpret_cast<const char*>(&instr), sizeof(uint32_t));
+		}
 	}
 	f.close();
 }
@@ -116,15 +171,15 @@ int main(int argc, char ** argv) {
 		for(int i = 0; i < program.size(); i++) {
 			std::bitset<32> tmp = instruction_to_binary(&program[i]);
 			program_bin.push_back(tmp);
-			if(cmd_has_opt('a') || cmd_has_opt("stdio"))
-				/* Output format is in ASCII format. 0's are actually 30 decimal and 1's are 31 decimal. There is also a newline included at the end */
-				program_str += tmp.to_string();
+			/* Output format is in ASCII format. 0's are actually 30 decimal and 1's are 31 decimal. There is also a newline included at the end */
+			program_str += tmp.to_string();
 		}
 
 		int program_str_len = 0;
+		int gran = 8; /* Default granularity value is 8 bits */
+
 		if((program_str_len = program_str.size())) {
 			/* Split the program_str into small pieces by inserting new lines every X bits/bytes */
-			int gran = 8; /* Default granularity value is 8 bits */
 			if(cmd_has_opt('g')) {
 				std::string gran_str = cmd_query('g').second;
 				if(gran_str.find_first_not_of( "0123456789" ) == string::npos)
@@ -165,12 +220,12 @@ int main(int argc, char ** argv) {
 				if(cmd_has_opt('a'))
 					write_to_file(cmd_query('o').second, program_str);
 				else
-					write_to_file_binary(cmd_query('o').second, &program_bin);
+					write_to_file_binary(cmd_query('o').second, &program_bin, cmd_has_opt('g'), gran);
 			} else {
 				if(cmd_has_opt('a'))
 					write_to_file("a.o", program_str);
 				else
-					write_to_file_binary("a.o", &program_bin);
+					write_to_file_binary("a.o", &program_bin, cmd_has_opt('g'), gran);
 			}
 		}
 	} else {
