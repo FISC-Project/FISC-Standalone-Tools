@@ -7,7 +7,7 @@ FISC-Assembler is the Assembler tool which is used in the FISC project.
 
 * You can see what scripts are available by running `toolchain/launcher.pyc -h`
 
-* The output file will be the compiler executable, which will be outputted into the folder 'bin'
+* The output file will be the assembler executable, which will be outputted into the folder 'bin'
 
 # How to Run the Assembler
 
