@@ -195,7 +195,7 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 
 			fmt.opcode= instr->opcode;
 
-			if(instr->args->argcount >= 3)
+			if(instr->args->argcount >= 3 && mnemonic_str != "lsl" && mnemonic_str!= "lsr")
 				fmt.rm = instr->args->arguments[2]->value;
 			else
 				fmt.rm = 0;
