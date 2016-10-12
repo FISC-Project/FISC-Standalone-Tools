@@ -1609,14 +1609,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 86 "src/parser.y"
-    { make_instruction((char*)"SUBIS", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].sval)), make_argument(1, 0, (long long)31))); ;}
+    { make_instruction((char*)"SUBIS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (yyvsp[(4) - (5)].sval)))); ;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
 #line 87 "src/parser.y"
-    { make_instruction((char*)"SUBIS", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].llval)), make_argument(1, 0, (long long)31))); ;}
+    { make_instruction((char*)"SUBIS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (yyvsp[(4) - (5)].llval)))); ;}
     break;
 
   case 29:
@@ -1637,7 +1637,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 90 "src/parser.y"
-    { make_instruction((char*)"ADDI",   make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].uival)), make_argument(1, 0, (long long)31))); ;}
+    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].uival)), make_argument(1, 0, (long long)0))); ;}
     break;
 
   case 32:

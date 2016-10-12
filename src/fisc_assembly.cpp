@@ -250,11 +250,19 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	case IFMT_CB: {
 			ifmt_cb_t fmt;
 			fmt.opcode= instr->opcode >> 3; // Lose the lower 3 bits
-			if(instr->args->argcount >= 2)
-				fmt.cond_br_address = instr->args->arguments[1]->value;
-			else
-				fmt.cond_br_address = 0;
-			fmt.rt = instr->args->arguments[0]->value;
+
+			if(!strcmp(mnemonic_str.c_str(), "cbnz") || !strcmp(mnemonic_str.c_str(), "cbz")) {
+				/* Fill up instruction for CBNZ and CBZ: */
+				if(instr->args->argcount >= 2)
+					fmt.cond_br_address = instr->args->arguments[1]->value;
+				else
+					fmt.cond_br_address = 0;
+				fmt.rt = instr->args->arguments[0]->value;
+			} else {
+				/* Fill up instruction for b.cond: */
+				fmt.cond_br_address = instr->args->arguments[0]->value;
+				fmt.rt = instr->opcode & 0b11111;
+			}
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
 		break;
