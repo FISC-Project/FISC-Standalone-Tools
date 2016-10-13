@@ -69,7 +69,7 @@ void write_to_file_binary(string filename, std::vector<std::bitset<32> > * progr
 		switch(gran) {
 		case 8: case 16: case 32: break;
 		default:
-			printf("> ERROR: Granularity value is invalid for pure binary files.\nAccepted values are: 8, 16, 32.\n(ASCII output files do not have this limitation)\n\n");
+			printf("> ERROR: Granularity value '%d' is invalid for pure binary files.\nAccepted values are: 8, 16, 32.\n(ASCII output files do not have this limitation)\n\n", gran);
 			exit(-1);
 			break;
 		}
@@ -182,7 +182,7 @@ int main(int argc, char ** argv) {
 				if(gran_str.find_first_not_of( "0123456789" ) == string::npos)
 					std::stringstream(gran_str) >> gran;
 				else
-					printf("\n>ERROR: Granularity value is invalid. Defaulting to value: %d\n", gran);
+					printf("\n>ERROR: Granularity value '%s' is invalid. Defaulting to value: %d\n", gran_str.c_str(), gran);
 			}
 
 			int ctr = gran;
@@ -203,7 +203,7 @@ int main(int argc, char ** argv) {
 				printf("%d- %s (0x%x) ", i+1, program[i].mnemonic, program[i].opcode);
 				for(int j = 0; j < program[i].args->argcount; j++) {
 					argument_t * arg = program[i].args->arguments[j];
-					printf("%s %s: %d, ", !arg->arg_type ? "REGISTER" : "IMMEDIATE", arg->is_offset ? "(OFFSET)": "", arg->value);
+					printf("%s %s: %I64d, ", !arg->arg_type ? "REGISTER" : "IMMEDIATE", arg->is_offset ? "(OFFSET)": "", arg->value);
 				}
 				printf("\n");
 			}

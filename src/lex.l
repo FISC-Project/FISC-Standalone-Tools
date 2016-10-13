@@ -18,8 +18,10 @@ NZ  [1-9]
 L   [a-zA-Z_]
 A   [a-zA-Z_0-9]
 H   [a-fA-F0-9]
+B   [0-1]
 HV  [a-fA-F0-9xXzZ]
 HP  (0[xX])
+BP  (0[bB])
 E   ([Ee][+-]?{D}+)
 P   ([Pp][+-]?{D}+)
 FS  (f|F|l|L)
@@ -114,22 +116,24 @@ WS  [ \t\v\n\f]
 	LDA    { yylval.sval = strdup(yytext); return LDA;    }
 	MOV    { yylval.sval = strdup(yytext); return MOV;    }
 
+	LSL { return LSL; }
+	
 	/* Arguments (for example, a Register): */
-X[0-9]+ { yylval.uival = atoi(yytext+1); return REGISTER;                                } // Normal Register
-IP0     { yylval.uival = 16; return REGISTER;                                            } // Temporary Register
-IP1     { yylval.uival = 17; return REGISTER;                                            } // Temporary Register
-XZR     { yylval.uival = 31; return REGISTER;                                            } // Register Zero
-SP      { yylval.uival = 28; return REGISTER;                                            } // Stack Pointer
-FP      { yylval.uival = 29; return REGISTER;                                            } // Frame Pointer
-LR      { yylval.uival = 30; return REGISTER;                                            } // Return Address
-#[0-9]+ { yylval.llval = atoi(yytext+1); return IMMEDIATE;                               } // Immediate
-
-LSL { return LSL; }
-	/* Variables/numbers/strings/constants/everything else: */
-{HP}{H}+{IS}?					{ yylval.uival = strtol(yytext, 0, 16); return I_CONSTANT; }
-{NZ}{D}*{IS}?					{ yylval.uival = atoi(yytext); return I_CONSTANT; }
-"0"{O}*{IS}?					{ yylval.uival = atoi(yytext); return I_CONSTANT; }
-{CP}?"'"([^'\\\n]|{ES})+"'"		{ yylval.uival = atoi(yytext); return I_CONSTANT; }
+X[0-9]+ { yylval.uival = atoi(yytext+1); return REGISTER;                      } // Normal Register
+IP0     { yylval.uival = 16; return REGISTER;                                  } // Temporary Register
+IP1     { yylval.uival = 17; return REGISTER;                                  } // Temporary Register
+XZR     { yylval.uival = 31; return REGISTER;                                  } // Register Zero
+SP      { yylval.uival = 28; return REGISTER;                                  } // Stack Pointer
+FP      { yylval.uival = 29; return REGISTER;                                  } // Frame Pointer
+LR      { yylval.uival = 30; return REGISTER;                                  } // Return Address
+{NZ}{D}*{IS}? { yylval.llval = strtoull(yytext, 0, 10);  return IMMEDIATE;     } // Immediate Decimal (normal number)
+{HP}{H}+?     { yylval.llval = strtoull(yytext, 0, 16);  return IMMEDIATE;     } // Immediate Hexadecimal
+{BP}{B}+?     { yylval.llval = strtoull(yytext+2, 0, 2); return IMMEDIATE;     } // Immediate Binary
+"0"{O}*{IS}?  { yylval.llval = strtoull(yytext+1, 0, 8); return IMMEDIATE;     } // Immediate Octal
+"-"{NZ}{D}*{IS}? { yylval.llval = strtoull(yytext, 0, 10);  return IMMEDIATE;  } // Immediate Negative Decimal (normal number)
+"-"{HP}{H}+?     { yylval.llval = strtoull(yytext, 0, 16);  return IMMEDIATE;  } // Immediate Negative Hexadecimal
+"-"{BP}{B}+?     { yylval.llval = -strtoull(yytext+3, 0, 2); return IMMEDIATE; } // Immediate Negative Binary
+"-0"{O}*{IS}?  { yylval.llval = -strtoull(yytext+1, 0, 8); return IMMEDIATE;   } // Immediate Negative Octal
 
 {D}+{E}{FS}?					{ yylval.fval = atof(yytext); return F_CONSTANT; }
 {D}*"."{D}+{E}?{FS}?			{ yylval.fval = atof(yytext); return F_CONSTANT; }
@@ -138,7 +142,7 @@ LSL { return LSL; }
 {HP}{H}*"."{H}+{P}{FS}?			{ yylval.fval = atof(yytext); return F_CONSTANT; }
 {HP}{H}+"."{P}{FS}?				{ yylval.fval = atof(yytext); return F_CONSTANT; }
 
-({SP}?\"([^"\\\n]|{ES})*\")+ { yylval.sval = new char[strlen(yytext)+1]; strcpy(yylval.sval, yytext); return STRING_LITERAL; }
+({SP}?\"([^"\\\n]|{ES})*\")+    { yylval.sval = new char[strlen(yytext)+1]; strcpy(yylval.sval, yytext); return STRING_LITERAL; }
 {L}{A}*							{ return sym_check_type(); }
 .								;
 [ \t\n]        					lineno++;

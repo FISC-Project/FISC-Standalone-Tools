@@ -60,8 +60,8 @@ clean:
 	$(RM) $(OBJ)/*.o
 
 run:
-	@$(BIN)/$(EXEC) ${ARGS}
+	$(BIN)/$(EXEC) ${ARGS}
 
 test%:
 	@cd $(makefile_dir)/..
-	@$(BIN)/flasm testbench/$@ -c icarus -s -r -g
+	@$(BIN)/flasm testbench/$@ -n --stdio --debug -g 32
