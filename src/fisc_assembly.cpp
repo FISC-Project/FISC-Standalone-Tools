@@ -16,7 +16,7 @@ extern void yyerror(const char * str);
 std::vector<instruction_t> program;
 std::vector<std::bitset<32> > program_bin;
 std::string program_str;
-std::map<std::string, unsigned int> label_lst;
+std::map<std::string, unsigned long long> label_lst;
 
 char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args) {
 	/* Grab instruction argument formats: */
@@ -145,7 +145,7 @@ void resolve_labels() {
 				char found = 0;
 				for (auto it = label_lst.begin(); it != label_lst.end(); ++it) {
 					if (!strcmp(it->first.c_str(), arg->label)) {
-				    	arg->value = it->second;
+				    	arg->value = (unsigned long long)(it->second - i);
 				    	found = 1;
 				    	break;
 				    }

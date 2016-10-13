@@ -87,7 +87,7 @@ extern std::vector<instruction_t> program;
 extern std::vector<std::bitset<32> > program_bin;
 extern std::string program_str;
 extern std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup;
-extern std::map<std::string, unsigned int> label_lst;
+extern std::map<std::string, unsigned long long> label_lst;
 
 extern char make_instruction(char * mnemonic, arglist_t * args);
 extern arglist_t * make_argument_list(unsigned int argcount, ...);

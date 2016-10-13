@@ -1,4 +1,7 @@
+label:
 ADDI X31, X30, 0;
+ADDI X31, X30, 0;
+B label
 BL -4;
 CMPI X2, loop;
 LDA X2, X3, -0b1
