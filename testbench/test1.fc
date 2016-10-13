@@ -1,3 +1,5 @@
+ADDI X31, X30, 0;
+BL -4;
 CMPI X2, loop;
 LDA X2, X3, -0b1
 MOV X3,X0;

@@ -65,7 +65,7 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	{LSL,   {ifmt{"LSL",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {LSR,    {ifmt{"LSR",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
 	{MOVK,  {ifmt{"MOVK", IFMT_IW},  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}}, {MOVZ,   {ifmt{"MOVZ", IFMT_IW},  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}},
 	/* BRANCHING */
-	{B,     {ifmt{"B",     IFMT_B},  {afmt{IMM,0}}}},                           {BL,     {ifmt{"BL",    IFMT_R},  {afmt{IMM,0}}}},
+	{B,     {ifmt{"B",     IFMT_B},  {afmt{IMM,0}}}},                           {BL,     {ifmt{"BL",    IFMT_B},  {afmt{IMM,0}}}},
 	{BR,    {ifmt{"BR",    IFMT_R},  {afmt{REG,0}}}},                           {CBNZ,   {ifmt{"CBNZ", IFMT_CB},  {afmt{REG,0}, afmt{IMM,0}}}},
 	{CBZ,   {ifmt{"CBZ",  IFMT_CB},  {afmt{REG,0}, afmt{IMM,0}}}},              {BEQ,    {ifmt{"BEQ",  IFMT_CB},  {afmt{IMM,0}}}},
 	{BNE,   {ifmt{"BNE",  IFMT_CB},  {afmt{IMM,0}}}},                           {BLT,    {ifmt{"BLT",  IFMT_CB},  {afmt{IMM,0}}}},
