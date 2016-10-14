@@ -130,6 +130,7 @@ WS  [ \t\v\n\f]
 	NEOR   { yylval.sval = strdup(yytext); return NEOR;   }
 	NEORI  { yylval.sval = strdup(yytext); return NEORI;  }
 	HALT   { yylval.sval = strdup(yytext); return HALT;   }
+	NOP    { yylval.sval = strdup(yytext); return NOP;    }
 
 	LSL { return LSL; } // Not a pseudoinstruction
 	

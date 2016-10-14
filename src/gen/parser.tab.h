@@ -107,8 +107,9 @@
      NEOR = 323,
      NEORI = 324,
      HALT = 325,
-     REGISTER = 326,
-     IMMEDIATE = 327
+     NOP = 326,
+     REGISTER = 327,
+     IMMEDIATE = 328
    };
 #endif
 
@@ -131,7 +132,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 135 "parser.tab.h"
+#line 136 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

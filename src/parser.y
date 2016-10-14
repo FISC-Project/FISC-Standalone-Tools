@@ -48,6 +48,7 @@
 %token<sval> NAND NANDI
 %token<sval> NEOR NEORI
 %token<sval> HALT
+%token<sval> NOP
 
 %token<uival> REGISTER
 %token<llval> IMMEDIATE
@@ -194,4 +195,5 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 		adjust_labels_offset(3);	
 	}
 	| HALT eol { make_instruction((char*)"B", make_argument_list(1, make_argument(1, 0, (long long)0))); }
+	| NOP  eol { make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31))); }
 %%
