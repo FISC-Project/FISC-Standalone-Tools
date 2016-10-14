@@ -145,7 +145,14 @@ void resolve_labels() {
 				char found = 0;
 				for (auto it = label_lst.begin(); it != label_lst.end(); ++it) {
 					if (!strcmp(it->first.c_str(), arg->label)) {
-				    	arg->value = (unsigned long long)(it->second - i);
+				    	switch(program[i].opcode) {
+				    	case BEQ: case BNE: case BLT: case BLE: case BGT: case BGE:
+				    	case BLO: case BLS: case BHI: case BHS: case BMI: case BPL:
+				    	case BVS: case BVC:
+				    		arg->value = (unsigned long long)(it->second - i);
+				    	default:
+				    		arg->value = it->second;
+				    	}
 				    	found = 1;
 				    	break;
 				    }

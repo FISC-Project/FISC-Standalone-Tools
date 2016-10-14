@@ -46,7 +46,7 @@ enum OPCODES {
 	/* PSEUDO INSTRUCTIONS (these opcodes can't be used because the map won't allow duplicate keys) */
 	CMP = 0, CMPI = 1,
 	LDA = 2,
-	MOV = 3
+	MOV = 3, MOVI = 4
 };
 
 std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup = {
@@ -85,7 +85,7 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	/* PSEUDO INSTRUCTIONS */
 	{CMP,   {ifmt{"CMP",   IFMT_R, SUBS},  {afmt{REG,0}, afmt{REG,0}}}},        {CMPI,   {ifmt{"CMPI",  IFMT_I, SUBI},  {afmt{REG,0}, afmt{IMM,0}}}},
 	{LDA,   {ifmt{"LDA",   IFMT_I, ADDI},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
-	{MOV,   {ifmt{"MOV",   IFMT_I, ADDI},  {afmt{REG,0}, afmt{REG,0}}}}
+	{MOV,   {ifmt{"MOV",   IFMT_I, ADDI},  {afmt{REG,0}, afmt{REG,0}}}},        {MOVI,   {ifmt{"MOVI",  IFMT_I, ADDI},  {afmt{REG,0}, afmt{IMM,0}}}}
 };
 
 #endif /* SRC_FISC_OPCODES_H_ */

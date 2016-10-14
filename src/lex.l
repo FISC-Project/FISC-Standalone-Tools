@@ -115,6 +115,7 @@ WS  [ \t\v\n\f]
 	CMPI   { yylval.sval = strdup(yytext); return CMPI;   }
 	LDA    { yylval.sval = strdup(yytext); return LDA;    }
 	MOV    { yylval.sval = strdup(yytext); return MOV;    }
+	MOVI   { yylval.sval = strdup(yytext); return MOVI;   }
 
 	LSL { return LSL; }
 	

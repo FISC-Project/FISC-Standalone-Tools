@@ -92,8 +92,9 @@
      CMPI = 308,
      LDA = 309,
      MOV = 310,
-     REGISTER = 311,
-     IMMEDIATE = 312
+     MOVI = 311,
+     REGISTER = 312,
+     IMMEDIATE = 313
    };
 #endif
 
@@ -116,7 +117,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 120 "parser.tab.h"
+#line 121 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
