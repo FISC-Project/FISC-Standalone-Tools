@@ -252,12 +252,14 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	case IFMT_I: {
 			ifmt_i_t fmt;
 			fmt.opcode= instr->opcode >> 1; // Lose the 1st bit
-			/* Special cases: */
+
 			if(instr->args->argcount >= 3)
 				fmt.alu_immediate = instr->args->arguments[2]->value;
+			else if(instr->args->argcount >= 2 && (instr->opcode == NEGI || instr->opcode == NOTI)) /* Cover these 2 special cases */
+				fmt.alu_immediate = instr->args->arguments[1]->value;
 			else
 				fmt.alu_immediate = 0;
-			if(instr->args->argcount >= 2)
+			if(instr->args->argcount >= 2 && (instr->opcode != NEGI && instr->opcode != NOTI))
 				fmt.rn = instr->args->arguments[1]->value;
 			else
 				fmt.rn = 0;
