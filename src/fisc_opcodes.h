@@ -76,12 +76,12 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	{BPL,   {ifmt{"BPL",   IFMT_CB}, {afmt{IMM,0}}}},                           {BVS,    {ifmt{"BVS",  IFMT_CB},  {afmt{IMM,0}}}},
 	{BVC,   {ifmt{"BVC",   IFMT_CB}, {afmt{IMM,0}}}},
 	/* LOAD AND STORE */
-	{LDUR,  {ifmt{"LDUR",  IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDURB,  {ifmt{"LDURB",  IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDURH, {ifmt{"LDURH", IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDURSW, {ifmt{"LDURSW", IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDXR,  {ifmt{"LDXR",  IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STUR,  {ifmt{"STUR",  IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURB,  {ifmt{"STURB",  IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STURH, {ifmt{"STURH", IFMT_D},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURW,  {ifmt{"STURW",  IFMT_D}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STXR,  {ifmt{"STXR",  IFMT_D},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
+	{LDUR,  {ifmt{"LDUR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDURB,  {ifmt{"LDURB",  IFMT_D, 0, 8}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDURH, {ifmt{"LDURH", IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDURSW, {ifmt{"LDURSW", IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDXR,  {ifmt{"LDXR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STUR,  {ifmt{"STUR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURB,  {ifmt{"STURB",  IFMT_D, 0, 8}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STURH, {ifmt{"STURH", IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STURW,  {ifmt{"STURW",  IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STXR,  {ifmt{"STXR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
 	/* PSEUDO INSTRUCTIONS */
 	{CMP,   {ifmt{"CMP",   IFMT_R, SUBS},  {afmt{REG,0}, afmt{REG,0}}}},        {CMPI,   {ifmt{"CMPI",  IFMT_I, SUBI},  {afmt{REG,0}, afmt{IMM,0}}}},
 	{LDA,   {ifmt{"LDA",   IFMT_I, ADDI},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},

@@ -1,3 +1,4 @@
+LDUR X20, [X3, 1];
 label:
 ADDI X31, X30, 0;
 ADDI X31, X30, 0;

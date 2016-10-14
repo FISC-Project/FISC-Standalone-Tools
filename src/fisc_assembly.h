@@ -15,10 +15,10 @@
 #include <bitset>
 
 typedef struct argument {
-	char arg_type;      /* Is it a register or immediate? */
-	char is_offset;     /* Is this argument inside an offset? example: [X0, #0], X0 and #0 are both inside an offset */
-	long long value;    /* The meaning of the value depends on the arg_type */
-	char * label;       /* This is only used by labels, and its purpose is for the program to find AFTER parsing what the label value is */
+	char arg_type;   /* Is it a register or immediate? */
+	char is_offset;  /* Is this argument inside an offset? example: [X0, #0], X0 and #0 are both inside an offset */
+	long long value; /* The meaning of the value depends on the arg_type */
+	char * label;    /* This is only used by labels, and its purpose is for the program to find AFTER parsing what the label value is */
 } argument_t;
 
 typedef struct argfmt {
@@ -30,6 +30,7 @@ typedef struct instruction_fmt {
 	std::string mnemonic;
 	char fmt;
 	unsigned int pseudo_opcode; /* If non zero, then this instruction is a pseudo instruction */
+	char width; /* How many bits does this instruction handle? (if 0 then it will be 64 by default) */
 } ifmt;
 
 typedef struct arglist {

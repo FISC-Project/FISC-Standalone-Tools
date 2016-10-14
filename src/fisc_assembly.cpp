@@ -231,7 +231,13 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 				fmt.dt_address = instr->args->arguments[2]->value;
 			else
 				fmt.dt_address = 0;
-			fmt.op = 0; /* TODO: Find out what to do with this field */
+			switch(instruction_lookup[instr->opcode].first.width) {
+				case 0:  fmt.op = 3; break;
+				case 8:  fmt.op = 0; break;
+				case 16: fmt.op = 1; break;
+				case 32: fmt.op = 2; break;
+				case 64: fmt.op = 3; break;
+			}
 			if(instr->args->argcount >= 2)
 				fmt.rn = instr->args->arguments[1]->value;
 			else
