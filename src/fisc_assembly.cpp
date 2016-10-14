@@ -148,10 +148,12 @@ void resolve_labels() {
 				    	switch(program[i].opcode) {
 				    	case BEQ: case BNE: case BLT: case BLE: case BGT: case BGE:
 				    	case BLO: case BLS: case BHI: case BHS: case BMI: case BPL:
-				    	case BVS: case BVC:
+				    	case BVS: case BVC: case B: case BL: case CBNZ: case CBZ:
 				    		arg->value = (unsigned long long)(it->second - i);
+				    		break;
 				    	default:
 				    		arg->value = it->second;
+				    		break;
 				    	}
 				    	found = 1;
 				    	break;

@@ -93,8 +93,10 @@
      LDA = 309,
      MOV = 310,
      MOVI = 311,
-     REGISTER = 312,
-     IMMEDIATE = 313
+     INC = 312,
+     DEC = 313,
+     REGISTER = 314,
+     IMMEDIATE = 315
    };
 #endif
 
@@ -117,7 +119,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 121 "parser.tab.h"
+#line 123 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

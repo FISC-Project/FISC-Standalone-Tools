@@ -116,6 +116,8 @@ WS  [ \t\v\n\f]
 	LDA    { yylval.sval = strdup(yytext); return LDA;    }
 	MOV    { yylval.sval = strdup(yytext); return MOV;    }
 	MOVI   { yylval.sval = strdup(yytext); return MOVI;   }
+	INC    { yylval.sval = strdup(yytext); return INC;   }
+	DEC    { yylval.sval = strdup(yytext); return DEC;   }
 
 	LSL { return LSL; }
 	

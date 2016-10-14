@@ -40,6 +40,7 @@
 %token<sval> CMP CMPI
 %token<sval> LDA
 %token<sval> MOV MOVI
+%token<sval> INC DEC
 
 %token<uival> REGISTER
 %token<llval> IMMEDIATE
@@ -91,5 +92,7 @@ special_cases:
 	| MOVI REGISTER ',' IDENTIFIER eol { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, 31), make_argument(1, 0, $4))); }
 	| MOVI REGISTER ',' IMMEDIATE  eol { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, 31), make_argument(1, 0, $4))); }
 	| LSL REGISTER ',' REGISTER ',' IMMEDIATE eol  { make_instruction((char*)"LSL",   make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); }
-			
+	| INC REGISTER eol { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $2), make_argument(1, 0, (long long)1))); }
+	| DEC REGISTER eol { make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $2), make_argument(1, 0, (long long)1))); }
+				
 %%
