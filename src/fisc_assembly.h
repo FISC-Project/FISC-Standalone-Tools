@@ -15,10 +15,11 @@
 #include <bitset>
 
 typedef struct argument {
-	char arg_type;   /* Is it a register or immediate? */
-	char is_offset;  /* Is this argument inside an offset? example: [X0, #0], X0 and #0 are both inside an offset */
-	long long value; /* The meaning of the value depends on the arg_type */
-	char * label;    /* This is only used by labels, and its purpose is for the program to find AFTER parsing what the label value is */
+	char arg_type;       /* Is it a register or immediate? */
+	char is_offset;      /* Is this argument inside an offset? example: [X0, #0], X0 and #0 are both inside an offset */
+	long long value;     /* The meaning of the value depends on the arg_type */
+	char * label;        /* This is only used by labels, and its purpose is for the program to find AFTER parsing what the label value is */
+	char shift_quadrant; /* The label's value will be inserted into the value field, but needs a shift value to do so */
 } argument_t;
 
 typedef struct argfmt {
@@ -94,6 +95,7 @@ extern char make_instruction(char * mnemonic, arglist_t * args);
 extern arglist_t * make_argument_list(unsigned int argcount, ...);
 extern argument_t * make_argument(char arg_type, char is_offset, long long value);
 extern argument_t * make_argument(char arg_type, char is_offset, char * label);
+extern argument_t * make_argument(char arg_type, char is_offset, char * label, char shift_quadrant);
 extern void free_argument_list(arglist_t * args);
 extern void add_label(std::string label_name, unsigned int line_number);
 extern void resolve_labels();

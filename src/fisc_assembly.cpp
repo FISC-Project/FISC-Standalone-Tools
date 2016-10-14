@@ -105,6 +105,7 @@ argument_t * make_argument(char arg_type, char is_offset, long long value) {
 	arg->is_offset = is_offset;
 	arg->value = value;
 	arg->label = 0;
+	arg->shift_quadrant = 0;
 	return arg;
 }
 
@@ -114,6 +115,17 @@ argument_t * make_argument(char arg_type, char is_offset, char * label) {
 	arg->is_offset = is_offset;
 	arg->value = -1;
 	arg->label = label;
+	arg->shift_quadrant = 0;
+	return arg;
+}
+
+argument_t * make_argument(char arg_type, char is_offset, char * label, char shift_quadrant) {
+	argument_t * arg = (argument_t*)malloc(sizeof(argument_t));
+	arg->arg_type = arg_type;
+	arg->is_offset = is_offset;
+	arg->value = -1;
+	arg->label = label;
+	arg->shift_quadrant = shift_quadrant;
 	return arg;
 }
 
@@ -148,11 +160,25 @@ void resolve_labels() {
 				    	switch(program[i].opcode) {
 				    	case BEQ: case BNE: case BLT: case BLE: case BGT: case BGE:
 				    	case BLO: case BLS: case BHI: case BHS: case BMI: case BPL:
-				    	case BVS: case BVC: case B: case BL: case CBNZ: case CBZ:
-				    		arg->value = (unsigned long long)(it->second - i);
+				    	case BVS: case BVC: case B: case BL: case CBNZ: case CBZ: {
+				    		switch(arg->shift_quadrant) {
+								case 1: arg->value = (it->second - i) & 0xFFFF; break; /* Insert lower 16 bits */
+								case 16: arg->value = ((it->second - i) & 0xFFFF0000) >> 16; break; /* Insert 2nd 16 bits */
+								case 32: arg->value = ((it->second - i) & 0xFFFF00000000) >> 32; break; /* Insert 3rd 16 bits */
+								case 48: arg->value = ((it->second - i) & 0xFFFF000000000000) >> 48; break; /* Insert 4th 16 bits */
+								case 0: default: arg->value = (unsigned long long)(it->second - i); break; /* Don't shift anything */
+								}
+				    		}
 				    		break;
-				    	default:
-				    		arg->value = it->second;
+				    	default: {
+				    		switch(arg->shift_quadrant) {
+								case 1: arg->value = it->second & 0xFFFF; break; /* Insert lower 16 bits */
+								case 16: arg->value = (it->second & 0xFFFF0000) >> 16; break; /* Insert 2nd 16 bits */
+								case 32: arg->value = (it->second & 0xFFFF00000000) >> 32; break; /* Insert 3rd 16 bits */
+								case 48: arg->value = (it->second & 0xFFFF000000000000) >> 48; break; /* Insert 4th 16 bits */
+								case 0: default: arg->value = it->second; break; /* Don't shift anything */
+				    		}
+				    		}
 				    		break;
 				    	}
 				    	found = 1;
