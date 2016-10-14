@@ -95,8 +95,19 @@
      MOVI = 311,
      INC = 312,
      DEC = 313,
-     REGISTER = 314,
-     IMMEDIATE = 315
+     NORR = 314,
+     NORRI = 315,
+     RET = 316,
+     PUSH = 317,
+     PUSHI = 318,
+     POP = 319,
+     SWP = 320,
+     NAND = 321,
+     NANDI = 322,
+     NEOR = 323,
+     NEORI = 324,
+     REGISTER = 325,
+     IMMEDIATE = 326
    };
 #endif
 
@@ -119,7 +130,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 123 "parser.tab.h"
+#line 134 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

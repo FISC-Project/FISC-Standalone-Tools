@@ -41,6 +41,12 @@
 %token<sval> LDA
 %token<sval> MOV MOVI
 %token<sval> INC DEC
+%token<sval> NORR NORRI
+%token<sval> RET
+%token<sval> PUSH PUSHI POP
+%token<sval> SWP
+%token<sval> NAND NANDI
+%token<sval> NEOR NEORI
 
 %token<uival> REGISTER
 %token<llval> IMMEDIATE
@@ -82,7 +88,7 @@ eol:
 	
 label: IDENTIFIER ':' { add_label($1, asm_lineno); }
 
-special_cases:
+special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 	  CMP REGISTER ',' REGISTER    eol { make_instruction((char*)"SUBS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, $2), make_argument(0, 0, $4))); }
 	| CMPI REGISTER ',' IDENTIFIER eol { make_instruction((char*)"SUBIS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, $2), make_argument(1, 0, $4))); }
 	| CMPI REGISTER ',' IMMEDIATE  eol { make_instruction((char*)"SUBIS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, $2), make_argument(1, 0, $4))); }
@@ -106,5 +112,69 @@ special_cases:
 	| LSL REGISTER ',' REGISTER ',' IMMEDIATE eol  { make_instruction((char*)"LSL",   make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); }
 	| INC REGISTER eol { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $2), make_argument(1, 0, (long long)1))); }
 	| DEC REGISTER eol { make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $2), make_argument(1, 0, (long long)1))); }
-				
+	| NORR REGISTER ',' REGISTER ',' REGISTER eol { 
+		make_instruction((char*)"ORR", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(0, 0, $6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| NORRI REGISTER ',' REGISTER ',' IMMEDIATE eol { 
+		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, (long long)$6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| NORRI REGISTER ',' REGISTER ',' IDENTIFIER eol { 
+		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| NAND REGISTER ',' REGISTER ',' REGISTER eol { 
+		make_instruction((char*)"AND", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(0, 0, $6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| NANDI REGISTER ',' REGISTER ',' IMMEDIATE eol { 
+		make_instruction((char*)"AND", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, (long long)$6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| NANDI REGISTER ',' REGISTER ',' IDENTIFIER eol { 
+		make_instruction((char*)"AND", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| RET eol { make_instruction((char*)"BR", make_argument_list(1, make_argument(0, 0, (long long)30))); }
+	| PUSH REGISTER eol {
+		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
+		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		adjust_labels_offset(2);
+	}
+	| PUSHI IMMEDIATE eol {
+		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
+		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, $2 & 0xFFFF), make_argument(1, 0, (long long)0))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ($2 & 0xFFFF0000) >> 16), make_argument(1, 0, (long long)16))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ($2 & 0xFFFF00000000) >> 32), make_argument(1, 0, (long long)32))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ($2 & 0xFFFF000000000000) >> 48), make_argument(1, 0, (long long)48))); 		
+		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		adjust_labels_offset(6);
+	}
+	| PUSHI IDENTIFIER eol {
+		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
+		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, $2, 1),  make_argument(1, 0, (long long)0))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, $2, 16), make_argument(1, 0, (long long)16))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, $2, 32), make_argument(1, 0, (long long)32))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, $2, 48), make_argument(1, 0, (long long)48))); 
+		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		adjust_labels_offset(6);
+	}
+	| POP REGISTER eol {
+		make_instruction((char*)"LDUR", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
+		adjust_labels_offset(2);
+	}
+	| SWP REGISTER ',' REGISTER eol {
+		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 0, $2), make_argument(1, 0, (long long)0)));
+		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, (long long)0)));
+		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $4), make_argument(0, 0, (long long)9), make_argument(1, 0, (long long)0)));
+		adjust_labels_offset(3);	
+	}
 %%

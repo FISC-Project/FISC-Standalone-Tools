@@ -116,8 +116,19 @@ WS  [ \t\v\n\f]
 	LDA    { yylval.sval = strdup(yytext); return LDA;    }
 	MOV    { yylval.sval = strdup(yytext); return MOV;    }
 	MOVI   { yylval.sval = strdup(yytext); return MOVI;   }
-	INC    { yylval.sval = strdup(yytext); return INC;   }
-	DEC    { yylval.sval = strdup(yytext); return DEC;   }
+	INC    { yylval.sval = strdup(yytext); return INC;    }
+	DEC    { yylval.sval = strdup(yytext); return DEC;    }
+	NORR   { yylval.sval = strdup(yytext); return NORR;   }
+	NORRI  { yylval.sval = strdup(yytext); return NORRI;  }
+	RET    { yylval.sval = strdup(yytext); return RET;    }
+	PUSH   { yylval.sval = strdup(yytext); return PUSH;   }
+	PUSHI  { yylval.sval = strdup(yytext); return PUSHI;  }
+	POP    { yylval.sval = strdup(yytext); return POP;    }
+	SWP    { yylval.sval = strdup(yytext); return SWP;    }
+	NAND   { yylval.sval = strdup(yytext); return NAND;   }
+	NANDI  { yylval.sval = strdup(yytext); return NANDI;  }
+	NEOR   { yylval.sval = strdup(yytext); return NEOR;   }
+	NEORI  { yylval.sval = strdup(yytext); return NEORI;  }
 
 	LSL { return LSL; }
 	
