@@ -97,6 +97,7 @@ extern argument_t * make_argument(char arg_type, char is_offset, char * label);
 extern void free_argument_list(arglist_t * args);
 extern void add_label(std::string label_name, unsigned int line_number);
 extern void resolve_labels();
+extern void adjust_labels_offset(unsigned int offset_amount);
 extern std::bitset<32> instruction_to_binary(instruction_t * instr);
 
 #endif /* SRC_FISC_ASSEMBLY_H_ */

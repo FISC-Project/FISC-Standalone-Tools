@@ -41,7 +41,7 @@ char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args
 	for(int i = 0; i < argfmts->size(); i++) {
 		afmt fmt = (*argfmts)[i];
 		/* Check if fields match: */
-		if(fmt.arg_type != args->arguments[i]->arg_type)   return 0;
+		if(fmt.arg_type  != args->arguments[i]->arg_type)  return 0;
 		if(fmt.is_offset != args->arguments[i]->is_offset) return 0;
 	}
 	return 1;
@@ -167,6 +167,12 @@ void resolve_labels() {
 			}
 		}
 	}
+}
+
+extern int asm_lineno;
+
+void adjust_labels_offset(unsigned int offset_amount) {
+	asm_lineno += offset_amount - 1;
 }
 
 std::bitset<32> instruction_to_binary(instruction_t * instr) {

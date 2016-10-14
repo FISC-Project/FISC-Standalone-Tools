@@ -32,6 +32,8 @@ enum OPCODES {
 	AND = 0x450, ANDI = 0x490, ANDIS = 0x790, ANDS = 0x750,
 	ORR = 0x550, ORRI = 0x590,
 	EOR = 0x650, EORI = 0x690,
+	NEG = 0x768, NEGI = 0x388,
+	NOT = 0x769, NOTI = 0x288,
 	LSL = 0x69B, LSR = 0x69A,
 	MOVK = 0x794, MOVZ = 0x694,
 	/* BRANCHING */
@@ -64,6 +66,8 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	{EOR,   {ifmt{"EOR",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,0}}}}, {EORI,   {ifmt{"EORI",  IFMT_I},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
 	{LSL,   {ifmt{"LSL",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}}, {LSR,    {ifmt{"LSR",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}, afmt{IMM,0}}}},
 	{MOVK,  {ifmt{"MOVK", IFMT_IW},  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}}, {MOVZ,   {ifmt{"MOVZ", IFMT_IW},  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}},
+	{NEG,   {ifmt{"NEG",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}}}},              {NEGI,   {ifmt{"NEGI",  IFMT_I},  {afmt{REG,0}, afmt{IMM,0}}}},
+	{NOT,   {ifmt{"NOT",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}}}},              {NOTI,   {ifmt{"NOTI",  IFMT_I},  {afmt{REG,0}, afmt{IMM,0}}}},
 	/* BRANCHING */
 	{B,     {ifmt{"B",     IFMT_B},  {afmt{IMM,0}}}},                           {BL,     {ifmt{"BL",    IFMT_B},  {afmt{IMM,0}}}},
 	{BR,    {ifmt{"BR",    IFMT_R},  {afmt{REG,0}}}},                           {CBNZ,   {ifmt{"CBNZ", IFMT_CB},  {afmt{REG,0}, afmt{IMM,0}}}},
