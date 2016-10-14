@@ -90,7 +90,12 @@ special_cases:
 	| LDA REGISTER ',' REGISTER ',' IMMEDIATE eol  { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); }
 	| MOV REGISTER ',' REGISTER eol { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, (long long)0))); }
 	| MOVI REGISTER ',' IDENTIFIER eol { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, 31), make_argument(1, 0, $4))); }
-	| MOVI REGISTER ',' IMMEDIATE  eol { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, 31), make_argument(1, 0, $4))); }
+	| MOVI REGISTER ',' IMMEDIATE  eol { 
+		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, $2), make_argument(1, 0, $4 & 0xFFFF), make_argument(1, 0, (long long)0))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, $2), make_argument(1, 0, ($4 & 0xFFFF0000) >> 16), make_argument(1, 0, (long long)16))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, $2), make_argument(1, 0, ($4 & 0xFFFF00000000) >> 32), make_argument(1, 0, (long long)32))); 
+		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, $2), make_argument(1, 0, ($4 & 0xFFFF000000000000) >> 48), make_argument(1, 0, (long long)48))); 
+	}
 	| LSL REGISTER ',' REGISTER ',' IMMEDIATE eol  { make_instruction((char*)"LSL",   make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); }
 	| INC REGISTER eol { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $2), make_argument(1, 0, (long long)1))); }
 	| DEC REGISTER eol { make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $2), make_argument(1, 0, (long long)1))); }
