@@ -47,6 +47,7 @@
 %token<sval> SWP
 %token<sval> NAND NANDI
 %token<sval> NEOR NEORI
+%token<sval> HALT
 
 %token<uival> REGISTER
 %token<llval> IMMEDIATE
@@ -118,7 +119,7 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 		adjust_labels_offset(2);
 	}
 	| NORRI REGISTER ',' REGISTER ',' IMMEDIATE eol { 
-		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, (long long)$6))); 
+		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
 		adjust_labels_offset(2);
 	}
@@ -133,12 +134,27 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 		adjust_labels_offset(2);
 	}
 	| NANDI REGISTER ',' REGISTER ',' IMMEDIATE eol { 
-		make_instruction((char*)"AND", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, (long long)$6))); 
+		make_instruction((char*)"ANDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
 		adjust_labels_offset(2);
 	}
 	| NANDI REGISTER ',' REGISTER ',' IDENTIFIER eol { 
-		make_instruction((char*)"AND", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); 
+		make_instruction((char*)"ANDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| NEOR REGISTER ',' REGISTER ',' REGISTER eol { 
+		make_instruction((char*)"EOR", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(0, 0, $6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| NEORI REGISTER ',' REGISTER ',' IMMEDIATE eol { 
+		make_instruction((char*)"EORI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
+		adjust_labels_offset(2);
+	}
+	| NEORI REGISTER ',' REGISTER ',' IDENTIFIER eol { 
+		make_instruction((char*)"EORI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, $4), make_argument(1, 0, $6))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, $2), make_argument(0, 0, $2))); 
 		adjust_labels_offset(2);
 	}
@@ -177,4 +193,5 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $4), make_argument(0, 0, (long long)9), make_argument(1, 0, (long long)0)));
 		adjust_labels_offset(3);	
 	}
+	| HALT eol { make_instruction((char*)"B", make_argument_list(1, make_argument(1, 0, (long long)0))); }
 %%

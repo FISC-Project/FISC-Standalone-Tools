@@ -70,7 +70,7 @@ WS  [ \t\v\n\f]
 "<"	 return '<';
 
 	/* Keywords/Opcodes: */
-	/*ADD    { yylval.sval = strdup(yytext); return ADD;    }
+	/*ADD  { yylval.sval = strdup(yytext); return ADD;    }
 	ADDI   { yylval.sval = strdup(yytext); return ADDI;   }
 	ADDIS  { yylval.sval = strdup(yytext); return ADDIS;  }
 	ADDS   { yylval.sval = strdup(yytext); return ADDS;   }
@@ -129,8 +129,9 @@ WS  [ \t\v\n\f]
 	NANDI  { yylval.sval = strdup(yytext); return NANDI;  }
 	NEOR   { yylval.sval = strdup(yytext); return NEOR;   }
 	NEORI  { yylval.sval = strdup(yytext); return NEORI;  }
+	HALT   { yylval.sval = strdup(yytext); return HALT;   }
 
-	LSL { return LSL; }
+	LSL { return LSL; } // Not a pseudoinstruction
 	
 	/* Arguments (for example, a Register): */
 X[0-9]+ { yylval.uival = atoi(yytext+1); return REGISTER;                      } // Normal Register
