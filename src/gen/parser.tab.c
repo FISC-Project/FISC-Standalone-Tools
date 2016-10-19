@@ -531,10 +531,10 @@ static const yytype_uint8 yyrline[] =
 {
        0,    58,    58,    60,    61,    62,    66,    70,    71,    72,
       73,    74,    75,    76,    77,    78,    79,    80,    81,    82,
-      83,    84,    85,    88,    89,    91,    94,    95,   104,   113,
-     114,   115,   116,   125,   134,   135,   136,   137,   142,   147,
-     152,   157,   162,   167,   172,   177,   182,   183,   188,   198,
-     208,   213,   219,   220
+      83,    84,    85,    88,    89,    91,    94,    95,   105,   115,
+     116,   117,   118,   127,   136,   137,   138,   139,   144,   149,
+     154,   159,   164,   169,   174,   179,   184,   185,   190,   201,
+     212,   217,   223,   224
 };
 #endif
 
@@ -1694,52 +1694,54 @@ yyreduce:
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 16), make_argument(1, 0, (long long)16))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 32), make_argument(1, 0, (long long)32))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 48), make_argument(1, 0, (long long)48))); 
-		make_instruction((char*)"SUBS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (long long)9))); 
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
-		adjust_labels_offset(6);
+		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
+		make_instruction((char*)"SUBS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (long long)9))); 
+		adjust_labels_offset(7);
 	;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 104 "src/parser.y"
+#line 105 "src/parser.y"
     { 
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(4) - (5)].llval) & 0xFFFF),  make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ((yyvsp[(4) - (5)].llval) & 0xFFFF0000) >> 16), make_argument(1, 0, (long long)16))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ((yyvsp[(4) - (5)].llval) & 0xFFFF00000000) >> 32), make_argument(1, 0, (long long)32))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ((yyvsp[(4) - (5)].llval) & 0xFFFF000000000000) >> 48), make_argument(1, 0, (long long)48))); 
-		make_instruction((char*)"SUBS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (long long)9))); 
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
-		adjust_labels_offset(6);
+		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
+		make_instruction((char*)"SUBS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (long long)9))); 
+		adjust_labels_offset(7);
 	;}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 113 "src/parser.y"
+#line 115 "src/parser.y"
     { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); ;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 114 "src/parser.y"
+#line 116 "src/parser.y"
     { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); ;}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 115 "src/parser.y"
+#line 117 "src/parser.y"
     { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].uival)), make_argument(1, 0, (long long)0))); ;}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 116 "src/parser.y"
+#line 118 "src/parser.y"
     {
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 1),  make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 16), make_argument(1, 0, (long long)16))); 
@@ -1754,7 +1756,7 @@ yyreduce:
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 125 "src/parser.y"
+#line 127 "src/parser.y"
     { 
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (yyvsp[(4) - (5)].llval) & 0xFFFF), make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, ((yyvsp[(4) - (5)].llval) & 0xFFFF0000) >> 16), make_argument(1, 0, (long long)16))); 
@@ -1769,28 +1771,28 @@ yyreduce:
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 134 "src/parser.y"
+#line 136 "src/parser.y"
     { make_instruction((char*)"LSL",   make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); ;}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 135 "src/parser.y"
+#line 137 "src/parser.y"
     { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(1, 0, (long long)1))); ;}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 136 "src/parser.y"
+#line 138 "src/parser.y"
     { make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(1, 0, (long long)1))); ;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 137 "src/parser.y"
+#line 139 "src/parser.y"
     { 
 		make_instruction((char*)"ORR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1801,7 +1803,7 @@ yyreduce:
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 142 "src/parser.y"
+#line 144 "src/parser.y"
     { 
 		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1812,7 +1814,7 @@ yyreduce:
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 147 "src/parser.y"
+#line 149 "src/parser.y"
     { 
 		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1823,7 +1825,7 @@ yyreduce:
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 152 "src/parser.y"
+#line 154 "src/parser.y"
     { 
 		make_instruction((char*)"AND", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1834,7 +1836,7 @@ yyreduce:
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 157 "src/parser.y"
+#line 159 "src/parser.y"
     { 
 		make_instruction((char*)"ANDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1845,7 +1847,7 @@ yyreduce:
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 162 "src/parser.y"
+#line 164 "src/parser.y"
     { 
 		make_instruction((char*)"ANDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1856,7 +1858,7 @@ yyreduce:
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 167 "src/parser.y"
+#line 169 "src/parser.y"
     { 
 		make_instruction((char*)"EOR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1867,7 +1869,7 @@ yyreduce:
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 172 "src/parser.y"
+#line 174 "src/parser.y"
     { 
 		make_instruction((char*)"EORI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1878,7 +1880,7 @@ yyreduce:
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 177 "src/parser.y"
+#line 179 "src/parser.y"
     { 
 		make_instruction((char*)"EORI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
@@ -1889,14 +1891,14 @@ yyreduce:
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 182 "src/parser.y"
+#line 184 "src/parser.y"
     { make_instruction((char*)"BR", make_argument_list(1, make_argument(0, 0, (long long)30))); ;}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 183 "src/parser.y"
+#line 185 "src/parser.y"
     {
 		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
 		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
@@ -1907,39 +1909,41 @@ yyreduce:
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 188 "src/parser.y"
+#line 190 "src/parser.y"
     {
 		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].llval) & 0xFFFF), make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ((yyvsp[(2) - (3)].llval) & 0xFFFF0000) >> 16), make_argument(1, 0, (long long)16))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ((yyvsp[(2) - (3)].llval) & 0xFFFF00000000) >> 32), make_argument(1, 0, (long long)32))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ((yyvsp[(2) - (3)].llval) & 0xFFFF000000000000) >> 48), make_argument(1, 0, (long long)48))); 		
-		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
-		adjust_labels_offset(7);
+		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));		
+		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		adjust_labels_offset(8);
 	;}
     break;
 
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 198 "src/parser.y"
+#line 201 "src/parser.y"
     {
 		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].sval), 1),  make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].sval), 16), make_argument(1, 0, (long long)16))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].sval), 32), make_argument(1, 0, (long long)32))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].sval), 48), make_argument(1, 0, (long long)48))); 
-		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
-		adjust_labels_offset(7);
+		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
+		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		adjust_labels_offset(8);
 	;}
     break;
 
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 208 "src/parser.y"
+#line 212 "src/parser.y"
     {
 		make_instruction((char*)"LDUR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
@@ -1950,7 +1954,7 @@ yyreduce:
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 213 "src/parser.y"
+#line 217 "src/parser.y"
     {
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (long long)0)));
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].uival)), make_argument(1, 0, (long long)0)));
@@ -1962,21 +1966,21 @@ yyreduce:
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 219 "src/parser.y"
+#line 223 "src/parser.y"
     { make_instruction((char*)"B", make_argument_list(1, make_argument(1, 0, (long long)0))); ;}
     break;
 
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 220 "src/parser.y"
+#line 224 "src/parser.y"
     { make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31))); ;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1980 "parser.tab.c"
+#line 1984 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2188,6 +2192,6 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 221 "src/parser.y"
+#line 225 "src/parser.y"
 
 
