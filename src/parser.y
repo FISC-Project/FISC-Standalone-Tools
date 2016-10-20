@@ -49,6 +49,7 @@
 %token<sval> NEOR NEORI
 %token<sval> HALT
 %token<sval> NOP
+%token<sval> LDPC
 
 %token<uival> REGISTER
 %token<llval> IMMEDIATE
@@ -222,4 +223,10 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 	}
 	| HALT eol { make_instruction((char*)"B", make_argument_list(1, make_argument(1, 0, (long long)0))); }
 	| NOP  eol { make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31))); }
+	| LDPC eol { 
+		make_instruction((char*)"BL", make_argument_list(1, make_argument(1, 0, 1)));
+		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
+		adjust_labels_offset(2);
+	}
+
 %%

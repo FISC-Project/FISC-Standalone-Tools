@@ -131,6 +131,7 @@ WS  [ \t\v\n\f]
 	NEORI  { yylval.sval = strdup(yytext); return NEORI;  }
 	HALT   { yylval.sval = strdup(yytext); return HALT;   }
 	NOP    { yylval.sval = strdup(yytext); return NOP;    }
+	LDPC   { yylval.sval = strdup(yytext); return LDPC;   }
 
 	LSL { return LSL; } // Not a pseudoinstruction
 	
