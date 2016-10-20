@@ -132,6 +132,7 @@ WS  [ \t\v\n\f]
 	HALT   { yylval.sval = strdup(yytext); return HALT;   }
 	NOP    { yylval.sval = strdup(yytext); return NOP;    }
 	LDPC   { yylval.sval = strdup(yytext); return LDPC;   }
+	BW     { yylval.sval = strdup(yytext); return BW;     }
 
 	LSL { return LSL; } // Not a pseudoinstruction
 	
