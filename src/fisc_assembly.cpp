@@ -212,8 +212,6 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	std::string mnemonic_mul("MUL");
 	std::string mnemonic_sdiv("SDIV");
 	std::string mnemonic_udiv("UDIV");
-	std::string mnemonic_msr("MSR");
-	std::string menmonic_mrs("MRS");
 
 	std::transform(mnemonic_str.begin(),  mnemonic_str.end(),  mnemonic_str.begin(),  ::tolower);
 	std::transform(mnemonic_lsl.begin(),  mnemonic_lsl.end(),  mnemonic_lsl.begin(),  ::tolower);
@@ -221,8 +219,6 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	std::transform(mnemonic_mul.begin(),  mnemonic_mul.end(),  mnemonic_mul.begin(),  ::tolower);
 	std::transform(mnemonic_sdiv.begin(), mnemonic_sdiv.end(), mnemonic_sdiv.begin(), ::tolower);
 	std::transform(mnemonic_udiv.begin(), mnemonic_udiv.end(), mnemonic_udiv.begin(), ::tolower);
-	std::transform(mnemonic_msr.begin(),  mnemonic_msr.end(),  mnemonic_msr.begin(),  ::tolower);
-	std::transform(menmonic_mrs.begin(),  menmonic_mrs.end(),  menmonic_mrs.begin(),  ::tolower);
 
 	if(!strcmp(mnemonic_str.c_str(), mnemonic_lsl.c_str()) || !strcmp(mnemonic_str.c_str(), mnemonic_lsr.c_str()))
 		if(instr->args->argcount >= 3)
