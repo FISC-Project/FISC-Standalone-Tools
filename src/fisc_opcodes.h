@@ -45,6 +45,8 @@ enum OPCODES {
 	/* LOAD AND STORE */
 	LDR = 0x7C2, LDRB = 0x1C2, LDRH = 0x3C2, LDRSW = 0x5C4,  LDXR = 0x642,
 	STR = 0x7C0, STRB = 0x1C0, STRH = 0x3C0, STRW  = 0x5C0,  STXR = 0x640,
+	/* CPU STATUS CONTROL */
+	MSR = 0x614, MRS  = 0x5F4
 };
 
 std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup = {
@@ -82,6 +84,9 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	{STR,   {ifmt{"STR",   IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRB,  {ifmt{"STRB",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
 	{STRH,  {ifmt{"STRH",  IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRW,  {ifmt{"STRW",  IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
 	{STXR,  {ifmt{"STXR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
+	/* CPU STATUS CONTROL */
+	{MSR,   {ifmt{"MSR",   IFMT_R},         {afmt{REG,0}, afmt{REG,0}}}},              {MRS,   {ifmt{"MRS",   IFMT_R},        {afmt{REG,0}, afmt{REG,0}}}},
+
 };
 
 #endif /* SRC_FISC_OPCODES_H_ */
