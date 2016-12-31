@@ -34,8 +34,14 @@
 /* BRANCHING */
 %token<sval> B BCOND BL BR CBNZ CBZ
 /* LOAD AND STORE */
-%token<sval> LDUR LDURB LDURH LDURSW LDXR
-%token<sval> STUR STURB STURH STURW STXR
+%token<sval> LDR LDRB LDRH LDRSW LDXR
+%token<sval> STR STRB STRH STRW STXR
+/* CPU STATUS CONTROL */
+
+/* INTERRUPTS */
+
+/* VIRTUAL MEMORY */
+
 /* PSEUDO INSTRUCTIONS */
 %token<sval> CMP CMPI
 %token<sval> LDA
@@ -192,7 +198,7 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 	| RET eol { make_instruction((char*)"BR", make_argument_list(1, make_argument(0, 0, (long long)30))); }
 	| PUSH REGISTER eol {
 		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
-		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		make_instruction((char*)"STR", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
 		adjust_labels_offset(2);
 	}
 	| PUSHI IMMEDIATE eol {
@@ -203,7 +209,7 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ($2 & 0xFFFF000000000000) >> 48), make_argument(1, 0, (long long)48))); 		
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));		
-		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		make_instruction((char*)"STR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
 		adjust_labels_offset(8);
 	}
 	| PUSHI IDENTIFIER eol {
@@ -214,11 +220,11 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, $2, 48), make_argument(1, 0, (long long)48))); 
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
-		make_instruction((char*)"STUR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		make_instruction((char*)"STR", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
 		adjust_labels_offset(8);
 	}
 	| POP REGISTER eol {
-		make_instruction((char*)"LDUR", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
+		make_instruction((char*)"LDR", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
 		adjust_labels_offset(2);
 	}

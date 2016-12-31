@@ -928,295 +928,254 @@ YY_RULE_SETUP
 #line 70 "src/lex.l"
 return '<';
 	YY_BREAK
-/* Keywords/Opcodes: */
-/*ADD  { yylval.sval = strdup(yytext); return ADD;    }
-	ADDI   { yylval.sval = strdup(yytext); return ADDI;   }
-	ADDIS  { yylval.sval = strdup(yytext); return ADDIS;  }
-	ADDS   { yylval.sval = strdup(yytext); return ADDS;   }
-	SUB    { yylval.sval = strdup(yytext); return SUB;    }
-	SUBI   { yylval.sval = strdup(yytext); return SUBI;   }
-	SUBIS  { yylval.sval = strdup(yytext); return SUBIS;  }
-	SUBS   { yylval.sval = strdup(yytext); return SUBS;   }
-	MUL    { yylval.sval = strdup(yytext); return MUL;    }
-	SMULH  { yylval.sval = strdup(yytext); return SMULH;  }
-	UMULH  { yylval.sval = strdup(yytext); return UMULH;  }
-	SDIV   { yylval.sval = strdup(yytext); return SDIV;   }
-	UDIV   { yylval.sval = strdup(yytext); return UDIV;   }
-	AND    { yylval.sval = strdup(yytext); return AND;    }
-	ANDI   { yylval.sval = strdup(yytext); return ANDI;   }
-	ANDIS  { yylval.sval = strdup(yytext); return ANDIS;  }
-	ANDS   { yylval.sval = strdup(yytext); return ANDS;   }
-	ORR    { yylval.sval = strdup(yytext); return ORR;    }
-	ORRI   { yylval.sval = strdup(yytext); return ORRI;   }
-	EOR    { yylval.sval = strdup(yytext); return EOR;    }
-	EORI   { yylval.sval = strdup(yytext); return EORI;   }
-	LSL    { yylval.sval = strdup(yytext); return LSL;    }
-	LSR    { yylval.sval = strdup(yytext); return LSR;    }
-	MOVK   { yylval.sval = strdup(yytext); return MOVK;   }
-	MOVZ   { yylval.sval = strdup(yytext); return MOVZ;   }
-	B      { yylval.sval = strdup(yytext); return B;      }
-	BCOND  { yylval.sval = strdup(yytext); return BCOND;  }
-	BL     { yylval.sval = strdup(yytext); return BL;     }
-	BR     { yylval.sval = strdup(yytext); return BR;     }
-	CBNZ   { yylval.sval = strdup(yytext); return CBNZ;   }
-	CBZ    { yylval.sval = strdup(yytext); return CBZ;    }
-	LDUR   { yylval.sval = strdup(yytext); return LDUR;   }
-	LDURB  { yylval.sval = strdup(yytext); return LDURB;  }
-	LDURH  { yylval.sval = strdup(yytext); return LDURH;  }
-	LDURSW { yylval.sval = strdup(yytext); return LDURSW; }
-	LDXR   { yylval.sval = strdup(yytext); return LDXR;   }
-	STUR   { yylval.sval = strdup(yytext); return STUR;   }
-	STURB  { yylval.sval = strdup(yytext); return STURB;  }
-	STURH  { yylval.sval = strdup(yytext); return STURH;  }
-	STURW  { yylval.sval = strdup(yytext); return STURW;  }
-	STXR   { yylval.sval = strdup(yytext); return STXR;   }*/
+/* Pseudoinstructions: */
 case 31:
 YY_RULE_SETUP
-#line 114 "src/lex.l"
+#line 73 "src/lex.l"
 { yylval.sval = strdup(yytext); return CMP;    }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 115 "src/lex.l"
+#line 74 "src/lex.l"
 { yylval.sval = strdup(yytext); return CMPI;   }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 116 "src/lex.l"
+#line 75 "src/lex.l"
 { yylval.sval = strdup(yytext); return LDA;    }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 117 "src/lex.l"
+#line 76 "src/lex.l"
 { yylval.sval = strdup(yytext); return MOV;    }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 118 "src/lex.l"
+#line 77 "src/lex.l"
 { yylval.sval = strdup(yytext); return MOVI;   }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 119 "src/lex.l"
+#line 78 "src/lex.l"
 { yylval.sval = strdup(yytext); return INC;    }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 120 "src/lex.l"
+#line 79 "src/lex.l"
 { yylval.sval = strdup(yytext); return DEC;    }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 121 "src/lex.l"
+#line 80 "src/lex.l"
 { yylval.sval = strdup(yytext); return NORR;   }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 122 "src/lex.l"
+#line 81 "src/lex.l"
 { yylval.sval = strdup(yytext); return NORRI;  }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 123 "src/lex.l"
+#line 82 "src/lex.l"
 { yylval.sval = strdup(yytext); return RET;    }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 124 "src/lex.l"
+#line 83 "src/lex.l"
 { yylval.sval = strdup(yytext); return PUSH;   }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 125 "src/lex.l"
+#line 84 "src/lex.l"
 { yylval.sval = strdup(yytext); return PUSHI;  }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 126 "src/lex.l"
+#line 85 "src/lex.l"
 { yylval.sval = strdup(yytext); return POP;    }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 127 "src/lex.l"
+#line 86 "src/lex.l"
 { yylval.sval = strdup(yytext); return SWP;    }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 128 "src/lex.l"
+#line 87 "src/lex.l"
 { yylval.sval = strdup(yytext); return NAND;   }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 129 "src/lex.l"
+#line 88 "src/lex.l"
 { yylval.sval = strdup(yytext); return NANDI;  }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 130 "src/lex.l"
+#line 89 "src/lex.l"
 { yylval.sval = strdup(yytext); return NEOR;   }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 131 "src/lex.l"
+#line 90 "src/lex.l"
 { yylval.sval = strdup(yytext); return NEORI;  }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 132 "src/lex.l"
+#line 91 "src/lex.l"
 { yylval.sval = strdup(yytext); return HALT;   }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 133 "src/lex.l"
+#line 92 "src/lex.l"
 { yylval.sval = strdup(yytext); return NOP;    }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 134 "src/lex.l"
+#line 93 "src/lex.l"
 { yylval.sval = strdup(yytext); return LDPC;   }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 135 "src/lex.l"
+#line 94 "src/lex.l"
 { yylval.sval = strdup(yytext); return BW;     }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 137 "src/lex.l"
-{ return LSL; } // Not a pseudoinstruction
+#line 96 "src/lex.l"
+{ return LSL; } /* Not a pseudoinstruction */
 	YY_BREAK
 /* Arguments (for example, a Register): */
 case 54:
 YY_RULE_SETUP
-#line 140 "src/lex.l"
-{ yylval.uival = atoi(yytext+1); return REGISTER;                      } // Normal Register
+#line 99 "src/lex.l"
+{ yylval.uival = atoi(yytext+1);            return REGISTER;  } // Normal Register
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 141 "src/lex.l"
-{ yylval.uival = 16; return REGISTER;                                  } // Temporary Register
+#line 100 "src/lex.l"
+{ yylval.uival = 16;                        return REGISTER;  } // Temporary Register
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 142 "src/lex.l"
-{ yylval.uival = 17; return REGISTER;                                  } // Temporary Register
+#line 101 "src/lex.l"
+{ yylval.uival = 17;                        return REGISTER;  } // Temporary Register
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 143 "src/lex.l"
-{ yylval.uival = 31; return REGISTER;                                  } // Register Zero
+#line 102 "src/lex.l"
+{ yylval.uival = 31;                        return REGISTER;  } // Register Zero
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 144 "src/lex.l"
-{ yylval.uival = 28; return REGISTER;                                  } // Stack Pointer
+#line 103 "src/lex.l"
+{ yylval.uival = 28;                        return REGISTER;  } // Stack Pointer
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 145 "src/lex.l"
-{ yylval.uival = 29; return REGISTER;                                  } // Frame Pointer
+#line 104 "src/lex.l"
+{ yylval.uival = 29;                        return REGISTER;  } // Frame Pointer
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 146 "src/lex.l"
-{ yylval.uival = 30; return REGISTER;                                  } // Return Address
+#line 105 "src/lex.l"
+{ yylval.uival = 30;                        return REGISTER;  } // Return Address
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 147 "src/lex.l"
-{ yylval.llval = strtoull(yytext, 0, 10);  return IMMEDIATE;     } // Immediate Decimal (normal number)
+#line 106 "src/lex.l"
+{ yylval.llval = strtoull(yytext, 0, 10);   return IMMEDIATE; } // Immediate Decimal (normal number)
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 148 "src/lex.l"
-{ yylval.llval = strtoull(yytext, 0, 16);  return IMMEDIATE;     } // Immediate Hexadecimal
+#line 107 "src/lex.l"
+{ yylval.llval = strtoull(yytext, 0, 16);   return IMMEDIATE; } // Immediate Hexadecimal
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 149 "src/lex.l"
-{ yylval.llval = strtoull(yytext+2, 0, 2); return IMMEDIATE;     } // Immediate Binary
+#line 108 "src/lex.l"
+{ yylval.llval = strtoull(yytext+2, 0, 2);  return IMMEDIATE; } // Immediate Binary
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 150 "src/lex.l"
-{ yylval.llval = strtoull(yytext+1, 0, 8); return IMMEDIATE;     } // Immediate Octal
+#line 109 "src/lex.l"
+{ yylval.llval = strtoull(yytext+1, 0, 8);  return IMMEDIATE; } // Immediate Octal
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 151 "src/lex.l"
-{ yylval.llval = strtoull(yytext, 0, 10);  return IMMEDIATE;  } // Immediate Negative Decimal (normal number)
+#line 110 "src/lex.l"
+{ yylval.llval = strtoull(yytext, 0, 10);   return IMMEDIATE; } // Immediate Negative Decimal (normal number)
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 152 "src/lex.l"
-{ yylval.llval = strtoull(yytext, 0, 16);  return IMMEDIATE;  } // Immediate Negative Hexadecimal
+#line 111 "src/lex.l"
+{ yylval.llval = strtoull(yytext, 0, 16);   return IMMEDIATE; } // Immediate Negative Hexadecimal
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 153 "src/lex.l"
+#line 112 "src/lex.l"
 { yylval.llval = -strtoull(yytext+3, 0, 2); return IMMEDIATE; } // Immediate Negative Binary
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 154 "src/lex.l"
-{ yylval.llval = -strtoull(yytext+1, 0, 8); return IMMEDIATE;   } // Immediate Negative Octal
+#line 113 "src/lex.l"
+{ yylval.llval = -strtoull(yytext+1, 0, 8); return IMMEDIATE; } // Immediate Negative Octal
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 156 "src/lex.l"
+#line 115 "src/lex.l"
 { yylval.fval = atof(yytext); return F_CONSTANT; }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 157 "src/lex.l"
+#line 116 "src/lex.l"
 { yylval.fval = atof(yytext); return F_CONSTANT; }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 158 "src/lex.l"
+#line 117 "src/lex.l"
 { yylval.fval = atof(yytext); return F_CONSTANT; }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 159 "src/lex.l"
+#line 118 "src/lex.l"
 { yylval.fval = atof(yytext); return F_CONSTANT; }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 160 "src/lex.l"
+#line 119 "src/lex.l"
 { yylval.fval = atof(yytext); return F_CONSTANT; }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 161 "src/lex.l"
+#line 120 "src/lex.l"
 { yylval.fval = atof(yytext); return F_CONSTANT; }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 163 "src/lex.l"
+#line 122 "src/lex.l"
 { yylval.sval = new char[strlen(yytext)+1]; strcpy(yylval.sval, yytext); return STRING_LITERAL; }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 164 "src/lex.l"
+#line 123 "src/lex.l"
 { return sym_check_type(); }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 165 "src/lex.l"
+#line 124 "src/lex.l"
 ;
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 166 "src/lex.l"
+#line 125 "src/lex.l"
 lineno++;
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 168 "src/lex.l"
+#line 127 "src/lex.l"
 ECHO;
 	YY_BREAK
-#line 1220 "lex.yy.c"
+#line 1179 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2102,5 +2061,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 168 "src/lex.l"
+#line 127 "src/lex.l"
 

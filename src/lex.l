@@ -34,8 +34,8 @@ WS  [ \t\v\n\f]
 %%
 
 	/* Comments: */
-"/*"			{ comment(); }
-"//".*			{ /* consume //-comment */ }
+"/*"	{ comment(); }
+"//".*	{ /* consume //-comment */ }
 
 	/* Single characters: */
 ";"	 return ';';
@@ -69,89 +69,48 @@ WS  [ \t\v\n\f]
 ">"	 return '>';
 "<"	 return '<';
 
-	/* Keywords/Opcodes: */
-	/*ADD  { yylval.sval = strdup(yytext); return ADD;    }
-	ADDI   { yylval.sval = strdup(yytext); return ADDI;   }
-	ADDIS  { yylval.sval = strdup(yytext); return ADDIS;  }
-	ADDS   { yylval.sval = strdup(yytext); return ADDS;   }
-	SUB    { yylval.sval = strdup(yytext); return SUB;    }
-	SUBI   { yylval.sval = strdup(yytext); return SUBI;   }
-	SUBIS  { yylval.sval = strdup(yytext); return SUBIS;  }
-	SUBS   { yylval.sval = strdup(yytext); return SUBS;   }
-	MUL    { yylval.sval = strdup(yytext); return MUL;    }
-	SMULH  { yylval.sval = strdup(yytext); return SMULH;  }
-	UMULH  { yylval.sval = strdup(yytext); return UMULH;  }
-	SDIV   { yylval.sval = strdup(yytext); return SDIV;   }
-	UDIV   { yylval.sval = strdup(yytext); return UDIV;   }
-	AND    { yylval.sval = strdup(yytext); return AND;    }
-	ANDI   { yylval.sval = strdup(yytext); return ANDI;   }
-	ANDIS  { yylval.sval = strdup(yytext); return ANDIS;  }
-	ANDS   { yylval.sval = strdup(yytext); return ANDS;   }
-	ORR    { yylval.sval = strdup(yytext); return ORR;    }
-	ORRI   { yylval.sval = strdup(yytext); return ORRI;   }
-	EOR    { yylval.sval = strdup(yytext); return EOR;    }
-	EORI   { yylval.sval = strdup(yytext); return EORI;   }
-	LSL    { yylval.sval = strdup(yytext); return LSL;    }
-	LSR    { yylval.sval = strdup(yytext); return LSR;    }
-	MOVK   { yylval.sval = strdup(yytext); return MOVK;   }
-	MOVZ   { yylval.sval = strdup(yytext); return MOVZ;   }
-	B      { yylval.sval = strdup(yytext); return B;      }
-	BCOND  { yylval.sval = strdup(yytext); return BCOND;  }
-	BL     { yylval.sval = strdup(yytext); return BL;     }
-	BR     { yylval.sval = strdup(yytext); return BR;     }
-	CBNZ   { yylval.sval = strdup(yytext); return CBNZ;   }
-	CBZ    { yylval.sval = strdup(yytext); return CBZ;    }
-	LDUR   { yylval.sval = strdup(yytext); return LDUR;   }
-	LDURB  { yylval.sval = strdup(yytext); return LDURB;  }
-	LDURH  { yylval.sval = strdup(yytext); return LDURH;  }
-	LDURSW { yylval.sval = strdup(yytext); return LDURSW; }
-	LDXR   { yylval.sval = strdup(yytext); return LDXR;   }
-	STUR   { yylval.sval = strdup(yytext); return STUR;   }
-	STURB  { yylval.sval = strdup(yytext); return STURB;  }
-	STURH  { yylval.sval = strdup(yytext); return STURH;  }
-	STURW  { yylval.sval = strdup(yytext); return STURW;  }
-	STXR   { yylval.sval = strdup(yytext); return STXR;   }*/
-	CMP    { yylval.sval = strdup(yytext); return CMP;    }
-	CMPI   { yylval.sval = strdup(yytext); return CMPI;   }
-	LDA    { yylval.sval = strdup(yytext); return LDA;    }
-	MOV    { yylval.sval = strdup(yytext); return MOV;    }
-	MOVI   { yylval.sval = strdup(yytext); return MOVI;   }
-	INC    { yylval.sval = strdup(yytext); return INC;    }
-	DEC    { yylval.sval = strdup(yytext); return DEC;    }
-	NORR   { yylval.sval = strdup(yytext); return NORR;   }
-	NORRI  { yylval.sval = strdup(yytext); return NORRI;  }
-	RET    { yylval.sval = strdup(yytext); return RET;    }
-	PUSH   { yylval.sval = strdup(yytext); return PUSH;   }
-	PUSHI  { yylval.sval = strdup(yytext); return PUSHI;  }
-	POP    { yylval.sval = strdup(yytext); return POP;    }
-	SWP    { yylval.sval = strdup(yytext); return SWP;    }
-	NAND   { yylval.sval = strdup(yytext); return NAND;   }
-	NANDI  { yylval.sval = strdup(yytext); return NANDI;  }
-	NEOR   { yylval.sval = strdup(yytext); return NEOR;   }
-	NEORI  { yylval.sval = strdup(yytext); return NEORI;  }
-	HALT   { yylval.sval = strdup(yytext); return HALT;   }
-	NOP    { yylval.sval = strdup(yytext); return NOP;    }
-	LDPC   { yylval.sval = strdup(yytext); return LDPC;   }
-	BW     { yylval.sval = strdup(yytext); return BW;     }
+	/* Pseudoinstructions: */
+CMP    { yylval.sval = strdup(yytext); return CMP;    }
+CMPI   { yylval.sval = strdup(yytext); return CMPI;   }
+LDA    { yylval.sval = strdup(yytext); return LDA;    }
+MOV    { yylval.sval = strdup(yytext); return MOV;    }
+MOVI   { yylval.sval = strdup(yytext); return MOVI;   }
+INC    { yylval.sval = strdup(yytext); return INC;    }
+DEC    { yylval.sval = strdup(yytext); return DEC;    }
+NORR   { yylval.sval = strdup(yytext); return NORR;   }
+NORRI  { yylval.sval = strdup(yytext); return NORRI;  }
+RET    { yylval.sval = strdup(yytext); return RET;    }
+PUSH   { yylval.sval = strdup(yytext); return PUSH;   }
+PUSHI  { yylval.sval = strdup(yytext); return PUSHI;  }
+POP    { yylval.sval = strdup(yytext); return POP;    }
+SWP    { yylval.sval = strdup(yytext); return SWP;    }
+NAND   { yylval.sval = strdup(yytext); return NAND;   }
+NANDI  { yylval.sval = strdup(yytext); return NANDI;  }
+NEOR   { yylval.sval = strdup(yytext); return NEOR;   }
+NEORI  { yylval.sval = strdup(yytext); return NEORI;  }
+HALT   { yylval.sval = strdup(yytext); return HALT;   }
+NOP    { yylval.sval = strdup(yytext); return NOP;    }
+LDPC   { yylval.sval = strdup(yytext); return LDPC;   }
+BW     { yylval.sval = strdup(yytext); return BW;     }
 
-	LSL { return LSL; } // Not a pseudoinstruction
+LSL    { return LSL; } /* Not a pseudoinstruction */
 	
 	/* Arguments (for example, a Register): */
-X[0-9]+ { yylval.uival = atoi(yytext+1); return REGISTER;                      } // Normal Register
-IP0     { yylval.uival = 16; return REGISTER;                                  } // Temporary Register
-IP1     { yylval.uival = 17; return REGISTER;                                  } // Temporary Register
-XZR     { yylval.uival = 31; return REGISTER;                                  } // Register Zero
-SP      { yylval.uival = 28; return REGISTER;                                  } // Stack Pointer
-FP      { yylval.uival = 29; return REGISTER;                                  } // Frame Pointer
-LR      { yylval.uival = 30; return REGISTER;                                  } // Return Address
-{NZ}{D}*{IS}? { yylval.llval = strtoull(yytext, 0, 10);  return IMMEDIATE;     } // Immediate Decimal (normal number)
-{HP}{H}+?     { yylval.llval = strtoull(yytext, 0, 16);  return IMMEDIATE;     } // Immediate Hexadecimal
-{BP}{B}+?     { yylval.llval = strtoull(yytext+2, 0, 2); return IMMEDIATE;     } // Immediate Binary
-"0"{O}*{IS}?  { yylval.llval = strtoull(yytext+1, 0, 8); return IMMEDIATE;     } // Immediate Octal
-"-"{NZ}{D}*{IS}? { yylval.llval = strtoull(yytext, 0, 10);  return IMMEDIATE;  } // Immediate Negative Decimal (normal number)
-"-"{HP}{H}+?     { yylval.llval = strtoull(yytext, 0, 16);  return IMMEDIATE;  } // Immediate Negative Hexadecimal
+X[0-9]+          { yylval.uival = atoi(yytext+1);            return REGISTER;  } // Normal Register
+IP0              { yylval.uival = 16;                        return REGISTER;  } // Temporary Register
+IP1              { yylval.uival = 17;                        return REGISTER;  } // Temporary Register
+XZR              { yylval.uival = 31;                        return REGISTER;  } // Register Zero
+SP               { yylval.uival = 28;                        return REGISTER;  } // Stack Pointer
+FP               { yylval.uival = 29;                        return REGISTER;  } // Frame Pointer
+LR               { yylval.uival = 30;                        return REGISTER;  } // Return Address
+{NZ}{D}*{IS}?    { yylval.llval = strtoull(yytext, 0, 10);   return IMMEDIATE; } // Immediate Decimal (normal number)
+{HP}{H}+?        { yylval.llval = strtoull(yytext, 0, 16);   return IMMEDIATE; } // Immediate Hexadecimal
+{BP}{B}+?        { yylval.llval = strtoull(yytext+2, 0, 2);  return IMMEDIATE; } // Immediate Binary
+"0"{O}*{IS}?     { yylval.llval = strtoull(yytext+1, 0, 8);  return IMMEDIATE; } // Immediate Octal
+"-"{NZ}{D}*{IS}? { yylval.llval = strtoull(yytext, 0, 10);   return IMMEDIATE; } // Immediate Negative Decimal (normal number)
+"-"{HP}{H}+?     { yylval.llval = strtoull(yytext, 0, 16);   return IMMEDIATE; } // Immediate Negative Hexadecimal
 "-"{BP}{B}+?     { yylval.llval = -strtoull(yytext+3, 0, 2); return IMMEDIATE; } // Immediate Negative Binary
-"-0"{O}*{IS}?  { yylval.llval = -strtoull(yytext+1, 0, 8); return IMMEDIATE;   } // Immediate Negative Octal
+"-0"{O}*{IS}?    { yylval.llval = -strtoull(yytext+1, 0, 8); return IMMEDIATE; } // Immediate Negative Octal
 
 {D}+{E}{FS}?					{ yylval.fval = atof(yytext); return F_CONSTANT; }
 {D}*"."{D}+{E}?{FS}?			{ yylval.fval = atof(yytext); return F_CONSTANT; }
