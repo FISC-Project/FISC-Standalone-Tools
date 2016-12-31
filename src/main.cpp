@@ -141,7 +141,12 @@ void help() {
 	exit(-1);
 }
 
+#include "lib/tinyexpr.h"
+
 int main(int argc, char ** argv) {
+
+	printf("%f\n", te_interp("1+4", 0));
+
 	if(argc > 1) {
 		if(argc > 2)
 			cmdline_parse(argc, argv);
@@ -179,7 +184,7 @@ int main(int argc, char ** argv) {
 			/* Split the program_str into small pieces by inserting new lines every X bits/bytes */
 			if(cmd_has_opt('g')) {
 				std::string gran_str = cmd_query('g').second;
-				if(gran_str.find_first_not_of( "0123456789" ) == string::npos)
+				if(gran_str.find_first_not_of("0123456789") == string::npos)
 					std::stringstream(gran_str) >> gran;
 				else
 					printf("\n>ERROR: Granularity value '%s' is invalid. Defaulting to value: %d\n", gran_str.c_str(), gran);

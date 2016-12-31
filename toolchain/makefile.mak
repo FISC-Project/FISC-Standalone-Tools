@@ -5,6 +5,7 @@ BIN = bin
 EXEC = flasm
 RM = rm
 CXX = g++
+CC = gcc
 CPPFLAGS = -Isrc -Isrc/gen -lfl
 ENV =
 ifeq ($(OS),Windows_NT)
@@ -24,7 +25,8 @@ PARSER = parser
 
 ####### Objects/Outputs:
 OBJS = $(GEN)/$(PARSER).tab.c $(GEN)/$(LEXER).yy.c $(OBJ)/main.o \
-	$(OBJ)/cmdline.o $(OBJ)/external_tool.o $(OBJ)/fisc_assembly.o
+	$(OBJ)/cmdline.o $(OBJ)/external_tool.o $(OBJ)/fisc_assembly.o \
+	$(OBJ)/tinyexpr.o
 
 ####### Lexer:
 $(GEN)/$(LEXER).yy.c: $(SRC)/$(LEXER).l
@@ -49,6 +51,9 @@ $(OBJ)/external_tool.o: $(SRC)/external_tool.cpp
 
 $(OBJ)/fisc_assembly.o: $(SRC)/fisc_assembly.cpp
 	$(CXX) -o $@ -c $^ -std=gnu++11 $(CPPFLAGS)	
+
+$(OBJ)/tinyexpr.o: $(SRC)/lib/tinyexpr.c
+	$(CC) -o $@ -c $^
 
 all: $(OBJS)
 	$(CXX) -o $(BIN)/$(EXEC) $^ $(CPPFLAGS)
