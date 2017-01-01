@@ -145,7 +145,7 @@ void help() {
 
 int main(int argc, char ** argv) {
 
-	printf("%f\n", te_interp("1+4", 0));
+//	printf("%f\n", te_interp("1+4", 0));
 
 	if(argc > 1) {
 		if(argc > 2)
