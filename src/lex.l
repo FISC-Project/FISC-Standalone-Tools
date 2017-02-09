@@ -103,6 +103,7 @@ CPSR_FC   { yylval.uival = 5;  return REGISTER; }
 CPSR_AE   { yylval.uival = 6;  return REGISTER; }
 CPSR_PG   { yylval.uival = 7;  return REGISTER; }
 CPSR_IEN  { yylval.uival = 8;  return REGISTER; }
+CPSR_IEN0 { yylval.uival = 9; return REGISTER; }
 CPSR_IEN1 { yylval.uival = 10; return REGISTER; }
 CPSR_MODE { yylval.uival = 11; return REGISTER; }
 SPSR      { yylval.uival = 16; return REGISTER; }
