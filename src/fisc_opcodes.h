@@ -50,7 +50,7 @@ enum OPCODES {
 	/* INTERRUPTS */
 	LIVP = 0x5D4, SIVP = 0x5B4,
 	LEVP = 0x594, SEVP = 0x574, SESR = 0x554,
-	SINT = 0x534, RETI = 0x514
+	SINT = 0x520, RETI = 0x500
 };
 
 std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup = {
@@ -91,9 +91,10 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	/* CPU STATUS CONTROL */
 	{MSR,   {ifmt{"MSR",   IFMT_R},         {afmt{REG,0}, afmt{REG,0}}}},              {MRS,   {ifmt{"MRS",   IFMT_R},        {afmt{REG,0}, afmt{REG,0}}}},
 	/* INTERRUPTS */
-	{LIVP,  {ifmt{"LIVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SIVP,  {ifmt{"SIVP",  IFMT_R},         {afmt{REG,0}}}},
-	{LEVP,  {ifmt{"LEVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SEVP,  {ifmt{"SEVP",  IFMT_R},         {afmt{REG,0}}}},
-	{SESR,  {ifmt{"SESR",  IFMT_R},         {afmt{REG,0}}}} ,                          {RETI,  {ifmt{"RETI",  IFMT_B, 0, 0, 1}, {afmt{0,0}}}}
+	{LIVP,  {ifmt{"LIVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SIVP,  {ifmt{"SIVP",  IFMT_R},          {afmt{REG,0}}}},
+	{LEVP,  {ifmt{"LEVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SEVP,  {ifmt{"SEVP",  IFMT_R},          {afmt{REG,0}}}},
+	{SESR,  {ifmt{"SESR",  IFMT_R},         {afmt{REG,0}}}} ,                          {RETI,  {ifmt{"RETI",  IFMT_B, 0, 0, 1}, {afmt{0,0}}}},
+	{SINT,  {ifmt{"SINT",  IFMT_B},         {afmt{IMM,0}}}}
 };
 
 #endif /* SRC_FISC_OPCODES_H_ */

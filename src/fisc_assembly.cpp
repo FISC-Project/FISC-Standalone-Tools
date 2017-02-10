@@ -170,7 +170,7 @@ void resolve_labels() {
 				    	switch(program[i].opcode) {
 				    	case BEQ: case BNE: case BLT: case BLE: case BGT: case BGE:
 				    	case BLO: case BLS: case BHI: case BHS: case BMI: case BPL:
-				    	case BVS: case BVC: case B: case BL: case CBNZ: case CBZ: {
+				    	case BVS: case BVC: case B: case BL: case CBNZ: case CBZ: case SINT: {
 				    		switch(arg->shift_quadrant) {
 								case 1: arg->value = (it->second - i) & 0xFFFF; break; /* Insert lower 16 bits */
 								case 16: arg->value = ((it->second - i) & 0xFFFF0000) >> 16; break; /* Insert 2nd 16 bits */
