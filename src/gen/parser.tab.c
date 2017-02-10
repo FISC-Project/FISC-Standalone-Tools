@@ -422,18 +422,18 @@ union yyalloc
 #endif
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  60
+#define YYFINAL  61
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   181
+#define YYLAST   188
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  81
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  56
+#define YYNRULES  57
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  181
+#define YYNSTATES  182
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -488,10 +488,10 @@ static const yytype_uint16 yyprhs[] =
 {
        0,     0,     3,     4,     7,    10,    13,    16,    23,    30,
       37,    42,    51,    60,    69,    74,    79,    82,    85,    88,
-      96,   104,   112,   120,   122,   123,   126,   132,   138,   144,
-     152,   160,   166,   172,   178,   186,   190,   194,   202,   210,
-     218,   226,   234,   242,   250,   258,   266,   269,   273,   277,
-     281,   285,   291,   294,   297,   300,   304
+      96,   104,   112,   120,   122,   124,   125,   128,   134,   140,
+     146,   154,   162,   168,   174,   180,   188,   192,   196,   204,
+     212,   220,   228,   236,   244,   252,   260,   268,   271,   275,
+     279,   283,   287,   293,   296,   299,   302,   306
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -509,25 +509,25 @@ static const yytype_int8 yyrhs[] =
       75,    76,    32,    75,    85,    -1,    74,    76,    75,    76,
       32,    10,    85,    -1,    74,    76,    10,    76,    32,    75,
       85,    -1,    74,    76,    10,    76,    32,    10,    85,    -1,
-      79,    -1,    -1,    10,    80,    -1,    52,    74,    76,    74,
-      85,    -1,    53,    74,    76,    10,    85,    -1,    53,    74,
-      76,    75,    85,    -1,    54,    74,    76,    74,    76,    10,
-      85,    -1,    54,    74,    76,    74,    76,    75,    85,    -1,
-      55,    74,    76,    74,    85,    -1,    56,    74,    76,    10,
-      85,    -1,    56,    74,    76,    75,    85,    -1,    32,    74,
-      76,    74,    76,    75,    85,    -1,    57,    74,    85,    -1,
-      58,    74,    85,    -1,    59,    74,    76,    74,    76,    74,
-      85,    -1,    60,    74,    76,    74,    76,    75,    85,    -1,
-      60,    74,    76,    74,    76,    10,    85,    -1,    66,    74,
-      76,    74,    76,    74,    85,    -1,    67,    74,    76,    74,
-      76,    75,    85,    -1,    67,    74,    76,    74,    76,    10,
-      85,    -1,    68,    74,    76,    74,    76,    74,    85,    -1,
-      69,    74,    76,    74,    76,    75,    85,    -1,    69,    74,
-      76,    74,    76,    10,    85,    -1,    61,    85,    -1,    62,
-      74,    85,    -1,    63,    75,    85,    -1,    63,    10,    85,
-      -1,    64,    74,    85,    -1,    65,    74,    76,    74,    85,
-      -1,    70,    85,    -1,    71,    85,    -1,    72,    85,    -1,
-      73,    75,    85,    -1,    73,    10,    85,    -1
+      85,    -1,    79,    -1,    -1,    10,    80,    -1,    52,    74,
+      76,    74,    85,    -1,    53,    74,    76,    10,    85,    -1,
+      53,    74,    76,    75,    85,    -1,    54,    74,    76,    74,
+      76,    10,    85,    -1,    54,    74,    76,    74,    76,    75,
+      85,    -1,    55,    74,    76,    74,    85,    -1,    56,    74,
+      76,    10,    85,    -1,    56,    74,    76,    75,    85,    -1,
+      32,    74,    76,    74,    76,    75,    85,    -1,    57,    74,
+      85,    -1,    58,    74,    85,    -1,    59,    74,    76,    74,
+      76,    74,    85,    -1,    60,    74,    76,    74,    76,    75,
+      85,    -1,    60,    74,    76,    74,    76,    10,    85,    -1,
+      66,    74,    76,    74,    76,    74,    85,    -1,    67,    74,
+      76,    74,    76,    75,    85,    -1,    67,    74,    76,    74,
+      76,    10,    85,    -1,    68,    74,    76,    74,    76,    74,
+      85,    -1,    69,    74,    76,    74,    76,    75,    85,    -1,
+      69,    74,    76,    74,    76,    10,    85,    -1,    61,    85,
+      -1,    62,    74,    85,    -1,    63,    75,    85,    -1,    63,
+      10,    85,    -1,    64,    74,    85,    -1,    65,    74,    76,
+      74,    85,    -1,    70,    85,    -1,    71,    85,    -1,    72,
+      85,    -1,    73,    75,    85,    -1,    73,    10,    85,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
@@ -535,10 +535,10 @@ static const yytype_uint16 yyrline[] =
 {
        0,    66,    66,    68,    69,    70,    74,    78,    79,    80,
       81,    82,    83,    84,    85,    86,    87,    88,    89,    90,
-      91,    92,    93,    96,    97,    99,   102,   107,   118,   129,
-     130,   131,   132,   141,   150,   151,   152,   153,   158,   163,
-     168,   173,   178,   183,   188,   193,   198,   199,   204,   215,
-     226,   231,   237,   238,   239,   244,   257
+      91,    92,    93,    94,    97,    98,   100,   103,   108,   119,
+     130,   131,   132,   133,   142,   151,   152,   153,   154,   159,
+     164,   169,   174,   179,   184,   189,   194,   199,   200,   205,
+     216,   227,   232,   238,   239,   240,   245,   258
 };
 #endif
 
@@ -583,10 +583,10 @@ static const yytype_uint8 yyr1[] =
 {
        0,    81,    82,    82,    82,    82,    83,    84,    84,    84,
       84,    84,    84,    84,    84,    84,    84,    84,    84,    84,
-      84,    84,    84,    85,    85,    86,    87,    87,    87,    87,
+      84,    84,    84,    84,    85,    85,    86,    87,    87,    87,
       87,    87,    87,    87,    87,    87,    87,    87,    87,    87,
       87,    87,    87,    87,    87,    87,    87,    87,    87,    87,
-      87,    87,    87,    87,    87,    87,    87
+      87,    87,    87,    87,    87,    87,    87,    87
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -594,10 +594,10 @@ static const yytype_uint8 yyr2[] =
 {
        0,     2,     0,     2,     2,     2,     2,     6,     6,     6,
        4,     8,     8,     8,     4,     4,     2,     2,     2,     7,
-       7,     7,     7,     1,     0,     2,     5,     5,     5,     7,
-       7,     5,     5,     5,     7,     3,     3,     7,     7,     7,
-       7,     7,     7,     7,     7,     7,     2,     3,     3,     3,
-       3,     5,     2,     2,     2,     3,     3
+       7,     7,     7,     1,     1,     0,     2,     5,     5,     5,
+       7,     7,     5,     5,     5,     7,     3,     3,     7,     7,
+       7,     7,     7,     7,     7,     7,     7,     2,     3,     3,
+       3,     3,     5,     2,     2,     2,     3,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -605,63 +605,63 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,    24,     0,     0,     0,     0,     0,     0,     0,
-       0,    24,    24,    24,     0,     0,     2,     2,     2,    24,
-      24,    24,    25,     6,     0,     0,     0,     0,     0,     0,
-      24,    24,     0,     0,    23,    46,    24,    24,    24,    24,
-       0,     0,     0,     0,     0,    52,    53,    54,    24,    24,
-       1,     3,     5,     4,    17,     0,    16,    18,     0,     0,
-       0,     0,     0,     0,    35,    36,     0,     0,    47,    49,
-      48,    50,     0,     0,     0,     0,     0,    56,    55,    24,
-      24,    24,     0,     0,    24,    24,    24,     0,    24,    24,
-      24,     0,     0,    24,     0,     0,     0,     0,     0,    14,
-       0,    10,     0,    15,     0,     0,    26,    27,    28,     0,
-      31,    32,    33,     0,     0,    51,     0,     0,     0,     0,
-       0,    24,    24,    24,     0,     0,     0,    24,    24,    24,
-      24,    24,    24,    24,    24,    24,    24,    24,    24,    24,
-      24,     9,     7,     8,     0,    24,    24,     0,     0,    34,
-      29,    30,    37,    39,    38,    40,    42,    41,    43,    45,
-      44,    22,    21,    24,    20,    19,    24,    24,    13,    12,
-      11
+       2,    25,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,    25,     0,     0,     0,     0,     0,     0,     0,
+       0,    25,    25,    25,     0,     0,     2,     2,     2,    25,
+      25,    25,    24,    26,     6,    23,     0,     0,     0,     0,
+       0,     0,    25,    25,     0,     0,    47,    25,    25,    25,
+      25,     0,     0,     0,     0,     0,    53,    54,    55,    25,
+      25,     1,     3,     5,     4,    17,     0,    16,    18,     0,
+       0,     0,     0,     0,     0,    36,    37,     0,     0,    48,
+      50,    49,    51,     0,     0,     0,     0,     0,    57,    56,
+      25,    25,    25,     0,     0,    25,    25,    25,     0,    25,
+      25,    25,     0,     0,    25,     0,     0,     0,     0,     0,
+      14,     0,    10,     0,    15,     0,     0,    27,    28,    29,
+       0,    32,    33,    34,     0,     0,    52,     0,     0,     0,
+       0,     0,    25,    25,    25,     0,     0,     0,    25,    25,
+      25,    25,    25,    25,    25,    25,    25,    25,    25,    25,
+      25,    25,     9,     7,     8,     0,    25,    25,     0,     0,
+      35,    30,    31,    38,    40,    39,    41,    43,    42,    44,
+      46,    45,    22,    21,    25,    20,    19,    25,    25,    13,
+      12,    11
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,    25,    26,    33,    45,    27,    28
+      -1,    25,    26,    34,    35,    27,    28
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -65
+#define YYPACT_NINF -62
 static const yytype_int8 yypact[] =
 {
-     105,     6,   -61,   -53,   -52,   -43,   -33,   -30,   -29,   -28,
-     -27,   -26,   -25,   -24,    -4,   -22,   -19,   -18,   -17,   -16,
-     -15,   -25,   -25,   -25,    -3,    49,   105,   105,   105,   -25,
-     -64,   -25,   -65,   -65,   -14,   -13,   -12,   -11,   -10,    -9,
-     -25,   -25,     9,    15,   -65,   -65,   -25,   -25,   -25,   -25,
-      16,    27,    28,    29,    30,   -65,   -65,   -65,   -25,   -25,
-     -65,   -65,   -65,   -65,   -65,    13,   -65,   -65,    10,    33,
-       1,    34,    35,     8,   -65,   -65,    39,    40,   -65,   -65,
-     -65,   -65,    56,    57,    58,    59,    62,   -65,   -65,   -62,
-     -37,   -36,    64,    63,   -25,   -25,   -25,    65,   -25,   -25,
-     -25,    66,    67,   -25,    68,    69,    70,    71,    21,   -65,
-      19,   -65,   108,   -65,    72,    74,   -65,   -65,   -65,    14,
-     -65,   -65,   -65,    76,    20,   -65,    77,    22,    79,    23,
-      24,   -25,   -25,   -25,    80,    25,    26,   -25,   -25,   -25,
-     -25,   -25,   -25,   -25,   -25,   -25,   -25,   -25,   -25,   -25,
-     -25,   -65,   -65,   -65,   101,   -25,   -25,   102,   103,   -65,
-     -65,   -65,   -65,   -65,   -65,   -65,   -65,   -65,   -65,   -65,
-     -65,   -65,   -65,   -25,   -65,   -65,   -25,   -25,   -65,   -65,
-     -65
+     115,    -9,   -61,   -60,   -59,   -46,   -33,   -32,   -30,   -29,
+     -28,   -25,   -27,   -24,    -8,   -23,   -20,   -19,   -18,   -17,
+     -16,   -27,   -27,   -27,    -7,    53,   115,   115,   115,   -27,
+     -56,   -27,   -62,   -62,   -62,   -62,   -15,   -14,   -13,     0,
+      20,    25,   -27,   -27,    26,    27,   -62,   -27,   -27,   -27,
+     -27,    30,    31,    32,    33,    34,   -62,   -62,   -62,   -27,
+     -27,   -62,   -62,   -62,   -62,   -62,    -2,   -62,   -62,   -10,
+       8,    -6,    21,    37,     2,   -62,   -62,    38,    39,   -62,
+     -62,   -62,   -62,    40,    41,    42,    43,    44,   -62,   -62,
+     -54,   -52,   -36,    45,    47,   -27,   -27,   -27,    48,   -27,
+     -27,   -27,    64,    65,   -27,    66,    67,    70,    72,    28,
+     -62,    16,   -62,    68,   -62,    73,    -1,   -62,   -62,   -62,
+       6,   -62,   -62,   -62,    76,    11,   -62,    77,    19,    78,
+      22,    23,   -27,   -27,   -27,    79,    24,    29,   -27,   -27,
+     -27,   -27,   -27,   -27,   -27,   -27,   -27,   -27,   -27,   -27,
+     -27,   -27,   -62,   -62,   -62,    80,   -27,   -27,    81,    82,
+     -62,   -62,   -62,   -62,   -62,   -62,   -62,   -62,   -62,   -62,
+     -62,   -62,   -62,   -62,   -27,   -62,   -62,   -27,   -27,   -62,
+     -62,   -62
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -65,   -23,   -65,   -65,   -21,   -65,   -65
+     -62,   -21,   -62,   -62,   -12,   -62,   -62
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -671,48 +671,48 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      55,    56,    57,    61,    62,    63,    47,    58,    64,    66,
-      67,    95,    65,    34,   108,    44,    29,    44,    99,    74,
-      75,    35,    36,    89,   138,    78,    79,    80,    81,   131,
-     141,    37,   144,   147,   149,   155,   157,    87,    88,   110,
-     112,    38,    44,    44,    39,    40,    41,    42,    43,    60,
-      46,     0,    49,   130,    44,    50,    51,    52,    53,    54,
-       0,     0,    68,    69,    70,    71,    72,    73,   109,   111,
-     113,    48,    59,   116,   117,   118,    96,   120,   121,   122,
-      30,    31,   125,   100,    93,    76,    32,    90,    91,   139,
-      92,    77,    82,   132,   133,   142,   134,   145,   148,   150,
-     156,   158,     0,    83,    84,    85,    86,    94,    97,    98,
-     151,   152,   153,   101,   102,     1,   159,   160,   161,   162,
-     163,   164,   165,   166,   167,   168,   169,   170,   171,   172,
-     103,   104,   105,   106,   174,   175,   107,     2,   114,   115,
-     135,   119,   123,   124,   126,   127,   128,   129,   136,   137,
-     140,   143,   178,   146,   154,   179,   180,     3,     4,     5,
+      46,    29,    48,    59,    96,    62,    63,    64,    90,    56,
+      57,    58,   100,    36,    37,    38,   139,    65,    67,    68,
+      66,   142,   109,    32,   111,    32,   132,    32,    39,   145,
+      75,    76,   148,   150,   156,    79,    80,    81,    82,   158,
+     113,    40,    41,    32,    42,    43,    44,    88,    89,    45,
+      47,    50,    32,    61,    51,    52,    53,    54,    55,     0,
+     131,    69,    70,    71,    94,    30,    31,    49,    60,    97,
+      32,    33,    91,    92,   138,    93,    72,   101,   110,   112,
+     114,   140,    95,   117,   118,   119,   143,   121,   122,   123,
+     133,   134,   126,   135,   146,    98,    73,   149,   151,   157,
+     136,    74,    77,    78,   159,     0,    83,    84,    85,    86,
+      87,    99,   102,   103,   104,   105,   106,   107,   108,   115,
+     152,   153,   154,   116,   120,     1,   160,   161,   162,   163,
+     164,   165,   166,   167,   168,   169,   170,   171,   172,   173,
+     124,   125,   127,   128,   175,   176,   129,     2,   130,   137,
+     141,   144,   147,   155,     0,     0,     0,     0,   174,   177,
+     178,     0,   179,     0,     0,   180,   181,     3,     4,     5,
        6,     7,     8,     9,    10,    11,    12,    13,    14,    15,
-      16,    17,    18,    19,    20,    21,    22,    23,    24,   173,
-     176,   177
+      16,    17,    18,    19,    20,    21,    22,    23,    24
 };
 
 static const yytype_int16 yycheck[] =
 {
-      21,    22,    23,    26,    27,    28,    10,    10,    29,    30,
-      31,    10,    76,    74,    76,    79,    10,    79,    10,    40,
-      41,    74,    74,    10,    10,    46,    47,    48,    49,    10,
-      10,    74,    10,    10,    10,    10,    10,    58,    59,    76,
-      76,    74,    79,    79,    74,    74,    74,    74,    74,     0,
-      74,    -1,    74,    32,    79,    74,    74,    74,    74,    74,
-      -1,    -1,    76,    76,    76,    76,    76,    76,    89,    90,
-      91,    75,    75,    94,    95,    96,    75,    98,    99,   100,
-      74,    75,   103,    75,    74,    76,    80,    74,    75,    75,
-      77,    76,    76,    74,    75,    75,    77,    75,    75,    75,
-      75,    75,    -1,    76,    76,    76,    76,    74,    74,    74,
-     131,   132,   133,    74,    74,    10,   137,   138,   139,   140,
-     141,   142,   143,   144,   145,   146,   147,   148,   149,   150,
-      74,    74,    74,    74,   155,   156,    74,    32,    74,    76,
-      32,    76,    76,    76,    76,    76,    76,    76,    76,    75,
-      74,    74,   173,    74,    74,   176,   177,    52,    53,    54,
+      12,    10,    10,    10,    10,    26,    27,    28,    10,    21,
+      22,    23,    10,    74,    74,    74,    10,    29,    30,    31,
+      76,    10,    76,    79,    76,    79,    10,    79,    74,    10,
+      42,    43,    10,    10,    10,    47,    48,    49,    50,    10,
+      76,    74,    74,    79,    74,    74,    74,    59,    60,    74,
+      74,    74,    79,     0,    74,    74,    74,    74,    74,    -1,
+      32,    76,    76,    76,    74,    74,    75,    75,    75,    75,
+      79,    80,    74,    75,    75,    77,    76,    75,    90,    91,
+      92,    75,    74,    95,    96,    97,    75,    99,   100,   101,
+      74,    75,   104,    77,    75,    74,    76,    75,    75,    75,
+      32,    76,    76,    76,    75,    -1,    76,    76,    76,    76,
+      76,    74,    74,    74,    74,    74,    74,    74,    74,    74,
+     132,   133,   134,    76,    76,    10,   138,   139,   140,   141,
+     142,   143,   144,   145,   146,   147,   148,   149,   150,   151,
+      76,    76,    76,    76,   156,   157,    76,    32,    76,    76,
+      74,    74,    74,    74,    -1,    -1,    -1,    -1,    78,    78,
+      78,    -1,   174,    -1,    -1,   177,   178,    52,    53,    54,
       55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    70,    71,    72,    73,    78,
-      78,    78
+      65,    66,    67,    68,    69,    70,    71,    72,    73
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -722,22 +722,22 @@ static const yytype_uint8 yystos[] =
        0,    10,    32,    52,    53,    54,    55,    56,    57,    58,
       59,    60,    61,    62,    63,    64,    65,    66,    67,    68,
       69,    70,    71,    72,    73,    82,    83,    86,    87,    10,
-      74,    75,    80,    84,    74,    74,    74,    74,    74,    74,
-      74,    74,    74,    74,    79,    85,    74,    10,    75,    74,
-      74,    74,    74,    74,    74,    85,    85,    85,    10,    75,
-       0,    82,    82,    82,    85,    76,    85,    85,    76,    76,
-      76,    76,    76,    76,    85,    85,    76,    76,    85,    85,
-      85,    85,    76,    76,    76,    76,    76,    85,    85,    10,
-      74,    75,    77,    74,    74,    10,    75,    74,    74,    10,
-      75,    74,    74,    74,    74,    74,    74,    74,    76,    85,
-      76,    85,    76,    85,    74,    76,    85,    85,    85,    76,
-      85,    85,    85,    76,    76,    85,    76,    76,    76,    76,
-      32,    10,    74,    75,    77,    32,    76,    75,    10,    75,
-      74,    10,    75,    74,    10,    75,    74,    10,    75,    10,
-      75,    85,    85,    85,    74,    10,    75,    10,    75,    85,
+      74,    75,    79,    80,    84,    85,    74,    74,    74,    74,
+      74,    74,    74,    74,    74,    74,    85,    74,    10,    75,
+      74,    74,    74,    74,    74,    74,    85,    85,    85,    10,
+      75,     0,    82,    82,    82,    85,    76,    85,    85,    76,
+      76,    76,    76,    76,    76,    85,    85,    76,    76,    85,
+      85,    85,    85,    76,    76,    76,    76,    76,    85,    85,
+      10,    74,    75,    77,    74,    74,    10,    75,    74,    74,
+      10,    75,    74,    74,    74,    74,    74,    74,    74,    76,
+      85,    76,    85,    76,    85,    74,    76,    85,    85,    85,
+      76,    85,    85,    85,    76,    76,    85,    76,    76,    76,
+      76,    32,    10,    74,    75,    77,    32,    76,    75,    10,
+      75,    74,    10,    75,    74,    10,    75,    74,    10,    75,
+      10,    75,    85,    85,    85,    74,    10,    75,    10,    75,
       85,    85,    85,    85,    85,    85,    85,    85,    85,    85,
-      85,    85,    85,    78,    85,    85,    78,    78,    85,    85,
-      85
+      85,    85,    85,    85,    78,    85,    85,    78,    78,    85,
+      85,    85
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1670,8 +1670,8 @@ yyreduce:
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 96 "src/parser.y"
-    { asm_lineno++; ;}
+#line 94 "src/parser.y"
+    { (yyval.arglist_t) = 0; ;}
     break;
 
   case 24:
@@ -1684,14 +1684,21 @@ yyreduce:
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 99 "src/parser.y"
-    { add_label((yyvsp[(1) - (2)].sval), asm_lineno); ;}
+#line 98 "src/parser.y"
+    { asm_lineno++; ;}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 102 "src/parser.y"
+#line 100 "src/parser.y"
+    { add_label((yyvsp[(1) - (2)].sval), asm_lineno); ;}
+    break;
+
+  case 27:
+
+/* Line 1455 of yacc.c  */
+#line 103 "src/parser.y"
     { 
 		  make_instruction((char*)"SUBS", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].uival)))); 
 		  make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
@@ -1699,10 +1706,10 @@ yyreduce:
 	  ;}
     break;
 
-  case 27:
+  case 28:
 
 /* Line 1455 of yacc.c  */
-#line 107 "src/parser.y"
+#line 108 "src/parser.y"
     { 
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 1),  make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 16), make_argument(1, 0, (long long)16))); 
@@ -1716,10 +1723,10 @@ yyreduce:
 	;}
     break;
 
-  case 28:
+  case 29:
 
 /* Line 1455 of yacc.c  */
-#line 118 "src/parser.y"
+#line 119 "src/parser.y"
     { 
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(4) - (5)].llval) & 0xFFFF),  make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ((yyvsp[(4) - (5)].llval) & 0xFFFF0000) >> 16), make_argument(1, 0, (long long)16))); 
@@ -1733,31 +1740,31 @@ yyreduce:
 	;}
     break;
 
-  case 29:
-
-/* Line 1455 of yacc.c  */
-#line 129 "src/parser.y"
-    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); ;}
-    break;
-
   case 30:
 
 /* Line 1455 of yacc.c  */
 #line 130 "src/parser.y"
-    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); ;}
+    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); ;}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
 #line 131 "src/parser.y"
-    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].uival)), make_argument(1, 0, (long long)0))); ;}
+    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); ;}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
 #line 132 "src/parser.y"
+    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].uival)), make_argument(1, 0, (long long)0))); ;}
+    break;
+
+  case 33:
+
+/* Line 1455 of yacc.c  */
+#line 133 "src/parser.y"
     {
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 1),  make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (yyvsp[(4) - (5)].sval), 16), make_argument(1, 0, (long long)16))); 
@@ -1769,10 +1776,10 @@ yyreduce:
 	;}
     break;
 
-  case 33:
+  case 34:
 
 /* Line 1455 of yacc.c  */
-#line 141 "src/parser.y"
+#line 142 "src/parser.y"
     { 
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (yyvsp[(4) - (5)].llval) & 0xFFFF), make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, ((yyvsp[(4) - (5)].llval) & 0xFFFF0000) >> 16), make_argument(1, 0, (long long)16))); 
@@ -1784,44 +1791,33 @@ yyreduce:
 	;}
     break;
 
-  case 34:
-
-/* Line 1455 of yacc.c  */
-#line 150 "src/parser.y"
-    { make_instruction((char*)"LSL",   make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); ;}
-    break;
-
   case 35:
 
 /* Line 1455 of yacc.c  */
 #line 151 "src/parser.y"
-    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(1, 0, (long long)1))); ;}
+    { make_instruction((char*)"LSL",   make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); ;}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
 #line 152 "src/parser.y"
-    { make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(1, 0, (long long)1))); ;}
+    { make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(1, 0, (long long)1))); ;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
 #line 153 "src/parser.y"
-    { 
-		make_instruction((char*)"ORR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
-		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
-		adjust_labels_offset(2);
-	;}
+    { make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(1, 0, (long long)1))); ;}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 158 "src/parser.y"
+#line 154 "src/parser.y"
     { 
-		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
+		make_instruction((char*)"ORR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
 		adjust_labels_offset(2);
 	;}
@@ -1830,9 +1826,9 @@ yyreduce:
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 163 "src/parser.y"
+#line 159 "src/parser.y"
     { 
-		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
+		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
 		adjust_labels_offset(2);
 	;}
@@ -1841,9 +1837,9 @@ yyreduce:
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 168 "src/parser.y"
+#line 164 "src/parser.y"
     { 
-		make_instruction((char*)"AND", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
+		make_instruction((char*)"ORRI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
 		adjust_labels_offset(2);
 	;}
@@ -1852,9 +1848,9 @@ yyreduce:
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 173 "src/parser.y"
+#line 169 "src/parser.y"
     { 
-		make_instruction((char*)"ANDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
+		make_instruction((char*)"AND", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
 		adjust_labels_offset(2);
 	;}
@@ -1863,9 +1859,9 @@ yyreduce:
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 178 "src/parser.y"
+#line 174 "src/parser.y"
     { 
-		make_instruction((char*)"ANDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
+		make_instruction((char*)"ANDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
 		adjust_labels_offset(2);
 	;}
@@ -1874,9 +1870,9 @@ yyreduce:
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 183 "src/parser.y"
+#line 179 "src/parser.y"
     { 
-		make_instruction((char*)"EOR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
+		make_instruction((char*)"ANDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
 		adjust_labels_offset(2);
 	;}
@@ -1885,9 +1881,9 @@ yyreduce:
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 188 "src/parser.y"
+#line 184 "src/parser.y"
     { 
-		make_instruction((char*)"EORI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
+		make_instruction((char*)"EOR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(0, 0, (yyvsp[(6) - (7)].uival)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
 		adjust_labels_offset(2);
 	;}
@@ -1896,9 +1892,9 @@ yyreduce:
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 193 "src/parser.y"
+#line 189 "src/parser.y"
     { 
-		make_instruction((char*)"EORI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
+		make_instruction((char*)"EORI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].llval)))); 
 		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
 		adjust_labels_offset(2);
 	;}
@@ -1907,14 +1903,25 @@ yyreduce:
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 198 "src/parser.y"
-    { make_instruction((char*)"BR", make_argument_list(1, make_argument(0, 0, (long long)30))); ;}
+#line 194 "src/parser.y"
+    { 
+		make_instruction((char*)"EORI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(4) - (7)].uival)), make_argument(1, 0, (yyvsp[(6) - (7)].sval)))); 
+		make_instruction((char*)"NOT", make_argument_list(2, make_argument(0, 0, (yyvsp[(2) - (7)].uival)), make_argument(0, 0, (yyvsp[(2) - (7)].uival)))); 
+		adjust_labels_offset(2);
+	;}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
 #line 199 "src/parser.y"
+    { make_instruction((char*)"BR", make_argument_list(1, make_argument(0, 0, (long long)30))); ;}
+    break;
+
+  case 48:
+
+/* Line 1455 of yacc.c  */
+#line 200 "src/parser.y"
     {
 		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
 		make_instruction((char*)"STR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
@@ -1922,10 +1929,10 @@ yyreduce:
 	;}
     break;
 
-  case 48:
+  case 49:
 
 /* Line 1455 of yacc.c  */
-#line 204 "src/parser.y"
+#line 205 "src/parser.y"
     {
 		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].llval) & 0xFFFF), make_argument(1, 0, (long long)0))); 
@@ -1939,10 +1946,10 @@ yyreduce:
 	;}
     break;
 
-  case 49:
+  case 50:
 
 /* Line 1455 of yacc.c  */
-#line 215 "src/parser.y"
+#line 216 "src/parser.y"
     {
 		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].sval), 1),  make_argument(1, 0, (long long)0))); 
@@ -1956,10 +1963,10 @@ yyreduce:
 	;}
     break;
 
-  case 50:
+  case 51:
 
 /* Line 1455 of yacc.c  */
-#line 226 "src/parser.y"
+#line 227 "src/parser.y"
     {
 		make_instruction((char*)"LDR", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (3)].uival)), make_argument(0, 1, (long long)28), make_argument(1, 1, (long long)0)));
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (long long)28), make_argument(0, 0, (long long)28), make_argument(1, 0, (long long)8)));
@@ -1967,10 +1974,10 @@ yyreduce:
 	;}
     break;
 
-  case 51:
+  case 52:
 
 /* Line 1455 of yacc.c  */
-#line 231 "src/parser.y"
+#line 232 "src/parser.y"
     {
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(1, 0, (long long)0)));
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, (yyvsp[(2) - (5)].uival)), make_argument(0, 0, (yyvsp[(4) - (5)].uival)), make_argument(1, 0, (long long)0)));
@@ -1979,24 +1986,24 @@ yyreduce:
 	;}
     break;
 
-  case 52:
-
-/* Line 1455 of yacc.c  */
-#line 237 "src/parser.y"
-    { make_instruction((char*)"B", make_argument_list(1, make_argument(1, 0, (long long)0))); ;}
-    break;
-
   case 53:
 
 /* Line 1455 of yacc.c  */
 #line 238 "src/parser.y"
-    { make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31))); ;}
+    { make_instruction((char*)"B", make_argument_list(1, make_argument(1, 0, (long long)0))); ;}
     break;
 
   case 54:
 
 /* Line 1455 of yacc.c  */
 #line 239 "src/parser.y"
+    { make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31))); ;}
+    break;
+
+  case 55:
+
+/* Line 1455 of yacc.c  */
+#line 240 "src/parser.y"
     { 
 		make_instruction((char*)"BL", make_argument_list(1, make_argument(1, 0, 1)));
 		make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31)));
@@ -2004,10 +2011,10 @@ yyreduce:
 	;}
     break;
 
-  case 55:
+  case 56:
 
 /* Line 1455 of yacc.c  */
-#line 244 "src/parser.y"
+#line 245 "src/parser.y"
     { 
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].llval) & 0xFFFF), make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, ((yyvsp[(2) - (3)].llval) & 0xFFFF0000) >> 16), make_argument(1, 0, (long long)16))); 
@@ -2023,10 +2030,10 @@ yyreduce:
 	;}
     break;
 
-  case 56:
+  case 57:
 
 /* Line 1455 of yacc.c  */
-#line 257 "src/parser.y"
+#line 258 "src/parser.y"
     { 
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].sval), 1), make_argument(1, 0, (long long)0))); 
 		make_instruction((char*)"MOVK", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, (yyvsp[(2) - (3)].sval), 16), make_argument(1, 0, (long long)16))); 
@@ -2045,7 +2052,7 @@ yyreduce:
 
 
 /* Line 1455 of yacc.c  */
-#line 2049 "parser.tab.c"
+#line 2056 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2257,6 +2264,6 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 271 "src/parser.y"
+#line 272 "src/parser.y"
 
 

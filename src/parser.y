@@ -72,7 +72,7 @@ program
 
 instruction
 	: IDENTIFIER args { make_instruction($1, $2); }
-
+	
 args
 	: 
 	  REGISTER ',' REGISTER ',' REGISTER   eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(0, 0, $3), make_argument(0, 0, $5)); }
@@ -91,7 +91,8 @@ args
 	| REGISTER ',' IMMEDIATE ','  LSL IDENTIFIER eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(1, 0, $3), make_argument(1, 0, $6)); }
 	| REGISTER ',' IDENTIFIER ',' LSL IMMEDIATE  eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(1, 0, $3), make_argument(1, 0, $6)); }
 	| REGISTER ',' IDENTIFIER ',' LSL IDENTIFIER eol { $$ = make_argument_list(3, make_argument(0, 0, $1), make_argument(1, 0, $3), make_argument(1, 0, $6)); }
-			
+	| eol { $$ = 0; }
+	
 eol:
 	';' { asm_lineno++; }
 	|   { asm_lineno++; }

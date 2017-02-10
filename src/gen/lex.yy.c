@@ -1108,7 +1108,7 @@ YY_RULE_SETUP
 case 62:
 YY_RULE_SETUP
 #line 106 "src/lex.l"
-{ yylval.uival = 9; return REGISTER; }
+{ yylval.uival = 9;  return REGISTER; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
@@ -1309,7 +1309,7 @@ YY_RULE_SETUP
 case 102:
 YY_RULE_SETUP
 #line 151 "src/lex.l"
-lineno++;
+{ lineno++; }
 	YY_BREAK
 case 103:
 YY_RULE_SETUP

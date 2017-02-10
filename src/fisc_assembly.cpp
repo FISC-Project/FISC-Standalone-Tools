@@ -50,7 +50,7 @@ char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args
 
 char make_instruction(char * mnemonic, arglist_t * args) {
 	char success = 0;
-	if(!args) return success;
+	if(!mnemonic) return success;
 	instruction_t instr;
 
 	for (auto it = instruction_lookup.begin(); it != instruction_lookup.end(); ++it) {
@@ -72,14 +72,20 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 	if(!success) {
 		char msg[100];
 		sprintf(msg, "Instruction '%s' is non existant.",  mnemonic);
-		free_argument_list(args);
+		if(args)
+			free_argument_list(args);
 		free(mnemonic);
 		yyerror(msg);
 	}
 
-	if((success = validate_instruction(mnemonic, instr.opcode, args))) {
+	if(!args ||(success = validate_instruction(mnemonic, instr.opcode, args))) {
 		instr.mnemonic = mnemonic;
-		instr.args = args;
+		if(!args) {
+			/* This instruction requires no arguments. We still need to allocate them: */
+			instr.args = make_argument_list(0);
+		} else {
+			instr.args = args;
+		}
 		program.push_back(instr);
 	} else {
 		char msg[100];
@@ -131,11 +137,14 @@ argument_t * make_argument(char arg_type, char is_offset, char * label, char shi
 }
 
 arglist_t * make_argument_list(unsigned int argcount, ...) {
-	if(!argcount) return 0;
-
 	arglist_t * ret = (arglist_t*)malloc(sizeof(arglist_t));
-	ret->arguments = (argument_t**)malloc(sizeof(argument_t**) * argcount);
+	if(argcount)
+		ret->arguments = (argument_t**)malloc(sizeof(argument_t**) * argcount);
+	else
+		ret->arguments = 0;
 	ret->argcount = argcount;
+
+	if(!argcount) return ret;
 
 	va_list vl;
 	va_start(vl, argcount);
@@ -246,7 +255,11 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 				fmt.rn = instr->args->arguments[1]->value;
 			else
 				fmt.rn = 0;
-			fmt.rd = instr->args->arguments[0]->value;
+
+			if(instr->args->argcount > 0)
+				fmt.rd = instr->args->arguments[0]->value;
+			else
+				fmt.rd = 0;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
 		break;
@@ -264,7 +277,11 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 				fmt.rn = instr->args->arguments[1]->value;
 			else
 				fmt.rn = 0;
-			fmt.rd = instr->args->arguments[0]->value;
+
+			if(instr->args->argcount > 0)
+				fmt.rd = instr->args->arguments[0]->value;
+			else
+				fmt.rd = 0;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
 		break;
@@ -286,14 +303,21 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 				fmt.rn = instr->args->arguments[1]->value;
 			else
 				fmt.rn = 0;
-			fmt.rt = instr->args->arguments[0]->value;
+
+			if(instr->args->argcount > 0)
+				fmt.rt = instr->args->arguments[0]->value;
+			else
+				fmt.rt = 0;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
 		break;
 	case IFMT_B: {
 			ifmt_b_t fmt;
 			fmt.opcode= instr->opcode >> 5; // Lose the lower 5 bits
-			fmt.br_address = instr->args->arguments[0]->value;
+			if(instr->args->argcount > 0)
+				fmt.br_address = instr->args->arguments[0]->value;
+			else
+				fmt.br_address = 0;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
 		break;
@@ -307,10 +331,17 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 					fmt.cond_br_address = instr->args->arguments[1]->value;
 				else
 					fmt.cond_br_address = 0;
-				fmt.rt = instr->args->arguments[0]->value;
+
+				if(instr->args->argcount > 0)
+					fmt.rt = instr->args->arguments[0]->value;
+				else
+					fmt.rt = 0;
 			} else {
 				/* Fill up instruction for b.cond: */
-				fmt.cond_br_address = instr->args->arguments[0]->value;
+				if(instr->args->argcount > 0)
+					fmt.cond_br_address = instr->args->arguments[0]->value;
+				else
+					fmt.cond_br_address = 0;
 				fmt.rt = instr->opcode & 0b11111;
 			}
 			return std::bitset<32>(*((uint32_t*)&fmt));
@@ -319,17 +350,23 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 	case IFMT_IW: {
 			ifmt_iw_t fmt;
 			char lsl_val = 0;
-			if(instr->args->arguments[2]->value == 0)       lsl_val = 0;
-			else if(instr->args->arguments[2]->value == 16) lsl_val = 1;
-			else if(instr->args->arguments[2]->value == 32) lsl_val = 2;
-			else if(instr->args->arguments[2]->value == 48) lsl_val = 3;
+			if(instr->args->argcount > 0) {
+				if(instr->args->arguments[2]->value == 0)       lsl_val = 0;
+				else if(instr->args->arguments[2]->value == 16) lsl_val = 1;
+				else if(instr->args->arguments[2]->value == 32) lsl_val = 2;
+				else if(instr->args->arguments[2]->value == 48) lsl_val = 3;
+			}
 
 			fmt.opcode= instr->opcode | lsl_val; // Add the LSL value in the first 2 bits of the opcode
 			if(instr->args->argcount >= 2)
 				fmt.mov_immediate = instr->args->arguments[1]->value;
 			else
 				fmt.mov_immediate = 0;
-			fmt.rt = instr->args->arguments[0]->value;
+
+			if(instr->args->argcount >= 2)
+				fmt.rt = instr->args->arguments[0]->value;
+			else
+				fmt.rt = 0;
 			return std::bitset<32>(*((uint32_t*)&fmt));
 		}
 		break;

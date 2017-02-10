@@ -32,6 +32,7 @@ typedef struct instruction_fmt {
 	char fmt;
 	unsigned int pseudo_opcode; /* If non zero, then this instruction is a pseudo instruction */
 	char width; /* How many bits does this instruction handle? (if 0 then it will be 64 by default) */
+	char nullargs; /* Is the instruction made out of just the opcode? (0: No. 1: Yes) Example: RETI */
 } ifmt;
 
 typedef struct arglist {

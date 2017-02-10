@@ -93,7 +93,7 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	/* INTERRUPTS */
 	{LIVP,  {ifmt{"LIVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SIVP,  {ifmt{"SIVP",  IFMT_R},         {afmt{REG,0}}}},
 	{LEVP,  {ifmt{"LEVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SEVP,  {ifmt{"SEVP",  IFMT_R},         {afmt{REG,0}}}},
-	{SESR,  {ifmt{"SESR",  IFMT_R},         {afmt{REG,0}}}} ,
+	{SESR,  {ifmt{"SESR",  IFMT_R},         {afmt{REG,0}}}} ,                          {RETI,  {ifmt{"RETI",  IFMT_B, 0, 0, 1}, {afmt{0,0}}}}
 };
 
 #endif /* SRC_FISC_OPCODES_H_ */
