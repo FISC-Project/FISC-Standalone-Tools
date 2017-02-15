@@ -90,7 +90,6 @@ NEOR   { yylval.sval = strdup(yytext); return NEOR;   }
 NEORI  { yylval.sval = strdup(yytext); return NEORI;  }
 HALT   { yylval.sval = strdup(yytext); return HALT;   }
 NOP    { yylval.sval = strdup(yytext); return NOP;    }
-LDPC   { yylval.sval = strdup(yytext); return LDPC;   }
 BW     { yylval.sval = strdup(yytext); return BW;     }
 
 	/* MSR and MRS Operands: */

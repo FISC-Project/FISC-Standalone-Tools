@@ -50,6 +50,7 @@ char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args
 
 char make_instruction(char * mnemonic, arglist_t * args) {
 	char success = 0;
+	char accepts_nullargs = 0;
 	if(!mnemonic) return success;
 	instruction_t instr;
 
@@ -61,6 +62,7 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 
 		if (!strcmp(it->second.first.mnemonic.c_str(), mnemonic_str.c_str())) {
 			success = 1;
+			accepts_nullargs = it->second.first.nullargs;
 			if(it->second.first.pseudo_opcode)
 				instr.opcode = it->second.first.pseudo_opcode;
 			else
@@ -78,7 +80,15 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 		yyerror(msg);
 	}
 
-	if(!args ||(success = validate_instruction(mnemonic, instr.opcode, args))) {
+	if(!accepts_nullargs && !args) {
+		char msg[100];
+		sprintf(msg, "Instruction '%s' is malformed.",  mnemonic);
+		free(mnemonic);
+		yyerror(msg);
+		return success;
+	}
+
+	if(accepts_nullargs || (success = validate_instruction(mnemonic, instr.opcode, args))) {
 		instr.mnemonic = mnemonic;
 		if(!args) {
 			/* This instruction requires no arguments. We still need to allocate them: */
