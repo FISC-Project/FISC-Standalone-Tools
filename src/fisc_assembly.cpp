@@ -80,7 +80,7 @@ char make_instruction(char * mnemonic, arglist_t * args) {
 		yyerror(msg);
 	}
 
-	if(!accepts_nullargs && !args) {
+	if((!accepts_nullargs && !args) || (accepts_nullargs && args)) {
 		char msg[100];
 		sprintf(msg, "Instruction '%s' is malformed.",  mnemonic);
 		free(mnemonic);
