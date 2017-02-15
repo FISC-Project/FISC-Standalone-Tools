@@ -71,7 +71,7 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	{MOVK,  {ifmt{"MOVK", IFMT_IW},  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}}, {MOVZ,   {ifmt{"MOVZ", IFMT_IW},  {afmt{REG,0}, afmt{IMM,0}, afmt{IMM,0}}}},
 	{NEG,   {ifmt{"NEG",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}}}},              {NEGI,   {ifmt{"NEGI",  IFMT_I},  {afmt{REG,0}, afmt{IMM,0}}}},
 	{NOT,   {ifmt{"NOT",   IFMT_R},  {afmt{REG,0}, afmt{REG,0}}}},              {NOTI,   {ifmt{"NOTI",  IFMT_I},  {afmt{REG,0}, afmt{IMM,0}}}},
-	{LDPC,  {ifmt{"LDPC",  IFMT_R},  {afmt{REG,0}}}},
+	{LDPC,  {ifmt{"LDPC",  IFMT_R, 0, 0, 1},  {afmt{0,0}}}},
 	/* BRANCHING */
 	{B,     {ifmt{"B",     IFMT_B},  {afmt{IMM,0}}}},                           {BL,     {ifmt{"BL",    IFMT_B},  {afmt{IMM,0}}}},
 	{BR,    {ifmt{"BR",    IFMT_R},  {afmt{REG,0}}}},                           {CBNZ,   {ifmt{"CBNZ", IFMT_CB},  {afmt{REG,0}, afmt{IMM,0}}}},
