@@ -56,6 +56,11 @@
 %token<sval> HALT
 %token<sval> NOP
 %token<sval> BW
+%token<sval> ONE ONES ZERO
+%token<sval> ALIGN8 ALIGN16 ALIGN32 ALIGN64 ALIGN128 ALIGN256 
+%token<sval> ALIGN512 ALIGN1024 ALIGN2048 ALIGN4096 ALIGN8192
+%token<sval> UNALI8 UNALI16 UNALI32 UNALI64 UNALI128 UNALI256 
+%token<sval> UNALI512 UNALI1024 UNALI2048 UNALI4096 UNALI8192
 
 %token<uival> REGISTER
 %token<llval> IMMEDIATE
@@ -262,5 +267,73 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 		make_instruction((char*)"BR", make_argument_list(1, make_argument(0, 0, (long long)9)));
 		adjust_labels_offset(10);
 	}
-
+	| ONE REGISTER eol {
+		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, (long long)31), make_argument(1, 0, (long long)1)));
+	}
+	| ONES REGISTER eol {
+		make_instruction((char*)"SUBI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, (long long)31), make_argument(1, 0, (long long)1)));
+	}
+	| ZERO REGISTER eol {
+		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $2), make_argument(0, 0, (long long)31), make_argument(1, 0, (long long)0)));
+	}
+	| ALIGN16 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)1))); 
+	}
+	| ALIGN32 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)2))); 
+	}
+	| ALIGN64 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)3))); 
+	}
+	| ALIGN128 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)4))); 
+	}
+	| ALIGN256 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)5))); 
+	}
+	| ALIGN512 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)6))); 
+	}
+	| ALIGN1024 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)7))); 
+	}
+	| ALIGN2048 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)8))); 
+	}
+	| ALIGN4096 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)9))); 
+	}
+	| ALIGN8192 REGISTER eol {
+		make_instruction((char*)"LSL", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)10))); 
+	}
+	| UNALI16 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)1))); 
+	}
+	| UNALI32 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)2))); 
+	}
+	| UNALI64 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)3))); 
+	}
+	| UNALI128 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)4))); 
+	}
+	| UNALI256 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)5))); 
+	}
+	| UNALI512 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)6))); 
+	}
+	| UNALI1024 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)7))); 
+	}
+	| UNALI2048 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)8))); 
+	}
+	| UNALI4096 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)9))); 
+	}
+	| UNALI8192 REGISTER eol {
+		make_instruction((char*)"LSR", make_argument_list(3, make_argument(0, 0, (long long)$2), make_argument(0, 0, (long long)$2), make_argument(1, 0, (long long)10))); 
+	}
 %%

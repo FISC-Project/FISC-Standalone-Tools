@@ -109,8 +109,33 @@
      HALT = 325,
      NOP = 326,
      BW = 327,
-     REGISTER = 328,
-     IMMEDIATE = 329
+     ONE = 328,
+     ONES = 329,
+     ZERO = 330,
+     ALIGN8 = 331,
+     ALIGN16 = 332,
+     ALIGN32 = 333,
+     ALIGN64 = 334,
+     ALIGN128 = 335,
+     ALIGN256 = 336,
+     ALIGN512 = 337,
+     ALIGN1024 = 338,
+     ALIGN2048 = 339,
+     ALIGN4096 = 340,
+     ALIGN8192 = 341,
+     UNALI8 = 342,
+     UNALI16 = 343,
+     UNALI32 = 344,
+     UNALI64 = 345,
+     UNALI128 = 346,
+     UNALI256 = 347,
+     UNALI512 = 348,
+     UNALI1024 = 349,
+     UNALI2048 = 350,
+     UNALI4096 = 351,
+     UNALI8192 = 352,
+     REGISTER = 353,
+     IMMEDIATE = 354
    };
 #endif
 
@@ -133,7 +158,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 137 "parser.tab.h"
+#line 162 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
