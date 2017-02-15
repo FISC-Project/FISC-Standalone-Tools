@@ -34,14 +34,16 @@
 /* BRANCHING */
 %token<sval> B BCOND BL BR CBNZ CBZ
 /* LOAD AND STORE */
-%token<sval> LDR LDRB LDRH LDRSW LDXR
-%token<sval> STR STRB STRH STRW STXR
+%token<sval> LDR  LDRB  LDRH  LDRSW  LDXR
+%token<sval> STR  STRB  STRH  STRW   STXR
+%token<sval> LDRR LDRBR LDRHR LDRSWR LDXRR
+%token<sval> STRR STRBR STRHR STRWR  STXRR
 /* CPU STATUS CONTROL */
-
+%token<sval> MSR MRS
 /* INTERRUPTS */
-
+%token<sval> LIVP SIVP LEVP SEVP SESR SINT RETI
 /* VIRTUAL MEMORY */
-
+%token<sval> LPDP SPDP LPFLA
 /* PSEUDO INSTRUCTIONS */
 %token<sval> CMP CMPI
 %token<sval> LDA

@@ -44,10 +44,12 @@ enum OPCODES {
 	BLS  = 0x2A7, BHI = 0x2A8, BHS = 0x2A9, BMI  = 0x2AA, BPL = 0x2AB,
 	BVS  = 0x2AC, BVC = 0x2AD,
 	/* LOAD AND STORE */
-	LDR = 0x7C2, LDRB = 0x1C2, LDRH = 0x3C2, LDRSW = 0x5C4,  LDXR = 0x642,
-	STR = 0x7C0, STRB = 0x1C0, STRH = 0x3C0, STRW  = 0x5C0,  STXR = 0x640,
+	LDR  = 0x7C2, LDRB  = 0x1C2, LDRH  = 0x3C2, LDRSW  = 0x5C4,  LDXR  = 0x642,
+	LDRR = 0x7D2, LDRBR = 0x1D2, LDRHR = 0x3D2, LDRSWR = 0x4C4,  LDXRR = 0x652,
+	STR  = 0x7C0, STRB  = 0x1C0, STRH  = 0x3C0, STRW   = 0x5C0,  STXR  = 0x640,
+	STRR = 0x7D0, STRBR = 0x1D0, STRHR = 0x3D0, STRWR  = 0x5D0,  STXRR = 0x850,
 	/* CPU STATUS CONTROL */
-	MSR = 0x614, MRS  = 0x5F4,
+	MSR  = 0x614, MRS  = 0x5F4,
 	/* INTERRUPTS */
 	LIVP = 0x5D4, SIVP = 0x5B4,
 	LEVP = 0x594, SEVP = 0x574, SESR = 0x554,
@@ -84,14 +86,21 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	{BPL,   {ifmt{"BPL",   IFMT_CB}, {afmt{IMM,0}}}},                           {BVS,    {ifmt{"BVS",  IFMT_CB},  {afmt{IMM,0}}}},
 	{BVC,   {ifmt{"BVC",   IFMT_CB}, {afmt{IMM,0}}}},
 	/* LOAD AND STORE */
-	{LDR,   {ifmt{"LDR",   IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRB,  {ifmt{"LDRB",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDRH,  {ifmt{"LDRH",  IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRSW, {ifmt{"LDRSW", IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDR,   {ifmt{"LDR",   IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRB,  {ifmt{"LDRB",  IFMT_D, 0, 8},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDRH,  {ifmt{"LDRH",  IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRSW, {ifmt{"LDRSW", IFMT_D, 0, 32},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
 	{LDXR,  {ifmt{"LDXR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STR,   {ifmt{"STR",   IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRB,  {ifmt{"STRB",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STRH,  {ifmt{"STRH",  IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRW,  {ifmt{"STRW",  IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STR,   {ifmt{"STR",   IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRB,  {ifmt{"STRB",  IFMT_D, 0, 8},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STRH,  {ifmt{"STRH",  IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRW,  {ifmt{"STRW",  IFMT_D, 0, 32},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
 	{STXR,  {ifmt{"STXR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
+	{LDRR,  {ifmt{"LDRR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRBR, {ifmt{"LDRBR",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDRHR, {ifmt{"LDRHR", IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRSWR,{ifmt{"LDRSWR", IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDXRR, {ifmt{"LDXRR", IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STRR,  {ifmt{"STRR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRBR, {ifmt{"STRBR",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STRHR, {ifmt{"STRHR", IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRWR, {ifmt{"STRWR",  IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STXRR, {ifmt{"STXRR", IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
+
 	/* CPU STATUS CONTROL */
-	{MSR,   {ifmt{"MSR",   IFMT_R},         {afmt{REG,0}, afmt{REG,0}}}},              {MRS,   {ifmt{"MRS",   IFMT_R},        {afmt{REG,0}, afmt{REG,0}}}},
+	{MSR,   {ifmt{"MSR",   IFMT_R},         {afmt{REG,0}, afmt{REG,0}}}},              {MRS,   {ifmt{"MRS",   IFMT_R},          {afmt{REG,0}, afmt{REG,0}}}},
 	/* INTERRUPTS */
 	{LIVP,  {ifmt{"LIVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SIVP,  {ifmt{"SIVP",  IFMT_R},          {afmt{REG,0}}}},
 	{LEVP,  {ifmt{"LEVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SEVP,  {ifmt{"SEVP",  IFMT_R},          {afmt{REG,0}}}},
