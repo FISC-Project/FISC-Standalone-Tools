@@ -75,6 +75,7 @@ CMPI   { yylval.sval = strdup(yytext); return CMPI;   }
 LDA    { yylval.sval = strdup(yytext); return LDA;    }
 MOV    { yylval.sval = strdup(yytext); return MOV;    }
 MOVI   { yylval.sval = strdup(yytext); return MOVI;   }
+MOVIW  { yylval.sval = strdup(yytext); return MOVIW;  }
 INC    { yylval.sval = strdup(yytext); return INC;    }
 DEC    { yylval.sval = strdup(yytext); return DEC;    }
 NORR   { yylval.sval = strdup(yytext); return NORR;   }
