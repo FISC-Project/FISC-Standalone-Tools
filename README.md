@@ -1,4 +1,4 @@
-# FISC-Assembler-Standalone
+# FISC-Standalone-Tools
 FISC-Assembler is the Assembler tool which is used in the FISC project.  
 This tool can be used without the LLVM Assembler, however, we strongly recommend using LLVM in any case. 
 
