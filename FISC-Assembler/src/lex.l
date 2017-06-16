@@ -124,11 +124,13 @@ CPSR_FZ   { yylval.uival = 3;  return REGISTER; }
 CPSR_FV   { yylval.uival = 4;  return REGISTER; }
 CPSR_FC   { yylval.uival = 5;  return REGISTER; }
 CPSR_AE   { yylval.uival = 6;  return REGISTER; }
-CPSR_PG   { yylval.uival = 7;  return REGISTER; }
-CPSR_IEN  { yylval.uival = 8;  return REGISTER; }
-CPSR_IEN0 { yylval.uival = 9;  return REGISTER; }
-CPSR_IEN1 { yylval.uival = 10; return REGISTER; }
-CPSR_MODE { yylval.uival = 11; return REGISTER; }
+CPSR_AE0  { yylval.uival = 7;  return REGISTER; }
+CPSR_A1   { yylval.uival = 8;  return REGISTER; }
+CPSR_PG   { yylval.uival = 9;  return REGISTER; }
+CPSR_IEN  { yylval.uival = 10; return REGISTER; }
+CPSR_IEN0 { yylval.uival = 11; return REGISTER; }
+CPSR_IEN1 { yylval.uival = 12; return REGISTER; }
+CPSR_MODE { yylval.uival = 13; return REGISTER; }
 SPSR      { yylval.uival = 16; return REGISTER; }
 SPSR_F    { yylval.uival = 17; return REGISTER; }
 SPSR_FN   { yylval.uival = 18; return REGISTER; }
@@ -136,11 +138,13 @@ SPSR_FZ   { yylval.uival = 19; return REGISTER; }
 SPSR_FV   { yylval.uival = 20; return REGISTER; }
 SPSR_FC   { yylval.uival = 21; return REGISTER; }
 SPSR_AE   { yylval.uival = 22; return REGISTER; }
-SPSR_PG   { yylval.uival = 23; return REGISTER; }
-SPSR_IEN  { yylval.uival = 24; return REGISTER; }
-SPSR_IEN0 { yylval.uival = 25; return REGISTER; }
-SPSR_IEN1 { yylval.uival = 26; return REGISTER; }
-SPSR_MODE { yylval.uival = 27; return REGISTER; }
+SPSR_AE0  { yylval.uival = 23; return REGISTER; }
+SPSR_AE1  { yylval.uival = 24; return REGISTER; }
+SPSR_PG   { yylval.uival = 25; return REGISTER; }
+SPSR_IEN  { yylval.uival = 26; return REGISTER; }
+SPSR_IEN0 { yylval.uival = 27; return REGISTER; }
+SPSR_IEN1 { yylval.uival = 28; return REGISTER; }
+SPSR_MODE { yylval.uival = 29; return REGISTER; }
 
 LSL       { return LSL; } /* Not a pseudoinstruction */
 	

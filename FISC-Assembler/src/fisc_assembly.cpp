@@ -184,11 +184,11 @@ void resolve_labels() {
 				    	case LDRR: case LDRBR: case LDRHR: case LDRSWR: case LDXRR:
 				    	case STRR: case STRBR: case STRHR: case STRWR: case STXRR: {
 				    		switch(arg->shift_quadrant) {
-								case 1: arg->value = (it->second - i) & 0xFFFF; break; /* Insert lower 16 bits */
-								case 16: arg->value = ((it->second - i) & 0xFFFF0000) >> 16; break; /* Insert 2nd 16 bits */
-								case 32: arg->value = ((it->second - i) & 0xFFFF00000000) >> 32; break; /* Insert 3rd 16 bits */
-								case 48: arg->value = ((it->second - i) & 0xFFFF000000000000) >> 48; break; /* Insert 4th 16 bits */
-								case 0: default: arg->value = (unsigned long long)(it->second - i); break; /* Don't shift anything */
+								case 1: arg->value = ((it->second - i) & 0xFFFF) << 2; break; /* Insert lower 16 bits */
+								case 16: arg->value = (((it->second - i) & 0xFFFF0000) >> 16) << 2; break; /* Insert 2nd 16 bits */
+								case 32: arg->value = (((it->second - i) & 0xFFFF00000000) >> 32) << 2; break; /* Insert 3rd 16 bits */
+								case 48: arg->value = (((it->second - i) & 0xFFFF000000000000) >> 48) << 2; break; /* Insert 4th 16 bits */
+								case 0: default: arg->value = ((unsigned long long)(it->second - i)) << 2; break; /* Don't shift anything */
 								}
 				    		}
 				    		break;
@@ -301,7 +301,7 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 			ifmt_d_t fmt;
 			fmt.opcode= instr->opcode;
 			if(instr->args->argcount >= 3)
-				fmt.dt_address = instr->args->arguments[2]->value;
+				fmt.dt_address = instr->args->arguments[2]->value >> 2;
 			else
 				fmt.dt_address = 0;
 			switch(instruction_lookup[instr->opcode].first.width) {
@@ -327,7 +327,7 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 			ifmt_b_t fmt;
 			fmt.opcode= instr->opcode >> 5; // Lose the lower 5 bits
 			if(instr->args->argcount > 0)
-				fmt.br_address = instr->args->arguments[0]->value << 2;
+				fmt.br_address = instr->args->arguments[0]->value;
 			else
 				fmt.br_address = 0;
 			return std::bitset<32>(*((uint32_t*)&fmt));
@@ -340,7 +340,7 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 			if(!strcmp(mnemonic_str.c_str(), "cbnz") || !strcmp(mnemonic_str.c_str(), "cbz")) {
 				/* Fill up instruction for CBNZ and CBZ: */
 				if(instr->args->argcount >= 2)
-					fmt.cond_br_address = instr->args->arguments[1]->value << 2;
+					fmt.cond_br_address = instr->args->arguments[1]->value;
 				else
 					fmt.cond_br_address = 0;
 
@@ -351,7 +351,7 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 			} else {
 				/* Fill up instruction for b.cond: */
 				if(instr->args->argcount > 0)
-					fmt.cond_br_address = instr->args->arguments[0]->value << 2;
+					fmt.cond_br_address = instr->args->arguments[0]->value;
 				else
 					fmt.cond_br_address = 0;
 				fmt.rt = instr->opcode & 0b11111;

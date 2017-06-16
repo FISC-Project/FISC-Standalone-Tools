@@ -30,7 +30,7 @@
 %token<sval> ORR ORRI
 %token<sval> EOR EORI
 %token<sval> LSL LSR
-%token<sval> MOVK MOVZ
+%token<sval> MOVK MOVZ MOVRK MOVRZ
 /* BRANCHING */
 %token<sval> B BCOND BL BR CBNZ CBZ
 /* LOAD AND STORE */
