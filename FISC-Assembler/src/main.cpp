@@ -168,7 +168,7 @@ void help() {
 			"2> -o <filename> : Output pure binary file\n"
 			"3> -a : Convert output into ASCII formatted output, also using newlines\n"
 			"4> --ihex : Convert output into Intel HEX format\n"
-			"5> --stdio : Output only to the console the binary result\n"
+			"5> --stdio <bin|hex|ihex|all>? : Output only to the console the binary result\n"
 			"6> --debug : Output Instructions and their attributes to the stdio\n"
 			"7> -n : Don't produce an output file\n"
 			"\n>> NOTE: If no arguments are given, the Assembler will produce a.out\n"
@@ -253,11 +253,33 @@ int main(int argc, char ** argv) {
 			program_str_ihex = bin_str_to_ihex_str(&program_bin, atoi(cmd_query("ihex").second.c_str()));
 
 		if(cmd_has_opt("stdio")) {
-			if(cmd_has_opt("debug"))
-				printf("\nBinary format:\n");
-			printf("%s", program_str.c_str());
-			if(!program_str_ihex.empty())
-				printf("\n\nIntel Hex format:\n%s", program_str_ihex.substr(0, ihex_file_records_added * 29).c_str());
+			const std::string prefix_format[3] = {"Binary", "Hexadecimal", "Intel Hex"};
+
+			std::string data_radix = cmd_query("stdio").second;
+			if(data_radix == "(null)")
+				data_radix = "all";
+
+			if(data_radix == "bin" || data_radix == "all") {
+				if(cmd_has_opt("debug"))
+					printf("\n%s format:\n", prefix_format[0].c_str());
+				printf("%s\n", program_str.c_str());
+			}
+
+			if(data_radix == "hex" || data_radix == "all") {
+				if(cmd_has_opt("debug"))
+					printf("\n%s format:", prefix_format[1].c_str());
+				std::stringstream ss;
+				for(int i = 0; i < program_bin.size(); i++)
+					ss << std::uppercase << std::hex << std::setfill('0') << std::setw(4) << program_bin[i].to_ulong() << "\n";
+				printf("\n%s", ss.str().c_str());
+			}
+
+			if(data_radix == "ihex" || data_radix == "all") {
+				if(cmd_has_opt("debug"))
+					printf("\n%s format:", prefix_format[2].c_str());
+				if(!program_str_ihex.empty())
+					printf("\n%s\n", program_str_ihex.substr(0, ihex_file_records_added * 29).c_str());
+			}
 		}
 
 		if(!cmd_has_opt('n')) {
