@@ -17,6 +17,7 @@ extern void yyerror(const char * str);
 std::vector<instruction_t> program;
 std::vector<std::bitset<32> > program_bin;
 std::string program_str;
+std::string program_str_ihex;
 std::map<std::string, unsigned long long> label_lst;
 
 char validate_instruction(char * mnemonic, unsigned int opcode, arglist_t * args) {
@@ -277,7 +278,7 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 		break;
 	case IFMT_I: {
 			ifmt_i_t fmt;
-			fmt.opcode= instr->opcode >> 1; // Lose the 1st bit
+			fmt.opcode = instr->opcode;
 
 			if(instr->args->argcount >= 3)
 				fmt.alu_immediate = instr->args->arguments[2]->value;
@@ -294,7 +295,12 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 				fmt.rd = instr->args->arguments[0]->value;
 			else
 				fmt.rd = 0;
-			return std::bitset<32>(*((uint32_t*)&fmt));
+
+			/* Add instruction format */
+			uint32_t * fmt_int = (uint32_t*)&fmt;
+			*fmt_int |= 0x20000000;
+
+			return std::bitset<32>(*fmt_int);
 		}
 		break;
 	case IFMT_D: {
@@ -320,22 +326,32 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 				fmt.rt = instr->args->arguments[0]->value;
 			else
 				fmt.rt = 0;
-			return std::bitset<32>(*((uint32_t*)&fmt));
+
+			/* Add instruction format */
+			uint32_t * fmt_int = (uint32_t*)&fmt;
+			*fmt_int |= 0x40000000;
+
+			return std::bitset<32>(*fmt_int);
 		}
 		break;
 	case IFMT_B: {
 			ifmt_b_t fmt;
-			fmt.opcode= instr->opcode >> 5; // Lose the lower 5 bits
+			fmt.opcode = instr->opcode;
 			if(instr->args->argcount > 0)
 				fmt.br_address = instr->args->arguments[0]->value;
 			else
 				fmt.br_address = 0;
-			return std::bitset<32>(*((uint32_t*)&fmt));
+
+			/* Add instruction format */
+			uint32_t * fmt_int = (uint32_t*)&fmt;
+			*fmt_int |= 0x60000000;
+
+			return std::bitset<32>(*fmt_int);
 		}
 		break;
 	case IFMT_CB: {
 			ifmt_cb_t fmt;
-			fmt.opcode= instr->opcode >> 3; // Lose the lower 3 bits
+			fmt.opcode = instr->opcode;
 
 			if(!strcmp(mnemonic_str.c_str(), "cbnz") || !strcmp(mnemonic_str.c_str(), "cbz")) {
 				/* Fill up instruction for CBNZ and CBZ: */
@@ -356,7 +372,12 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 					fmt.cond_br_address = 0;
 				fmt.rt = instr->opcode & 0b11111;
 			}
-			return std::bitset<32>(*((uint32_t*)&fmt));
+
+			/* Add instruction format */
+			uint32_t * fmt_int = (uint32_t*)&fmt;
+			*fmt_int |= 0x80000000;
+
+			return std::bitset<32>(*fmt_int);
 		}
 		break;
 	case IFMT_IW: {
@@ -369,7 +390,7 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 				else if(instr->args->arguments[2]->value == 48) lsl_val = 3;
 			}
 
-			fmt.opcode= instr->opcode | lsl_val; // Add the LSL value in the first 2 bits of the opcode
+			fmt.opcode = instr->opcode | lsl_val; /* Add the LSL value in the first 2 bits of the opcode */
 			if(instr->args->argcount >= 2)
 				fmt.mov_immediate = instr->args->arguments[1]->value;
 			else
@@ -379,7 +400,12 @@ std::bitset<32> instruction_to_binary(instruction_t * instr) {
 				fmt.rt = instr->args->arguments[0]->value;
 			else
 				fmt.rt = 0;
-			return std::bitset<32>(*((uint32_t*)&fmt));
+
+			/* Add instruction format */
+			uint32_t * fmt_int = (uint32_t*)&fmt;
+			*fmt_int |= 0xA0000000;
+
+			return std::bitset<32>(*fmt_int);
 		}
 		break;
 	}

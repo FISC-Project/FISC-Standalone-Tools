@@ -1,0 +1,3 @@
+ADD X3, X2, X1;
+ADDI X6, X5, 4;
+HALT

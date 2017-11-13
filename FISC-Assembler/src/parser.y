@@ -55,7 +55,6 @@
 %token<sval> SWP
 %token<sval> NAND NANDI
 %token<sval> NEOR NEORI
-%token<sval> HALT
 %token<sval> NOP
 %token<sval> BW
 %token<sval> ONE ONES ZERO
@@ -243,7 +242,6 @@ special_cases: // **** PSEUDO INSTRUCTIONS' DECLARATION HERE: ****
 		make_instruction((char*)"ADDI", make_argument_list(3, make_argument(0, 0, $4), make_argument(0, 0, (long long)9), make_argument(1, 0, (long long)0)));
 		adjust_labels_offset(3);	
 	}
-	| HALT eol { make_instruction((char*)"B", make_argument_list(1, make_argument(1, 0, (long long)0))); }
 	| NOP  eol { make_instruction((char*)"ADD", make_argument_list(3, make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31), make_argument(0, 0, (long long)31))); }
 	| BW IMMEDIATE eol { 
 		make_instruction((char*)"MOVZ", make_argument_list(3, make_argument(0, 0, (long long)9), make_argument(1, 0, $2 & 0xFFFF), make_argument(1, 0, (long long)0))); 

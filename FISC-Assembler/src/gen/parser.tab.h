@@ -131,36 +131,35 @@
      NANDI = 347,
      NEOR = 348,
      NEORI = 349,
-     HALT = 350,
-     NOP = 351,
-     BW = 352,
-     ONE = 353,
-     ONES = 354,
-     ZERO = 355,
-     ALIGN8 = 356,
-     ALIGN16 = 357,
-     ALIGN32 = 358,
-     ALIGN64 = 359,
-     ALIGN128 = 360,
-     ALIGN256 = 361,
-     ALIGN512 = 362,
-     ALIGN1024 = 363,
-     ALIGN2048 = 364,
-     ALIGN4096 = 365,
-     ALIGN8192 = 366,
-     UNALI8 = 367,
-     UNALI16 = 368,
-     UNALI32 = 369,
-     UNALI64 = 370,
-     UNALI128 = 371,
-     UNALI256 = 372,
-     UNALI512 = 373,
-     UNALI1024 = 374,
-     UNALI2048 = 375,
-     UNALI4096 = 376,
-     UNALI8192 = 377,
-     REGISTER = 378,
-     IMMEDIATE = 379
+     NOP = 350,
+     BW = 351,
+     ONE = 352,
+     ONES = 353,
+     ZERO = 354,
+     ALIGN8 = 355,
+     ALIGN16 = 356,
+     ALIGN32 = 357,
+     ALIGN64 = 358,
+     ALIGN128 = 359,
+     ALIGN256 = 360,
+     ALIGN512 = 361,
+     ALIGN1024 = 362,
+     ALIGN2048 = 363,
+     ALIGN4096 = 364,
+     ALIGN8192 = 365,
+     UNALI8 = 366,
+     UNALI16 = 367,
+     UNALI32 = 368,
+     UNALI64 = 369,
+     UNALI128 = 370,
+     UNALI256 = 371,
+     UNALI512 = 372,
+     UNALI1024 = 373,
+     UNALI2048 = 374,
+     UNALI4096 = 375,
+     UNALI8192 = 376,
+     REGISTER = 377,
+     IMMEDIATE = 378
    };
 #endif
 
@@ -183,7 +182,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 187 "parser.tab.h"
+#line 186 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

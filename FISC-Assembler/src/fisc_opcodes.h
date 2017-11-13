@@ -25,19 +25,19 @@ enum ARG_TYPES {
 
 enum OPCODES {
 	/* ARITHMETIC AND LOGIC */
-	ADD   = 0x458, ADDI   = 0x488, ADDIS = 0x588, ADDS   = 0x558,
-	SUB   = 0x658, SUBI   = 0x688, SUBIS = 0x788, SUBS   = 0x758,
-	MUL   = 0x4D8, SMULH  = 0x4DA, UMULH = 0x4DE,
-	SDIV  = 0x4D6, UDIV   = 0x4D7,
-	AND   = 0x450, ANDI   = 0x490, ANDIS = 0x790, ANDS   = 0x750,
-	ORR   = 0x550, ORRI   = 0x590,
-	EOR   = 0x650, EORI   = 0x690,
-	NEG   = 0x768, NEGI   = 0x388,
-	NOT   = 0x769, NOTI   = 0x288,
-	LSL   = 0x69B, LSR    = 0x69A,
-	MOVK  = 0x794, MOVZ   = 0x694,
-	MOVRK = 0x7D4, MOVRZ  = 0x6D4,
-	LDPC  = 0x544,
+	ADD   = 0,  ADDI   = 1,  ADDIS = 2,  ADDS = 3,
+	SUB   = 4,  SUBI   = 5,  SUBIS = 6,  SUBS = 7,
+	MUL   = 8,  SMULH  = 9,  UMULH = 10,
+	SDIV  = 11, UDIV   = 12,
+	AND   = 13, ANDI   = 14, ANDIS = 15, ANDS = 16,
+	ORR   = 17, ORRI   = 18,
+	EOR   = 19, EORI   = 20,
+	NEG   = 21, NEGI   = 22,
+	NOT   = 23, NOTI   = 24,
+	LSL   = 25, LSR    = 26,
+	MOVK  = 27, MOVZ   = 28,
+	MOVRK = 29, MOVRZ  = 30,
+	LDPC  = 31,
 	/* BRANCHING */
 	B     = 0x0A0, BL     = 0x4A0, BR    = 0x6B0, CBNZ   = 0x5A8,
 	CBZ   = 0x5A0, BEQ    = 0x2A0, BNE   = 0x2A1, BLT    = 0x2A2,
@@ -50,6 +50,7 @@ enum OPCODES {
 	STR   = 0x7C0, STRB   = 0x1C0, STRH  = 0x3C0, STRW   = 0x5C0, STXR  = 0x640,
 	STRR  = 0x7D0, STRBR  = 0x1D0, STRHR = 0x3D0, STRWR  = 0x5D0, STXRR = 0x5D1,
 	/* CPU STATUS CONTROL */
+	HALT  = 32,
 	MSR   = 0x614, MRS    = 0x5F4,
 	/* INTERRUPTS */
 	LIVP  = 0x5D4, SIVP   = 0x5B4,
@@ -90,28 +91,29 @@ std::map<unsigned int, std::pair<ifmt, std::vector<afmt> > > instruction_lookup 
 	{BPL,   {ifmt{"BPL",   IFMT_CB}, {afmt{IMM,0}}}},                           {BVS,    {ifmt{"BVS",   IFMT_CB}, {afmt{IMM,0}}}},
 	{BVC,   {ifmt{"BVC",   IFMT_CB}, {afmt{IMM,0}}}},
 	/* LOAD AND STORE */
-	{LDR,   {ifmt{"LDR",   IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRB,  {ifmt{"LDRB",  IFMT_D, 0, 8},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDRH,  {ifmt{"LDRH",  IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRSW, {ifmt{"LDRSW", IFMT_D, 0, 32},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDXR,  {ifmt{"LDXR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STR,   {ifmt{"STR",   IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRB,  {ifmt{"STRB",  IFMT_D, 0, 8},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STRH,  {ifmt{"STRH",  IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRW,  {ifmt{"STRW",  IFMT_D, 0, 32},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STXR,  {ifmt{"STXR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
-	{LDRR,  {ifmt{"LDRR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRBR, {ifmt{"LDRBR",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDRHR, {ifmt{"LDRHR", IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRSWR,{ifmt{"LDRSWR", IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{LDXRR, {ifmt{"LDXRR", IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STRR,  {ifmt{"STRR",  IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRBR, {ifmt{"STRBR",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STRHR, {ifmt{"STRHR", IFMT_D, 0, 16},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRWR, {ifmt{"STRWR",  IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
-	{STXRR, {ifmt{"STXRR", IFMT_D, 0, 64},  {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
+	{LDR,   {ifmt{"LDR",   IFMT_D, 0, 64},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRB,  {ifmt{"LDRB",  IFMT_D, 0, 8},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDRH,  {ifmt{"LDRH",  IFMT_D, 0, 16},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRSW, {ifmt{"LDRSW", IFMT_D, 0, 32},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDXR,  {ifmt{"LDXR",  IFMT_D, 0, 64},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STR,   {ifmt{"STR",   IFMT_D, 0, 64},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRB,  {ifmt{"STRB",  IFMT_D, 0, 8},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STRH,  {ifmt{"STRH",  IFMT_D, 0, 16},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRW,  {ifmt{"STRW",  IFMT_D, 0, 32},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STXR,  {ifmt{"STXR",  IFMT_D, 0, 64},   {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
+	{LDRR,  {ifmt{"LDRR",  IFMT_D, 0, 64},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRBR, {ifmt{"LDRBR",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDRHR, {ifmt{"LDRHR", IFMT_D, 0, 16},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {LDRSWR,{ifmt{"LDRSWR", IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{LDXRR, {ifmt{"LDXRR", IFMT_D, 0, 64},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STRR,  {ifmt{"STRR",  IFMT_D, 0, 64},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRBR, {ifmt{"STRBR",  IFMT_D, 0, 8},  {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STRHR, {ifmt{"STRHR", IFMT_D, 0, 16},   {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}}, {STRWR, {ifmt{"STRWR",  IFMT_D, 0, 32}, {afmt{REG,0}, afmt{REG,1}, afmt{IMM,1}}}},
+	{STXRR, {ifmt{"STXRR", IFMT_D, 0, 64},   {afmt{REG,0}, afmt{REG,0}, afmt{REG,1}}}},
 	/* CPU STATUS CONTROL */
-	{MSR,   {ifmt{"MSR",   IFMT_R},         {afmt{REG,0}, afmt{REG,0}}}},              {MRS,   {ifmt{"MRS",   IFMT_R},          {afmt{REG,0}, afmt{REG,0}}}},
+	{HALT,  {ifmt{"HALT",  IFMT_R, 0, 0, 1}, {afmt{0,0}}}},
+	{MSR,   {ifmt{"MSR",   IFMT_R},          {afmt{REG,0}, afmt{REG,0}}}},              {MRS,   {ifmt{"MRS",   IFMT_R},          {afmt{REG,0}, afmt{REG,0}}}},
 	/* INTERRUPTS */
-	{LIVP,  {ifmt{"LIVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SIVP,  {ifmt{"SIVP",  IFMT_R},          {afmt{REG,0}}}},
-	{LEVP,  {ifmt{"LEVP",  IFMT_R},         {afmt{REG,0}}}} ,                          {SEVP,  {ifmt{"SEVP",  IFMT_R},          {afmt{REG,0}}}},
-	{SESR,  {ifmt{"SESR",  IFMT_R},         {afmt{REG,0}}}} ,                          {RETI,  {ifmt{"RETI",  IFMT_B, 0, 0, 1}, {afmt{0,0}}}},
-	{SINT,  {ifmt{"SINT",  IFMT_B},         {afmt{IMM,0}}}} ,
+	{LIVP,  {ifmt{"LIVP",  IFMT_R},          {afmt{REG,0}}}},                           {SIVP,  {ifmt{"SIVP",  IFMT_R},          {afmt{REG,0}}}},
+	{LEVP,  {ifmt{"LEVP",  IFMT_R},          {afmt{REG,0}}}},                           {SEVP,  {ifmt{"SEVP",  IFMT_R},          {afmt{REG,0}}}},
+	{SESR,  {ifmt{"SESR",  IFMT_R},          {afmt{REG,0}}}},                           {RETI,  {ifmt{"RETI",  IFMT_B, 0, 0, 1}, {afmt{0,0}}}},
+	{SINT,  {ifmt{"SINT",  IFMT_B},          {afmt{IMM,0}}}},
 	/* VIRTUAL MEMORY */
-	{LPDP,  {ifmt{"LPDP",  IFMT_R},         {afmt{REG,0}}}},                           {SPDP,  {ifmt{"SPDP",  IFMT_R},          {afmt{REG,0}}}},
-	{LPFLA, {ifmt{"LPFLA", IFMT_R},         {afmt{REG,0}}}}
+	{LPDP,  {ifmt{"LPDP",  IFMT_R},          {afmt{REG,0}}}},                           {SPDP,  {ifmt{"SPDP",  IFMT_R},          {afmt{REG,0}}}},
+	{LPFLA, {ifmt{"LPFLA", IFMT_R},          {afmt{REG,0}}}}
 };
 
 #endif /* SRC_FISC_OPCODES_H_ */

@@ -89,7 +89,6 @@ NAND   { yylval.sval = strdup(yytext); return NAND;   }
 NANDI  { yylval.sval = strdup(yytext); return NANDI;  }
 NEOR   { yylval.sval = strdup(yytext); return NEOR;   }
 NEORI  { yylval.sval = strdup(yytext); return NEORI;  }
-HALT   { yylval.sval = strdup(yytext); return HALT;   }
 NOP    { yylval.sval = strdup(yytext); return NOP;    }
 BW     { yylval.sval = strdup(yytext); return BW;     }
 ONE    { yylval.sval = strdup(yytext); return ONE;    }

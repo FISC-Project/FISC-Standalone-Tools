@@ -3,6 +3,7 @@
 #include <utility>
 #include <string>
 #include <sstream>
+#include <iomanip>
 #include <stdint.h>
 #include <external_tool.h>
 #include <fisc_assembly.h>
@@ -128,14 +129,48 @@ void write_to_file_binary(string filename, std::vector<std::bitset<32> > * progr
 	f.close();
 }
 
+int ihex_file_records_added = 0;
+
+std::string bin_str_to_ihex_str(std::vector<std::bitset<32> > * bin_array, unsigned int memory_depth) {
+	std::string ret = "";
+
+	for(int i = 0; i < bin_array->size(); i += 2) {
+		int word1 = (int)(*bin_array)[i].to_ulong();
+		int word2 = i < bin_array->size() - 1 ? (int)(*bin_array)[i+1].to_ulong() : 0;
+
+		int checksum = 8;
+		for(int j = 0; j < 4 * 8; j += 8)
+			checksum += ((word1 & (0xFF << j)) >> j) + ((word2 & (0xFF << j)) >> j) + (j < 2 ? ((!i ? i : i - 1) & (0xFF << j)) : 0);
+		checksum = (~(checksum & 0xFF) + 1) & 0xFF;
+
+		std::stringstream ss;
+		ss << ":08" << std::uppercase << std::hex << std::setfill('0') << std::setw(4) << (!i ? i : i - 1) << "00";
+		ss << std::uppercase << std::hex << std::setfill('0') << std::setw(8) << word1 << std::setfill('0') << std::setw(8) << word2 << std::setfill('0') << std::setw(2) << checksum;
+
+		ret += ss.str() + "\r\n";
+		ihex_file_records_added++;
+	}
+
+	for(int i = ihex_file_records_added; i < memory_depth; i++) {
+		int checksum = (~((8 + (i & 0xFF) + ((i & 0xFF00) >> 8)) & 0xFF) + 1) & 0xFF;
+		std::stringstream ss;
+		ss << ":08" << std::uppercase << std::hex << std::setfill('0') << std::setw(4) << i << "000000000000000000" << std::setfill('0') << std::setw(2) << checksum;
+		ret += ss.str() + "\r\n";
+	}
+
+	ret += ":00000001FF\r\n";
+	return ret;
+}
+
 void help() {
 	printf("\n>>>>>> FISC Assembler - Help <<<<<<\n> The available options are: \n"
 			"1> -h : Show this message\n"
 			"2> -o <filename> : Output pure binary file\n"
 			"3> -a : Convert output into ASCII formatted output, also using newlines\n"
-			"4> --stdio : Output only to the console the binary result\n"
-			"5> --debug : Output Instructions and their attributes to the stdio\n"
-			"6> -n : Don't produce an output file\n"
+			"4> --ihex : Convert output into Intel HEX format\n"
+			"5> --stdio : Output only to the console the binary result\n"
+			"6> --debug : Output Instructions and their attributes to the stdio\n"
+			"7> -n : Don't produce an output file\n"
 			"\n>> NOTE: If no arguments are given, the Assembler will produce a.out\n"
 			">> Also remember that you can combine these options\n\n");
 	exit(-1);
@@ -203,7 +238,7 @@ int main(int argc, char ** argv) {
 
 		/* Now use the command line arguments: */
 		if(cmd_has_opt("debug")) {
-			printf("Dumping program: \n");
+			printf("Dumping program:\n");
 			for(int i = 0; i < program.size(); i++) {
 				printf("%d- %s (0x%x) ", i+1, program[i].mnemonic, program[i].opcode);
 				for(int j = 0; j < program[i].args->argcount; j++) {
@@ -214,18 +249,30 @@ int main(int argc, char ** argv) {
 			}
 		}
 
-		if(cmd_has_opt("stdio"))
+		if(cmd_has_opt("ihex"))
+			program_str_ihex = bin_str_to_ihex_str(&program_bin, atoi(cmd_query("ihex").second.c_str()));
+
+		if(cmd_has_opt("stdio")) {
+			if(cmd_has_opt("debug"))
+				printf("\nBinary format:\n");
 			printf("%s", program_str.c_str());
+			if(!program_str_ihex.empty())
+				printf("\n\nIntel Hex format:\n%s", program_str_ihex.substr(0, ihex_file_records_added * 29).c_str());
+		}
 
 		if(!cmd_has_opt('n')) {
 			if(cmd_has_opt('o')) {
 				if(cmd_has_opt('a'))
 					write_to_file(cmd_query('o').second, program_str);
+				else if(cmd_has_opt("ihex"))
+					write_to_file(cmd_query('o').second, program_str_ihex);
 				else
-					write_to_file_binary(cmd_query('o').second, &program_bin, cmd_has_opt('g'), gran);
+					write_to_file_binary(cmd_query('o').second, &program_bin, cmd_has_opt('g'), 8);
 			} else {
 				if(cmd_has_opt('a'))
 					write_to_file("a.o", program_str);
+				else if(cmd_has_opt("ihex"))
+					write_to_file("a.hex", bin_str_to_ihex_str(&program_bin, atoi(cmd_query("ihex").second.c_str())));
 				else
 					write_to_file_binary("a.o", &program_bin, cmd_has_opt('g'), gran);
 			}
